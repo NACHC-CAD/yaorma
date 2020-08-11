@@ -2,7 +2,7 @@ package org.yaorma.util.string;
 
 import java.util.StringTokenizer;
 
-public class StringUtil {
+public class DbToJavaNamingConverter {
 
 	public static String toProper(String str) {
 		Character ch = new Character(str.charAt(0));

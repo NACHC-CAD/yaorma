@@ -7,7 +7,7 @@ import java.sql.Connection;
 import java.util.HashMap;
 
 import org.yaorma.codeGenerator.OrmCodeGenerator;
-import org.yaorma.util.string.StringUtil;
+import org.yaorma.util.string.DbToJavaNamingConverter;
 
 public class DvoGenerator extends OrmCodeGenerator {
 
@@ -19,8 +19,8 @@ public class DvoGenerator extends OrmCodeGenerator {
 	public void createDvo(File destDir, String packageName) throws Exception {
 
 		this.tab = "";
-		String name = StringUtil.toJavaName(this.tableName);
-		String propName = StringUtil.toJavaProperName(this.tableName);
+		String name = DbToJavaNamingConverter.toJavaName(this.tableName);
+		String propName = DbToJavaNamingConverter.toJavaProperName(this.tableName);
 		String className = propName + "Dvo";
 		String fileName = className + ".java";
 		File file = new File(destDir, fileName);
@@ -99,7 +99,7 @@ public class DvoGenerator extends OrmCodeGenerator {
 		incTab();
 		for (int i = 0; i < this.columnNames.size(); i++) {
 			String str = columnNames.get(i);
-			str = StringUtil.toJavaName(str);
+			str = DbToJavaNamingConverter.toJavaName(str);
 			str = "\"" + str + "\"";
 			if (i < this.columnNames.size() - 1) {
 				str += ",";
@@ -119,7 +119,7 @@ public class DvoGenerator extends OrmCodeGenerator {
 		incTab();
 		for (int i = 0; i < this.columnNames.size(); i++) {
 			String str = columnNames.get(i);
-			str = StringUtil.toJavaProperName(str);
+			str = DbToJavaNamingConverter.toJavaProperName(str);
 			str = "\"" + str + "\"";
 			if (i < this.columnNames.size() - 1) {
 				str += ",";
@@ -142,7 +142,7 @@ public class DvoGenerator extends OrmCodeGenerator {
 		
 		for (int i = 0; i < columnNames.size(); i++) {
 			String columnName = columnNames.get(i);
-			String javaName = StringUtil.toJavaName(columnName);
+			String javaName = DbToJavaNamingConverter.toJavaName(columnName);
 			writeln("private String " + javaName + ";");
 			writeln("");
 		}
@@ -151,10 +151,10 @@ public class DvoGenerator extends OrmCodeGenerator {
 		for (int i = 0; i < this.lookUpColumns.size(); i++) {
 			String tableName = lookUpColumns.get(i).get("tableName");
 			String columnName = lookUpColumns.get(i).get("columnName");
-			String dvoName = StringUtil.toJavaProperName(tableName) + "Dvo";
-			columnName = StringUtil.removeTrailing(columnName, "_id");
-			columnName = StringUtil.removeTrailing(columnName, "_code");
-			String varName = StringUtil.toJavaName(columnName) + "Dvo";
+			String dvoName = DbToJavaNamingConverter.toJavaProperName(tableName) + "Dvo";
+			columnName = DbToJavaNamingConverter.removeTrailing(columnName, "_id");
+			columnName = DbToJavaNamingConverter.removeTrailing(columnName, "_code");
+			String varName = DbToJavaNamingConverter.toJavaName(columnName) + "Dvo";
 			writeln("private " + dvoName + " " + varName + ";");
 			writeln("");
 		}
@@ -163,13 +163,13 @@ public class DvoGenerator extends OrmCodeGenerator {
 		for (int i = 0; i < this.childTables.size(); i++) {
 			String tableName = childTables.get(i).get("tableName");
 			String columnName = childTables.get(i).get("columnName");
-			String dvoName = StringUtil.toJavaProperName(tableName) + "Dvo";
+			String dvoName = DbToJavaNamingConverter.toJavaProperName(tableName) + "Dvo";
 			String varName = columnName;
 			varName = varName.toLowerCase();
-			varName = StringUtil.removeTrailing(varName, "_id");
-			varName = StringUtil.removeTrailing(varName, "_code");
-			varName = StringUtil.toJavaProperName(varName) + "List";
-			varName = StringUtil.toJavaName(tableName) + varName;
+			varName = DbToJavaNamingConverter.removeTrailing(varName, "_id");
+			varName = DbToJavaNamingConverter.removeTrailing(varName, "_code");
+			varName = DbToJavaNamingConverter.toJavaProperName(varName) + "List";
+			varName = DbToJavaNamingConverter.toJavaName(tableName) + varName;
 			writeln("private ArrayList<" + dvoName + "> " + varName
 					+ " = new ArrayList<" + dvoName + ">();");
 			writeln("");
@@ -182,8 +182,8 @@ public class DvoGenerator extends OrmCodeGenerator {
 		writeln("");
 		for (int i = 0; i < columnNames.size(); i++) {
 			String columnName = columnNames.get(i);
-			String javaName = StringUtil.toJavaName(columnName);
-			String javaNameProper = StringUtil.toJavaProperName(columnName);
+			String javaName = DbToJavaNamingConverter.toJavaName(columnName);
+			String javaNameProper = DbToJavaNamingConverter.toJavaProperName(columnName);
 			writeln("// " + javaName);
 			writeln("");
 			writeln("public void set" + javaNameProper + "(String str) {");
@@ -204,11 +204,11 @@ public class DvoGenerator extends OrmCodeGenerator {
 		for (int i = 0; i < this.lookUpColumns.size(); i++) {
 			String tableName = lookUpColumns.get(i).get("tableName");
 			String columnName = lookUpColumns.get(i).get("columnName");
-			columnName = StringUtil.removeTrailing(columnName, "_id");
-			columnName = StringUtil.removeTrailing(columnName, "_code");
-			String dvoName = StringUtil.toJavaProperName(tableName) + "Dvo";
-			String varName = StringUtil.toJavaName(columnName) + "Dvo";
-			String varNameProper = StringUtil.toJavaProperName(columnName);
+			columnName = DbToJavaNamingConverter.removeTrailing(columnName, "_id");
+			columnName = DbToJavaNamingConverter.removeTrailing(columnName, "_code");
+			String dvoName = DbToJavaNamingConverter.toJavaProperName(tableName) + "Dvo";
+			String varName = DbToJavaNamingConverter.toJavaName(columnName) + "Dvo";
+			String varNameProper = DbToJavaNamingConverter.toJavaProperName(columnName);
 			varNameProper += "Dvo";
 			writeln("// " + varName);
 			writeln("");
@@ -231,18 +231,18 @@ public class DvoGenerator extends OrmCodeGenerator {
 		for (int i = 0; i < this.childTables.size(); i++) {
 			String tableName = childTables.get(i).get("tableName");
 			String columnName = childTables.get(i).get("columnName");
-			String dvoName = StringUtil.toJavaProperName(tableName) + "Dvo";
+			String dvoName = DbToJavaNamingConverter.toJavaProperName(tableName) + "Dvo";
 			String varName = columnName;
 			varName = varName.toLowerCase();
-			varName = StringUtil.removeTrailing(varName, "_id");
-			varName = StringUtil.removeTrailing(varName, "_code");
-			varName = StringUtil.toJavaProperName(varName) + "List";
-			String methodSuffix = StringUtil.toJavaProperName(tableName)
+			varName = DbToJavaNamingConverter.removeTrailing(varName, "_id");
+			varName = DbToJavaNamingConverter.removeTrailing(varName, "_code");
+			varName = DbToJavaNamingConverter.toJavaProperName(varName) + "List";
+			String methodSuffix = DbToJavaNamingConverter.toJavaProperName(tableName)
 					+ varName;
 			writeln("public ArrayList<" + dvoName + "> get" + methodSuffix
 					+ "() {");
 			incTab();
-			varName = StringUtil.toJavaName(tableName) + varName;
+			varName = DbToJavaNamingConverter.toJavaName(tableName) + varName;
 			writeln("return " + varName + ";");
 			decTab();
 			writeln("}");

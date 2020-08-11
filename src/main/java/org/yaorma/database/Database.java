@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.yaorma.util.string.StringUtil;
+import org.yaorma.util.string.DbToJavaNamingConverter;
 
 public class Database {
 
@@ -37,7 +37,7 @@ public class Database {
 				HashMap<String, String> row = new HashMap<String, String>();
 				for (String colName : colNames) {
 					String val = rs.getString(colName);
-					row.put(StringUtil.toJavaName(colName), val);
+					row.put(DbToJavaNamingConverter.toJavaName(colName), val);
 				}
 				rtn.add(row);
 			}

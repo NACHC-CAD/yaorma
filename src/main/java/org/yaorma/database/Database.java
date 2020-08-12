@@ -120,23 +120,17 @@ public class Database {
 		}
 	}
 
-	// ------------------------------------------------------------------------
-	//
-	// internal implementation (all private past here)
-	//
-	// ------------------------------------------------------------------------
-
 	//
 	// method to execute a sql query
 	//
 
-	private static ResultSet executeQuery(String sqlString, String key, Connection conn) {
+	public static ResultSet executeQuery(String sqlString, String key, Connection conn) {
 		ArrayList<String> params = new ArrayList<String>();
 		params.add(key);
 		return executeQuery(sqlString, params, conn);
 	}
 
-	private static ResultSet executeQuery(String sqlString, List<String> params, Connection conn) {
+	public static ResultSet executeQuery(String sqlString, List<String> params, Connection conn) {
 		try {
 			PreparedStatement st = conn.prepareStatement(sqlString);
 			for (int i = 0; i < params.size(); i++) {
@@ -153,7 +147,7 @@ public class Database {
 	// method to close a result set
 	//
 
-	private static void closeResultSet(ResultSet rs) {
+	public static void closeResultSet(ResultSet rs) {
 		try {
 			if (rs != null) {
 				Statement st = rs.getStatement();
@@ -169,7 +163,7 @@ public class Database {
 	// method to get column names for a result set
 	//
 
-	private static List<String> getColumnNames(ResultSet rs) {
+	public static List<String> getColumnNames(ResultSet rs) {
 		try {
 			ArrayList<String> rtn = new ArrayList<String>();
 			int cnt = rs.getMetaData().getColumnCount();
@@ -182,6 +176,12 @@ public class Database {
 			throw new RuntimeException(exp);
 		}
 	}
+
+	// ------------------------------------------------------------------------
+	//
+	// internal implementation (all private past here)
+	//
+	// ------------------------------------------------------------------------
 
 	//
 	// dvo methods

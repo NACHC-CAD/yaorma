@@ -66,7 +66,18 @@ public class Database {
 	//
 	// ------------------------------------------------------------------------
 
-	public static int update(String sqlString, ArrayList<String> params, Connection conn) {
+	public static int update(String sqlString, Connection conn) {
+		ArrayList<String> params = new ArrayList<String>();
+		return update(sqlString, params, conn);
+	}
+
+	public static int update(String sqlString, String param, Connection conn) {
+		ArrayList<String> params = new ArrayList<String>();
+		params.add(param);
+		return update(sqlString, params, conn);
+	}
+
+	public static int update(String sqlString, List<String> params, Connection conn) {
 		try {
 			PreparedStatement st = null;
 			try {
@@ -87,6 +98,53 @@ public class Database {
 
 	// ------------------------------------------------------------------------
 	//
+	// batch stuff
+	//
+	// ------------------------------------------------------------------------
+
+	public static PreparedStatement getPreparedStatement(String sqlString, Connection conn) {
+		try {
+			return conn.prepareStatement(sqlString);
+		} catch(Exception exp) {
+			throw new RuntimeException(exp);
+		}
+	}
+
+	public static void addToBatch(List<String> params, PreparedStatement ps) {
+		try {
+			for (int i = 0; i < params.size(); i++) {
+				ps.setString((i + 1), params.get(i));
+			}
+			ps.addBatch();
+		} catch (Exception exp) {
+			throw new RuntimeException(exp);
+		}
+	}
+
+	public static int[] execute(PreparedStatement ps) {
+		try {
+			return ps.executeBatch();
+		} catch(Exception exp) {
+			throw new RuntimeException(exp);
+		} finally {
+			try {
+				ps.close();
+			} catch(Exception exp) {
+				throw new RuntimeException(exp);
+			}
+		}
+	}
+	
+	public static boolean isClosed(PreparedStatement ps) {
+		try {
+			return ps.isClosed();
+		} catch(Exception exp) {
+			throw new RuntimeException(exp);
+		}
+	}
+	
+	// ------------------------------------------------------------------------
+	//
 	// dvo methods
 	//
 	// ------------------------------------------------------------------------
@@ -104,7 +162,7 @@ public class Database {
 			} finally {
 				closeResultSet(rs);
 			}
-		} catch(Exception exp) {
+		} catch (Exception exp) {
 			throw new RuntimeException(exp);
 		}
 	}
@@ -186,7 +244,7 @@ public class Database {
 	//
 	// dvo methods
 	//
-	
+
 	private static ArrayList<String> getCommonColumns(Dvo dvo, ResultSet rs) throws Exception {
 		ArrayList<String> rtn = new ArrayList<String>();
 		String[] dvoColumns = dvo.getJavaNames();

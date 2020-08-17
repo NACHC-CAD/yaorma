@@ -122,15 +122,21 @@ public class Database {
 	}
 
 	public static int[] execute(PreparedStatement ps) {
+		return execute(ps, true);
+	}
+	
+	public static int[] execute(PreparedStatement ps, boolean close) {
 		try {
 			return ps.executeBatch();
 		} catch(Exception exp) {
 			throw new RuntimeException(exp);
 		} finally {
-			try {
-				ps.close();
-			} catch(Exception exp) {
-				throw new RuntimeException(exp);
+			if(close) {
+				try {
+					ps.close();
+				} catch(Exception exp) {
+					throw new RuntimeException(exp);
+				}
 			}
 		}
 	}
@@ -143,41 +149,6 @@ public class Database {
 		}
 	}
 	
-	// ------------------------------------------------------------------------
-	//
-	// dvo methods
-	//
-	// ------------------------------------------------------------------------
-
-	public static <T extends Dvo> T find(T dvo, String key, String val, Connection conn) {
-		try {
-			String tableName = dvo.getTableName();
-			String sqlString = "select * from " + tableName + " where " + key + " = ?";
-			ResultSet rs = null;
-			try {
-				rs = executeQuery(sqlString, val, conn);
-				rs.next();
-				load(dvo, rs);
-				return dvo;
-			} finally {
-				closeResultSet(rs);
-			}
-		} catch (Exception exp) {
-			throw new RuntimeException(exp);
-		}
-	}
-
-	public static void load(Dvo dvo, ResultSet rs) throws Exception {
-		ArrayList<String> colNames = getCommonColumns(dvo, rs);
-		for (int i = 0; i < colNames.size(); i++) {
-			String colName = colNames.get(i);
-			String value = rs.getString(colName);
-			Method method = getSetterForName(dvo, colName);
-			Object[] args = { value };
-			method.invoke(dvo, args);
-		}
-	}
-
 	//
 	// method to execute a sql query
 	//
@@ -235,38 +206,28 @@ public class Database {
 		}
 	}
 
-	// ------------------------------------------------------------------------
-	//
-	// internal implementation (all private past here)
-	//
-	// ------------------------------------------------------------------------
-
-	//
-	// dvo methods
-	//
-
-	private static ArrayList<String> getCommonColumns(Dvo dvo, ResultSet rs) throws Exception {
-		ArrayList<String> rtn = new ArrayList<String>();
-		String[] dvoColumns = dvo.getJavaNames();
-		ResultSetMetaData meta = rs.getMetaData();
-		int cnt = meta.getColumnCount();
-		for (int i = 0; i < cnt; i++) {
-			String colName = meta.getColumnName(i + 1);
-			for (int d = 0; d < dvoColumns.length; d++) {
-				String dvoColumnName = dvoColumns[d];
-				if (dvoColumnName != null && dvoColumnName.equals(colName)) {
-					rtn.add(colName);
-				}
-			}
+	public static void close(Connection conn) {
+		try {
+			conn.close();
+		} catch(Exception exp) {
+			throw new RuntimeException(exp);
 		}
-		return rtn;
 	}
 
-	public static Method getSetterForName(Dvo dvo, String javaName) throws Exception {
-		String methodName = "set" + DbToJavaNamingConverter.toProper(javaName);
-		Class[] sig = { String.class };
-		Method method = dvo.getClass().getMethod(methodName, sig);
-		return method;
+	public static void commit(Connection conn) {
+		try {
+			conn.commit();
+		} catch(Exception exp) {
+			throw new RuntimeException(exp);
+		}
+	}
+
+	public static void rollback(Connection conn) {
+		try {
+			conn.rollback();
+		} catch(Exception exp) {
+			throw new RuntimeException(exp);
+		}
 	}
 
 }

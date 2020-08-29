@@ -1,17 +1,23 @@
 package org.yaorma.database;
 
-import java.lang.reflect.Method;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.yaorma.dvo.Dvo;
+import org.apache.ibatis.jdbc.ScriptRunner;
 import org.yaorma.util.string.DbToJavaNamingConverter;
 
 public class Database {
@@ -21,6 +27,10 @@ public class Database {
 	// query methods
 	//
 	// ------------------------------------------------------------------------
+
+	public static List<Map<String, String>> query(String sqlString, Connection conn) {
+		return query(sqlString, new ArrayList<String>(), conn);
+	}
 
 	public static List<Map<String, String>> query(String sqlString, String param, Connection conn) {
 		ArrayList<String> list = new ArrayList<String>();
@@ -77,6 +87,12 @@ public class Database {
 		return update(sqlString, params, conn);
 	}
 
+	public static int update(String sqlString, String[] params, Connection conn) {
+		ArrayList<String> paramsArray = new ArrayList<String>();
+		Collections.addAll(paramsArray, params);
+		return update(sqlString, paramsArray, conn);
+	}
+
 	public static int update(String sqlString, List<String> params, Connection conn) {
 		try {
 			PreparedStatement st = null;
@@ -105,7 +121,7 @@ public class Database {
 	public static PreparedStatement getPreparedStatement(String sqlString, Connection conn) {
 		try {
 			return conn.prepareStatement(sqlString);
-		} catch(Exception exp) {
+		} catch (Exception exp) {
 			throw new RuntimeException(exp);
 		}
 	}
@@ -124,31 +140,31 @@ public class Database {
 	public static int[] execute(PreparedStatement ps) {
 		return execute(ps, true);
 	}
-	
+
 	public static int[] execute(PreparedStatement ps, boolean close) {
 		try {
 			return ps.executeBatch();
-		} catch(Exception exp) {
+		} catch (Exception exp) {
 			throw new RuntimeException(exp);
 		} finally {
-			if(close) {
+			if (close) {
 				try {
 					ps.close();
-				} catch(Exception exp) {
+				} catch (Exception exp) {
 					throw new RuntimeException(exp);
 				}
 			}
 		}
 	}
-	
+
 	public static boolean isClosed(PreparedStatement ps) {
 		try {
 			return ps.isClosed();
-		} catch(Exception exp) {
+		} catch (Exception exp) {
 			throw new RuntimeException(exp);
 		}
 	}
-	
+
 	//
 	// method to execute a sql query
 	//
@@ -209,7 +225,7 @@ public class Database {
 	public static void close(Connection conn) {
 		try {
 			conn.close();
-		} catch(Exception exp) {
+		} catch (Exception exp) {
 			throw new RuntimeException(exp);
 		}
 	}
@@ -217,7 +233,7 @@ public class Database {
 	public static void commit(Connection conn) {
 		try {
 			conn.commit();
-		} catch(Exception exp) {
+		} catch (Exception exp) {
 			throw new RuntimeException(exp);
 		}
 	}
@@ -225,8 +241,43 @@ public class Database {
 	public static void rollback(Connection conn) {
 		try {
 			conn.rollback();
+		} catch (Exception exp) {
+			throw new RuntimeException(exp);
+		}
+	}
+
+	public static void executeSqlScript(File file, Connection conn) {
+		try {
+			FileInputStream fis = new FileInputStream(file);
+			executeSqlScript(fis, conn);
 		} catch(Exception exp) {
 			throw new RuntimeException(exp);
+		}
+	}
+
+	public static void executeSqlScript(String str, Connection conn) {
+		InputStream in = new ByteArrayInputStream(str.getBytes());
+		executeSqlScript(in, conn);
+	}
+	
+	public static void executeSqlScript(InputStream in, Connection conn) {
+		Reader reader = null;
+		try {
+			reader = new BufferedReader(new InputStreamReader(in));
+			ScriptRunner sr = new ScriptRunner(conn);
+			sr.setAutoCommit(true);
+			sr.setStopOnError(true);
+			sr.runScript(reader);
+		} catch (Exception exp) {
+			throw new RuntimeException(exp);
+		} finally {
+			if (reader != null) {
+				try {
+					reader.close();
+				} catch (Exception exp) {
+					throw new RuntimeException(exp);
+				}
+			}
 		}
 	}
 

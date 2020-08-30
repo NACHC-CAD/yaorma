@@ -224,7 +224,9 @@ public class Database {
 
 	public static void close(Connection conn) {
 		try {
-			conn.close();
+			if(conn != null) {
+				conn.close();
+			}
 		} catch (Exception exp) {
 			throw new RuntimeException(exp);
 		}

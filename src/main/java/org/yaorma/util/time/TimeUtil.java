@@ -6,6 +6,14 @@ import java.util.Date;
 
 public class TimeUtil {
 
+	public static Date now() {
+		return getNow();
+	}
+	
+	public static Date getNow() {
+		return Calendar.getInstance().getTime();
+	}
+	
 	public static int getCurrentYear() {
 		return Calendar.getInstance().get(Calendar.YEAR);
 	}

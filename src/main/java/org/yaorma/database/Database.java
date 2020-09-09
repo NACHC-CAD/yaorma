@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -77,29 +78,42 @@ public class Database {
 	// ------------------------------------------------------------------------
 
 	public static int update(String sqlString, Connection conn) {
-		ArrayList<String> params = new ArrayList<String>();
+		List<Object> params = new ArrayList<Object>();
 		return update(sqlString, params, conn);
 	}
 
-	public static int update(String sqlString, String param, Connection conn) {
-		ArrayList<String> params = new ArrayList<String>();
+	public static int update(String sqlString, Object param, Connection conn) {
+		ArrayList<Object> params = new ArrayList<Object>();
 		params.add(param);
 		return update(sqlString, params, conn);
 	}
 
-	public static int update(String sqlString, String[] params, Connection conn) {
-		ArrayList<String> paramsArray = new ArrayList<String>();
+	public static int update(String sqlString, Object[] params, Connection conn) {
+		ArrayList<Object> paramsArray = new ArrayList<Object>();
 		Collections.addAll(paramsArray, params);
 		return update(sqlString, paramsArray, conn);
 	}
 
-	public static int update(String sqlString, List<String> params, Connection conn) {
+	public static int update(String sqlString, List<Object> params, Connection conn) {
 		try {
 			PreparedStatement st = null;
 			try {
 				st = conn.prepareStatement(sqlString);
 				for (int i = 0; i < params.size(); i++) {
-					st.setString(i + 1, params.get(i));
+					Object obj = params.get(i);
+					if(obj instanceof Date) {
+						Date date = (Date) obj;
+						java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+						st.setDate((i+1), sqlDate);
+					} else if (obj instanceof Integer) {
+						st.setInt((i+1), (Integer) obj);
+					} else if (obj instanceof Double) {
+						st.setDouble((i+1), (Double) obj);
+					} else if (obj instanceof Long) {
+						st.setLong((i+1), (Long) obj);
+					} else {
+						st.setString(i + 1, params.get(i) + "");
+					}
 				}
 				return st.executeUpdate();
 			} finally {

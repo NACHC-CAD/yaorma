@@ -5,12 +5,14 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.yaorma.database.Database;
 import org.yaorma.dvo.Dvo;
 import org.yaorma.dvo.DvoUtil;
 import org.yaorma.util.string.DbToJavaNamingConverter;
+import org.yaorma.util.time.TimeUtil;
 
 public class Dao {
 
@@ -26,15 +28,21 @@ public class Dao {
 		return dvo;
 	}
 
+	public static int insertUsingLiteral(Dvo dvo, Connection conn) {
+		String sqlString = getDatabricksLiteralInsertSqlString(dvo);
+		int rtn = Database.update(sqlString, conn);
+		return rtn;
+	}
+	
 	public static int insert(Dvo dvo, Connection conn) {
 		try {
-			String sqlString = createInsertSqlString(dvo);
-			ArrayList<String> params = new ArrayList<String>();
+			String sqlString = getInsertSqlString(dvo);
+			ArrayList<Object> params = new ArrayList<Object>();
 			String[] javaNames = dvo.getJavaNames();
 			for (int i = 0; i < javaNames.length; i++) {
 				String javaName = javaNames[i];
-				String value = DvoUtil.getValue(dvo, javaName);
-				params.add(value);
+				Object obj = DvoUtil.getValue(dvo, javaName);
+				params.add(obj);
 			}
 			return Database.update(sqlString, params, conn);
 		} catch (Exception exp) {
@@ -42,7 +50,35 @@ public class Dao {
 		}
 	}
 
-	public static String createInsertSqlString(Dvo dvo) {
+	public static String getDatabricksLiteralInsertSqlString(Dvo dvo) {
+		List<Object> params = DvoUtil.getParamValues(dvo);
+		String sqlString = "insert into " + dvo.getSchemaName() + "." + dvo.getTableName() + " values (\n  ";
+		for (int i = 0; i < params.size(); i++) {
+			if(sqlString.endsWith("values (\n  ") == false) {
+				sqlString += ",\n  ";
+			}
+			Object obj = params.get(i);
+			if(obj instanceof Date) {
+				Date date = (Date) obj;
+				String dateString = TimeUtil.getDateAsYyyyMmDd(date);
+				sqlString += "CAST(UNIX_TIMESTAMP('" + dateString + "', 'yyyyMMdd') AS TIMESTAMP)";
+			} else if (obj instanceof Integer) {
+				sqlString += obj + "";
+			} else if (obj instanceof Double) {
+				sqlString += obj + "";
+			} else if (obj instanceof Long) {
+				sqlString += obj + "";
+			} else if(obj == null) {
+				sqlString += "NULL";
+			} else {
+				sqlString += "'" + obj + "'";
+			}
+		}
+		sqlString += "\n)\n";
+		return sqlString;
+	}
+	
+	public static String getInsertSqlString(Dvo dvo) {
 		String schemaName = dvo.getSchemaName();
 		String tableName = dvo.getTableName();
 		String[] javaNames = dvo.getJavaNames();
@@ -101,6 +137,9 @@ public class Dao {
 	public static void delete(Dvo dvo, Connection conn) {
 		String sqlString = getDeleteString(dvo);
 		String[] params = dvo.getPrimaryKeyValues();
+		if(params.length == 0) {
+			throw new RuntimeException("Tried to delete without a primary key value.");
+		}
 		Database.update(sqlString, params, conn);
 	}
 

@@ -27,6 +27,14 @@ public class DbToJavaNamingConverter {
 		return rtn;
 	}
 
+	public static String[] toJavaProperName(String[] dbNames) {
+		String[] rtn = new String[dbNames.length];
+		for(int i=0;i<dbNames.length;i++) {
+			rtn[i] = toJavaProperName(dbNames[i]);
+		}
+		return rtn;
+	}
+	
 	public static String toJavaProperName(String src) {
 		src = src.toLowerCase();
 		StringTokenizer toke = new StringTokenizer(src, "_");
@@ -41,6 +49,14 @@ public class DbToJavaNamingConverter {
 		return rtn;
 	}
 
+	public static String[] toJavaName(String[] dbNames) {
+		String[] rtn = new String[dbNames.length];
+		for(int i=0;i<dbNames.length;i++) {
+			rtn[i] = toJavaName(dbNames[i]);
+		}
+		return rtn;
+	}
+	
 	public static String toJavaName(String src) {
 		String rtn = toJavaProperName(src);
 		Character ch = new Character(rtn.charAt(0));

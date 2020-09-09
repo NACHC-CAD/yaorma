@@ -25,7 +25,7 @@ public class Dao {
 		dvo = find(dvo, key, val, conn);
 		return dvo;
 	}
-	
+
 	public static int insert(Dvo dvo, Connection conn) {
 		try {
 			String sqlString = createInsertSqlString(dvo);
@@ -42,20 +42,13 @@ public class Dao {
 		}
 	}
 
-	public static String createInsertSqlString(Dvo dvo) throws Exception {
+	public static String createInsertSqlString(Dvo dvo) {
+		String schemaName = dvo.getSchemaName();
 		String tableName = dvo.getTableName();
-		String[] columnNames = dvo.getColumnNames();
 		String[] javaNames = dvo.getJavaNames();
 		String sqlString = "";
-		sqlString += "insert into " + tableName + " (\n";
-		for (int i = 0; i < columnNames.length; i++) {
-			if (i > 0) {
-				sqlString += ", \n";
-			}
-			sqlString += "  " + columnNames[i];
-		}
+		sqlString += "insert into " + schemaName + "." + tableName;
 		sqlString += "\n";
-		sqlString += ")\n";
 		sqlString += "values (\n";
 		for (int i = 0; i < javaNames.length; i++) {
 			if (i > 0) {
@@ -76,8 +69,9 @@ public class Dao {
 
 	public static <T extends Dvo> T find(T dvo, String key, String val, Connection conn) {
 		try {
+			String schemaName = dvo.getSchemaName();
 			String tableName = dvo.getTableName();
-			String sqlString = "select * from " + tableName + " where " + key + " = ?";
+			String sqlString = "select * from " + schemaName + "." + tableName + " where " + key + " = ?";
 			ResultSet rs = null;
 			try {
 				rs = Database.executeQuery(sqlString, val, conn);
@@ -92,13 +86,31 @@ public class Dao {
 		}
 	}
 
+	public static String getDeleteString(Dvo dvo) {
+		String[] primaryKeys = dvo.getPrimaryKeyColumnNames();
+		String sqlString = "delete from " + dvo.getSchemaName() + "." + dvo.getTableName() + " tbl where ";
+		for (int i = 0; i < primaryKeys.length; i++) {
+			if (sqlString.endsWith("where ") == false) {
+				sqlString += " and ";
+			}
+			sqlString += "tbl." + primaryKeys[i] + " = ?";
+		}
+		return sqlString;
+	}
+
+	public static void delete(Dvo dvo, Connection conn) {
+		String sqlString = getDeleteString(dvo);
+		String[] params = dvo.getPrimaryKeyValues();
+		Database.update(sqlString, params, conn);
+	}
+
 	public static <T extends Dvo> List<T> findList(T dvo, String sqlString, String param, Connection conn) {
 		try {
 			ArrayList<T> rtn = new ArrayList<T>();
 			ResultSet rs = null;
 			try {
 				rs = Database.executeQuery(sqlString, param, conn);
-				while(rs.next()) {
+				while (rs.next()) {
 					T instance = (T) dvo.getClass().newInstance();
 					load(instance, rs);
 					rtn.add(instance);
@@ -128,7 +140,7 @@ public class Dao {
 	// internal implementation (all private past here)
 	//
 	// ------------------------------------------------------------------------
-	
+
 	private static ArrayList<String> getCommonColumns(Dvo dvo, ResultSet rs) throws Exception {
 		ArrayList<String> rtn = new ArrayList<String>();
 		String[] dvoColumns = dvo.getJavaNames();

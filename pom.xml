@@ -29,11 +29,13 @@
 	<dependencies>
 
 		<!-- CORE NACHC FRAMEWORK STUFF -->
+		<!--  
 		<dependency>
 			<groupId>NACHC-CAD</groupId>
 			<artifactId>core</artifactId>
 			<version>1.0.4-SNAPSHOT</version>
 		</dependency>
+		-->
 
 		<!-- JUNIT https://mvnrepository.com/artifact/junit/junit -->
 		<dependency>

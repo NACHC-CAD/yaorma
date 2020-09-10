@@ -33,6 +33,10 @@ public class Dao {
 		int rtn = Database.update(sqlString, conn);
 		return rtn;
 	}
+
+	public static int doDatabricksInsert(Dvo dvo, Connection conn) {
+		return insertUsingLiteral(dvo, conn);
+	}
 	
 	public static int insert(Dvo dvo, Connection conn) {
 		try {

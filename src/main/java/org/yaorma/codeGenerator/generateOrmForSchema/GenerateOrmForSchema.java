@@ -12,6 +12,9 @@ public class GenerateOrmForSchema {
 
 	public static void execute(Connection conn, String schemaName, String packageName, File destDir) throws Exception {
 		System.out.println(destDir.getCanonicalPath());
+		if(destDir.exists() == false) {
+			destDir.mkdirs();
+		}
 		// generate all dvo classes for schema
 		String sqlString = "";
 		sqlString += "select table_name \n";

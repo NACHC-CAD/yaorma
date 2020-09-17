@@ -43,12 +43,21 @@ public class DvoGenerator extends OrmCodeGenerator {
 		writeln("");
 		incTab();
 
-		// table names
+		// table name
 		writeln("//");
 		writeln("// tableName");
 		writeln("//");
 		writeln("");
 		writeln("public static final String TABLE_NAME = \"" + this.tableName
+				+ "\";");
+		writeln("");
+
+		// schema name
+		writeln("//");
+		writeln("// schemaName");
+		writeln("//");
+		writeln("");
+		writeln("public static final String SCHEMA_NAME = \"" + this.schemaName
 				+ "\";");
 		writeln("");
 
@@ -267,6 +276,12 @@ public class DvoGenerator extends OrmCodeGenerator {
 		decTab();
 		writeln("};");
 		writeln("");
+		writeln("public String getSchemaName() {");
+		incTab();
+		writeln("return SCHEMA_NAME;");
+		decTab();
+		writeln("};");
+		writeln("");
 		writeln("public String[] getColumnNames() {");
 		incTab();
 		writeln("return COLUMN_NAMES;");
@@ -324,6 +339,24 @@ public class DvoGenerator extends OrmCodeGenerator {
 		writeln("}");
 		writeln("");
 		
+		writeln("public String[] getPrimaryKeyValues() {");
+		incTab();
+		writeln("String[] rtn = new String[] {");
+		incTab();
+		int cnt = 0;
+		for(String str : this.primaryKeyColumnNames) {
+			cnt++;
+			if(cnt < this.primaryKeyColumnNames.size()) {
+				writeln("get" + DbToJavaNamingConverter.toJavaProperName(str) + "(),");
+			} else {
+				writeln("get" + DbToJavaNamingConverter.toJavaProperName(str) + "()");
+			}
+		}
+		decTab();
+		writeln("};");
+		writeln("return rtn;");
+		decTab();
+		writeln("}");
 		decTab();
 		writeln("}");
 	}

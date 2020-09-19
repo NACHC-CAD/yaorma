@@ -101,7 +101,9 @@ public class Database {
 				st = conn.prepareStatement(sqlString);
 				for (int i = 0; i < params.size(); i++) {
 					Object obj = params.get(i);
-					if(obj instanceof Date) {
+					if(obj == null) {
+						st.setString((i+1), null);
+					} else if(obj instanceof Date) {
 						Date date = (Date) obj;
 						java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 						st.setDate((i+1), sqlDate);
@@ -248,6 +250,7 @@ public class Database {
 
 	public static void commit(Connection conn) {
 		try {
+			conn.setAutoCommit(false);
 			conn.commit();
 		} catch (Exception exp) {
 			throw new RuntimeException(exp);

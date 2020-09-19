@@ -9,6 +9,9 @@ import java.util.HashMap;
 import org.yaorma.codeGenerator.OrmCodeGenerator;
 import org.yaorma.util.string.DbToJavaNamingConverter;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class DvoGenerator extends OrmCodeGenerator {
 
 	public DvoGenerator(String tableName, String schemaName, Connection conn)
@@ -25,7 +28,7 @@ public class DvoGenerator extends OrmCodeGenerator {
 		String fileName = className + ".java";
 		File file = new File(destDir, fileName);
 
-		System.out.println(file.getCanonicalPath());
+		log.info("Writing to file: " + file.getCanonicalPath());
 		this.writer = new BufferedWriter(new FileWriter(file));
 		writeln("//");
 		writeln("// Data Value Object (DVO) for " + tableName);
@@ -36,6 +39,7 @@ public class DvoGenerator extends OrmCodeGenerator {
 		writeln("");
 		writeln("import java.util.ArrayList;");
 		writeln("import java.util.HashMap;");
+		writeln("import java.util.Date;");
 		writeln("");
 		writeln("import org.yaorma.dvo.Dvo;");
 		writeln("");
@@ -69,7 +73,7 @@ public class DvoGenerator extends OrmCodeGenerator {
 		writeln("public static final String[] COLUMN_NAMES = {");
 		incTab();
 		for (int i = 0; i < this.columnNames.size(); i++) {
-			String str = columnNames.get(i);
+			String str = columnNames.get(i)[0];
 			str = "\"" + str + "\"";
 			if (i < this.columnNames.size() - 1) {
 				str += ",";
@@ -107,7 +111,7 @@ public class DvoGenerator extends OrmCodeGenerator {
 		writeln("public static final String[] JAVA_NAMES = {");
 		incTab();
 		for (int i = 0; i < this.columnNames.size(); i++) {
-			String str = columnNames.get(i);
+			String str = columnNames.get(i)[0];
 			str = DbToJavaNamingConverter.toJavaName(str);
 			str = "\"" + str + "\"";
 			if (i < this.columnNames.size() - 1) {
@@ -127,7 +131,7 @@ public class DvoGenerator extends OrmCodeGenerator {
 		writeln("public static final String[] JAVA_NAMES_PROPER = {");
 		incTab();
 		for (int i = 0; i < this.columnNames.size(); i++) {
-			String str = columnNames.get(i);
+			String str = columnNames.get(i)[0];
 			str = DbToJavaNamingConverter.toJavaProperName(str);
 			str = "\"" + str + "\"";
 			if (i < this.columnNames.size() - 1) {
@@ -150,9 +154,14 @@ public class DvoGenerator extends OrmCodeGenerator {
 		writeln("");
 		
 		for (int i = 0; i < columnNames.size(); i++) {
-			String columnName = columnNames.get(i);
+			String columnName = columnNames.get(i)[0];
+			String dataType = columnNames.get(i)[1];
 			String javaName = DbToJavaNamingConverter.toJavaName(columnName);
-			writeln("private String " + javaName + ";");
+			if("datetime".equalsIgnoreCase(dataType)) {
+				writeln("private Date " + javaName + ";");
+			} else {
+				writeln("private String " + javaName + ";");
+			}
 			writeln("");
 		}
 
@@ -190,18 +199,26 @@ public class DvoGenerator extends OrmCodeGenerator {
 		writeln("//");
 		writeln("");
 		for (int i = 0; i < columnNames.size(); i++) {
-			String columnName = columnNames.get(i);
+			String columnName = columnNames.get(i)[0];
 			String javaName = DbToJavaNamingConverter.toJavaName(columnName);
 			String javaNameProper = DbToJavaNamingConverter.toJavaProperName(columnName);
 			writeln("// " + javaName);
 			writeln("");
-			writeln("public void set" + javaNameProper + "(String str) {");
+			if("datetime".equals(columnNames.get(i)[1])) {
+				writeln("public void set" + javaNameProper + "(Date val) {");
+			} else {
+				writeln("public void set" + javaNameProper + "(String val) {");
+			}
 			incTab();
-			writeln("this." + javaName + " = str;");
+			writeln("this." + javaName + " = val;");
 			decTab();
 			writeln("}");
 			writeln("");
-			writeln("public String get" + javaNameProper + "() {");
+			if("datetime".equals(columnNames.get(i)[1])) {
+				writeln("public Date get" + javaNameProper + "() {");
+			} else {
+				writeln("public String get" + javaNameProper + "() {");
+			}
 			incTab();
 			writeln("return this." + javaName + ";");
 			decTab();

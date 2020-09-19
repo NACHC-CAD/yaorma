@@ -19,7 +19,7 @@ public class OrmCodeGenerator {
 
 	protected String schemaName;
 
-	protected ArrayList<String> columnNames = new ArrayList<String>();
+	protected ArrayList<String[]> columnNames = new ArrayList<String[]>();
 
 	protected ArrayList<String> primaryKeyColumnNames = new ArrayList<String>();
 
@@ -44,12 +44,14 @@ public class OrmCodeGenerator {
 	}
 
 	private void initCols(Connection conn) throws Exception {
-		String sqlString = "select column_name from information_schema.columns where table_name = ? ";
-		sqlString += "and table_schema = ?";
+		String sqlString = "";
+		sqlString += "select column_name, data_type from information_schema.columns where table_name = ? and table_schema = ?";
 		String[] params = { this.tableName, this.schemaName };
 		List<Map<String, String>> data = Database.query(sqlString, params, conn);
 		for (int i = 0; i < data.size(); i++) {
-			this.columnNames.add(data.get(i).get("columnName"));
+			String columnName = data.get(i).get("columnName");
+			String dataType = data.get(i).get("dataType");
+			this.columnNames.add(new String[] {columnName, dataType});
 		}
 	}
 

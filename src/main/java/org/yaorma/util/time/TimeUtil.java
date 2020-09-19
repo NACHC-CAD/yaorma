@@ -14,6 +14,12 @@ public class TimeUtil {
 		return Calendar.getInstance().getTime();
 	}
 	
+	public static String getNowAsMySqlDateTime() {
+		Date date = getNow();
+		String formatString = "yyyy-MM-dd HH:mm:ss";
+		return format(date, formatString);
+	}
+	
 	public static int getCurrentYear() {
 		return Calendar.getInstance().get(Calendar.YEAR);
 	}
@@ -47,6 +53,12 @@ public class TimeUtil {
 	public static String getTimeString(long timeStamp) {
 		Date date = new Date(timeStamp);
 		SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd 'at' HH:mm:ss z");
+		String rtn = format.format(date);
+		return rtn;
+	}
+	
+	public static String format(Date date, String formatString) {
+		SimpleDateFormat format = new SimpleDateFormat(formatString);
 		String rtn = format.format(date);
 		return rtn;
 	}

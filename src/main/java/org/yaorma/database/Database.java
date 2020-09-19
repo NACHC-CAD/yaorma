@@ -29,17 +29,17 @@ public class Database {
 	//
 	// ------------------------------------------------------------------------
 
-	public static List<Map<String, String>> query(String sqlString, Connection conn) {
+	public static Data query(String sqlString, Connection conn) {
 		return query(sqlString, new ArrayList<String>(), conn);
 	}
 
-	public static List<Map<String, String>> query(String sqlString, String param, Connection conn) {
+	public static Data query(String sqlString, String param, Connection conn) {
 		ArrayList<String> list = new ArrayList<String>();
 		list.add(param);
 		return query(sqlString, list, conn);
 	}
 
-	public static List<Map<String, String>> query(String sqlString, String[] params, Connection conn) {
+	public static Data query(String sqlString, String[] params, Connection conn) {
 		ArrayList<String> list = new ArrayList<String>();
 		for (String param : params) {
 			list.add(param);
@@ -47,14 +47,14 @@ public class Database {
 		return query(sqlString, list, conn);
 	}
 
-	public static List<Map<String, String>> query(String sqlString, List<String> params, Connection conn) {
-		List<Map<String, String>> rtn = new ArrayList<Map<String, String>>();
+	public static Data query(String sqlString, List<String> params, Connection conn) {
+		Data rtn = new Data();
 		ResultSet rs = null;
 		try {
 			rs = executeQuery(sqlString, params, conn);
 			List<String> colNames = getColumnNames(rs);
 			while (rs.next()) {
-				HashMap<String, String> row = new HashMap<String, String>();
+				Row row = new Row();
 				for (String colName : colNames) {
 					String val = rs.getString(colName);
 					row.put(DbToJavaNamingConverter.toJavaName(colName), val);

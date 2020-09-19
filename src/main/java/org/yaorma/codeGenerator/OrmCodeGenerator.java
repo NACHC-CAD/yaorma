@@ -4,11 +4,8 @@ import java.io.BufferedWriter;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-import javax.xml.crypto.Data;
-
+import org.yaorma.database.Data;
 import org.yaorma.database.Database;
 
 public class OrmCodeGenerator {
@@ -47,11 +44,11 @@ public class OrmCodeGenerator {
 		String sqlString = "";
 		sqlString += "select column_name, data_type from information_schema.columns where table_name = ? and table_schema = ?";
 		String[] params = { this.tableName, this.schemaName };
-		List<Map<String, String>> data = Database.query(sqlString, params, conn);
+		Data data = Database.query(sqlString, params, conn);
 		for (int i = 0; i < data.size(); i++) {
 			String columnName = data.get(i).get("columnName");
 			String dataType = data.get(i).get("dataType");
-			this.columnNames.add(new String[] {columnName, dataType});
+			this.columnNames.add(new String[] { columnName, dataType });
 		}
 	}
 
@@ -63,7 +60,7 @@ public class OrmCodeGenerator {
 		sqlString += "and table_name = ? \n";
 		sqlString += "and table_schema = ? \n";
 		String[] params = { this.tableName, this.schemaName };
-		List<Map<String, String>> data = Database.query(sqlString, params, conn);
+		Data data = Database.query(sqlString, params, conn);
 		for (int i = 0; i < data.size(); i++) {
 			this.primaryKeyColumnNames.add(data.get(i).get("columnName"));
 		}
@@ -75,7 +72,7 @@ public class OrmCodeGenerator {
 		sqlString += "from information_schema.key_column_usage \n";
 		sqlString += "where table_name = ? and table_schema = ? and referenced_table_name is not null";
 		String[] params = { this.tableName, this.schemaName };
-		List<Map <String, String>> data = Database.query(sqlString, params, conn);
+		Data data = Database.query(sqlString, params, conn);
 		for (int i = 0; i < data.size(); i++) {
 			HashMap<String, String> row = new HashMap<String, String>();
 			row.put("tableName", (data.get(i).get("referencedTableName")));
@@ -89,7 +86,7 @@ public class OrmCodeGenerator {
 		sqlString += "select table_name, column_name from information_schema.key_column_usage \n";
 		sqlString += "where referenced_table_name = ? and referenced_table_schema = ?";
 		String[] params = { this.tableName, this.schemaName };
-		List<Map <String, String>>  data = Database.query(sqlString, params, conn);
+		Data data = Database.query(sqlString, params, conn);
 		for (int i = 0; i < data.size(); i++) {
 			HashMap<String, String> row = new HashMap<String, String>();
 			row.put("tableName", data.get(i).get("tableName"));

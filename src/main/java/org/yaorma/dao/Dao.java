@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -37,7 +38,7 @@ public class Dao {
 	public static int doDatabricksInsert(Dvo dvo, Connection conn) {
 		return insertUsingLiteral(dvo, conn);
 	}
-	
+
 	public static int insert(Dvo dvo, Connection conn) {
 		try {
 			String sqlString = getInsertSqlString(dvo);
@@ -58,11 +59,11 @@ public class Dao {
 		List<Object> params = DvoUtil.getParamValues(dvo);
 		String sqlString = "insert into " + dvo.getSchemaName() + "." + dvo.getTableName() + " values (\n  ";
 		for (int i = 0; i < params.size(); i++) {
-			if(sqlString.endsWith("values (\n  ") == false) {
+			if (sqlString.endsWith("values (\n  ") == false) {
 				sqlString += ",\n  ";
 			}
 			Object obj = params.get(i);
-			if(obj instanceof Date) {
+			if (obj instanceof Date) {
 				Date date = (Date) obj;
 				String dateString = TimeUtil.getDateAsYyyyMmDd(date);
 				sqlString += "CAST(UNIX_TIMESTAMP('" + dateString + "', 'yyyyMMdd') AS TIMESTAMP)";
@@ -72,7 +73,7 @@ public class Dao {
 				sqlString += obj + "";
 			} else if (obj instanceof Long) {
 				sqlString += obj + "";
-			} else if(obj == null) {
+			} else if (obj == null) {
 				sqlString += "NULL";
 			} else {
 				sqlString += "'" + obj + "'";
@@ -81,7 +82,7 @@ public class Dao {
 		sqlString += "\n)\n";
 		return sqlString;
 	}
-	
+
 	public static String getInsertSqlString(Dvo dvo) {
 		String schemaName = dvo.getSchemaName();
 		String tableName = dvo.getTableName();
@@ -108,13 +109,20 @@ public class Dao {
 	// ------------------------------------------------------------------------
 
 	public static <T extends Dvo> T find(T dvo, String key, String val, Connection conn) {
+		return find(dvo, new String[] { key }, new String[] { val }, conn);
+	}
+
+	public static <T extends Dvo> T find(T dvo, String[] keys, String[] vals, Connection conn) {
 		try {
 			String schemaName = dvo.getSchemaName();
 			String tableName = dvo.getTableName();
-			String sqlString = "select * from " + schemaName + "." + tableName + " where " + key + " = ?";
+			String sqlString = "select * from " + schemaName + "." + tableName + " where  1=1 \n";
+			for (String key : keys) {
+				sqlString += " and " + key + " = ? \n";
+			}
 			ResultSet rs = null;
 			try {
-				rs = Database.executeQuery(sqlString, val, conn);
+				rs = Database.executeQuery(sqlString, vals, conn);
 				rs.next();
 				load(dvo, rs);
 				return dvo;
@@ -141,7 +149,7 @@ public class Dao {
 	public static void delete(Dvo dvo, Connection conn) {
 		String sqlString = getDeleteString(dvo);
 		String[] params = dvo.getPrimaryKeyValues();
-		if(params.length == 0) {
+		if (params.length == 0) {
 			throw new RuntimeException("Tried to delete without a primary key value.");
 		}
 		Database.update(sqlString, params, conn);
@@ -170,11 +178,25 @@ public class Dao {
 	public static void load(Dvo dvo, ResultSet rs) throws Exception {
 		ArrayList<String> colNames = getCommonColumns(dvo, rs);
 		for (int i = 0; i < colNames.size(); i++) {
-			String colName = colNames.get(i);
-			String value = rs.getString(colName);
-			Method method = getSetterForName(dvo, colName);
-			Object[] args = { value };
-			method.invoke(dvo, args);
+			String javaName = colNames.get(i);
+			String colName = DbToJavaNamingConverter.toDatabaseName(javaName);
+			int type = rs.getMetaData().getColumnType(i + 1);
+			if (type == Types.DATE || type == Types.TIME || type == Types.TIMESTAMP) {
+				Date value = rs.getDate(colName);
+				Method method = getDateSetterForName(dvo, javaName);
+				Object[] args = { value };
+				method.invoke(dvo, args);
+			} else if (type == Types.INTEGER) {
+				Integer value = rs.getInt(colName);
+				Method method = getIntSetterForName(dvo, javaName);
+				Object[] args = { value };
+				method.invoke(dvo, args);
+			} else {
+				String value = rs.getString(colName);
+				Method method = getStringSetterForName(dvo, javaName);
+				Object[] args = { value };
+				method.invoke(dvo, args);
+			}
 		}
 	}
 
@@ -186,7 +208,7 @@ public class Dao {
 
 	private static ArrayList<String> getCommonColumns(Dvo dvo, ResultSet rs) throws Exception {
 		ArrayList<String> rtn = new ArrayList<String>();
-		String[] dvoColumns = dvo.getJavaNames();
+		String[] dvoColumns = dvo.getColumnNames();
 		ResultSetMetaData meta = rs.getMetaData();
 		int cnt = meta.getColumnCount();
 		for (int i = 0; i < cnt; i++) {
@@ -194,16 +216,32 @@ public class Dao {
 			for (int d = 0; d < dvoColumns.length; d++) {
 				String dvoColumnName = dvoColumns[d];
 				if (dvoColumnName != null && dvoColumnName.equals(colName)) {
-					rtn.add(colName);
+					String javaName = DbToJavaNamingConverter.toJavaProperName(colName);
+					rtn.add(javaName);
+					continue;
 				}
 			}
 		}
 		return rtn;
 	}
 
-	public static Method getSetterForName(Dvo dvo, String javaName) throws Exception {
+	public static Method getStringSetterForName(Dvo dvo, String javaName) throws Exception {
 		String methodName = "set" + DbToJavaNamingConverter.toProper(javaName);
 		Class[] sig = { String.class };
+		Method method = dvo.getClass().getMethod(methodName, sig);
+		return method;
+	}
+
+	public static Method getDateSetterForName(Dvo dvo, String javaName) throws Exception {
+		String methodName = "set" + DbToJavaNamingConverter.toProper(javaName);
+		Class[] sig = { Date.class };
+		Method method = dvo.getClass().getMethod(methodName, sig);
+		return method;
+	}
+
+	public static Method getIntSetterForName(Dvo dvo, String javaName) throws Exception {
+		String methodName = "set" + DbToJavaNamingConverter.toProper(javaName);
+		Class[] sig = { Integer.class };
 		Method method = dvo.getClass().getMethod(methodName, sig);
 		return method;
 	}

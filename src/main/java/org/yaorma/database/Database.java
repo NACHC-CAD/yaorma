@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -191,6 +192,12 @@ public class Database {
 		return executeQuery(sqlString, params, conn);
 	}
 
+	public static ResultSet executeQuery(String sqlString, String[] params, Connection conn) {
+		List<String> list = Arrays.asList(params);
+		return executeQuery(sqlString, list, conn);
+	}
+
+	
 	public static ResultSet executeQuery(String sqlString, List<String> params, Connection conn) {
 		try {
 			PreparedStatement st = conn.prepareStatement(sqlString);

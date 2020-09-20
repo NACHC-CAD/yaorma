@@ -159,7 +159,10 @@ public class DvoGenerator extends OrmCodeGenerator {
 			String javaName = DbToJavaNamingConverter.toJavaName(columnName);
 			if("datetime".equalsIgnoreCase(dataType)) {
 				writeln("private Date " + javaName + ";");
-			} else {
+			} else if("int".equalsIgnoreCase(dataType)) {
+				writeln("private Integer " + javaName + ";");
+			}
+			else {
 				writeln("private String " + javaName + ";");
 			}
 			writeln("");
@@ -206,7 +209,10 @@ public class DvoGenerator extends OrmCodeGenerator {
 			writeln("");
 			if("datetime".equals(columnNames.get(i)[1])) {
 				writeln("public void set" + javaNameProper + "(Date val) {");
-			} else {
+			} else if("int".equalsIgnoreCase(columnNames.get(i)[1])) {
+				writeln("public void set" + javaNameProper + "(Integer val) {");
+			}
+			else {
 				writeln("public void set" + javaNameProper + "(String val) {");
 			}
 			incTab();
@@ -216,7 +222,10 @@ public class DvoGenerator extends OrmCodeGenerator {
 			writeln("");
 			if("datetime".equals(columnNames.get(i)[1])) {
 				writeln("public Date get" + javaNameProper + "() {");
-			} else {
+			} else if("int".equalsIgnoreCase(columnNames.get(i)[1])) {
+				writeln("public Integer get" + javaNameProper + "() {");
+			}
+			else {
 				writeln("public String get" + javaNameProper + "() {");
 			}
 			incTab();

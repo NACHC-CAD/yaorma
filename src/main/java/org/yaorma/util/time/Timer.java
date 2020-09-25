@@ -26,6 +26,15 @@ public class Timer {
 		return elapsed;
 	}
 	
+	public String getElapsedString() {
+		long totalSecs = getElapsedInMilliseconds() / 1000;
+		long hours = totalSecs / 3600;
+		long minutes = (totalSecs % 3600) / 60;
+		long seconds = totalSecs % 60;
+		String rtn = String.format("%02d:%02d:%02d", hours, minutes, seconds);
+		return rtn;
+	}
+	
 	public long getStart() {
 		return this.start;
 	}

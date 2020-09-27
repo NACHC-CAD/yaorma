@@ -255,6 +255,14 @@ public class Database {
 		}
 	}
 
+	public static void setAutoCommit(boolean autoCommit, Connection conn) {
+		try {
+			conn.setAutoCommit(autoCommit);
+		} catch (Exception exp) {
+			throw new RuntimeException(exp);
+		}
+	}
+
 	public static void commit(Connection conn) {
 		try {
 			conn.setAutoCommit(false);

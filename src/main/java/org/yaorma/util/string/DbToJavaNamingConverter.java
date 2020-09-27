@@ -67,12 +67,19 @@ public class DbToJavaNamingConverter {
 
 	public static String toDatabaseName(String src) {
 		String rtn = "";
+		if(src.toUpperCase().equals(src)) {
+			return src.toLowerCase();
+		}
+		Character ch = new Character(src.charAt(0));
+		boolean prevIsUpper = false;
 		for (int i = 0; i < src.length(); i++) {
-			Character ch = new Character(src.charAt(i));
-			if (Character.isUpperCase(ch) && i != 0) {
+			ch = new Character(src.charAt(i));
+			boolean isUpper = Character.isUpperCase(ch);
+			if (isUpper && prevIsUpper == false && i != 0) {
 				rtn += "_";
 			}
 			rtn += ch;
+			prevIsUpper = isUpper;
 		}
 		rtn = rtn.toLowerCase();
 		rtn = rtn.trim();

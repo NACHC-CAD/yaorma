@@ -161,6 +161,8 @@ public class DvoGenerator extends OrmCodeGenerator {
 				writeln("private Date " + javaName + ";");
 			} else if("int".equalsIgnoreCase(dataType)) {
 				writeln("private Integer " + javaName + ";");
+			} else if("mediumtext".equalsIgnoreCase(dataType)) {
+				writeln("private Long " + javaName + ";");
 			}
 			else {
 				writeln("private String " + javaName + ";");
@@ -211,6 +213,8 @@ public class DvoGenerator extends OrmCodeGenerator {
 				writeln("public void set" + javaNameProper + "(Date val) {");
 			} else if("int".equalsIgnoreCase(columnNames.get(i)[1])) {
 				writeln("public void set" + javaNameProper + "(Integer val) {");
+			} else if("mediumtext".equalsIgnoreCase(columnNames.get(i)[1])) {
+				writeln("public void set" + javaNameProper + "(Long val) {");
 			}
 			else {
 				writeln("public void set" + javaNameProper + "(String val) {");
@@ -224,6 +228,8 @@ public class DvoGenerator extends OrmCodeGenerator {
 				writeln("public Date get" + javaNameProper + "() {");
 			} else if("int".equalsIgnoreCase(columnNames.get(i)[1])) {
 				writeln("public Integer get" + javaNameProper + "() {");
+			} else if("mediumtext".equalsIgnoreCase(columnNames.get(i)[1])) {
+				writeln("public Long get" + javaNameProper + "() {");
 			}
 			else {
 				writeln("public String get" + javaNameProper + "() {");

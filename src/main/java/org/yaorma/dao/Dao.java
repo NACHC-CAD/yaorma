@@ -15,6 +15,9 @@ import org.yaorma.dvo.DvoUtil;
 import org.yaorma.util.string.DbToJavaNamingConverter;
 import org.yaorma.util.time.TimeUtil;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Dao {
 
 	// ------------------------------------------------------------------------
@@ -39,6 +42,16 @@ public class Dao {
 		return insertUsingLiteral(dvo, conn);
 	}
 
+	// TODO: (JEG) rewrite this to use prepared statement
+	public static <T extends Dvo> void insert(List<T> list, Connection conn) {
+		int cnt = 0;
+		for(Dvo dvo : list) {
+			cnt++;
+			log.info("Doing insert " + cnt + " of " + list.size());
+			insert(dvo, conn);
+		}
+	}
+	
 	public static int insert(Dvo dvo, Connection conn) {
 		try {
 			String sqlString = getInsertSqlString(dvo);
@@ -191,6 +204,11 @@ public class Dao {
 				Method method = getIntSetterForName(dvo, javaName);
 				Object[] args = { value };
 				method.invoke(dvo, args);
+			} else if (type == Types.BIGINT) {
+				Long value = rs.getLong(colName);
+				Method method = getLongSetterForName(dvo, javaName);
+				Object[] args = { value };
+				method.invoke(dvo, args);
 			} else {
 				String value = rs.getString(colName);
 				Method method = getStringSetterForName(dvo, javaName);
@@ -242,6 +260,13 @@ public class Dao {
 	public static Method getIntSetterForName(Dvo dvo, String javaName) throws Exception {
 		String methodName = "set" + DbToJavaNamingConverter.toProper(javaName);
 		Class[] sig = { Integer.class };
+		Method method = dvo.getClass().getMethod(methodName, sig);
+		return method;
+	}
+
+	public static Method getLongSetterForName(Dvo dvo, String javaName) throws Exception {
+		String methodName = "set" + DbToJavaNamingConverter.toProper(javaName);
+		Class[] sig = { Long.class };
 		Method method = dvo.getClass().getMethod(methodName, sig);
 		return method;
 	}

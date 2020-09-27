@@ -169,8 +169,15 @@ public class Dao {
 	}
 
 	public static <T extends Dvo> List<T> findList(T dvo, String key, String val, Connection conn) {
+		return findList(dvo, key, val, null, conn);
+	}
+
+	public static <T extends Dvo> List<T> findList(T dvo, String key, String val, String orderBy, Connection conn) {
 		String sqlString = "";
 		sqlString += "select * from " + dvo.getSchemaName() + "." + dvo.getTableName() + " where " + key + " = ?";
+		if(orderBy != null) {
+			sqlString += " order by " + orderBy;
+		}
 		return findListBySql(dvo, sqlString, val, conn);
 	}
 	

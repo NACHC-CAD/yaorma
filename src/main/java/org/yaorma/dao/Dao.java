@@ -168,7 +168,13 @@ public class Dao {
 		Database.update(sqlString, params, conn);
 	}
 
-	public static <T extends Dvo> List<T> findList(T dvo, String sqlString, String param, Connection conn) {
+	public static <T extends Dvo> List<T> findList(T dvo, String key, String val, Connection conn) {
+		String sqlString = "";
+		sqlString += "select * from " + dvo.getSchemaName() + "." + dvo.getTableName() + " where " + key + " = ?";
+		return findListBySql(dvo, sqlString, val, conn);
+	}
+	
+	public static <T extends Dvo> List<T> findListBySql(T dvo, String sqlString, String param, Connection conn) {
 		try {
 			ArrayList<T> rtn = new ArrayList<T>();
 			ResultSet rs = null;

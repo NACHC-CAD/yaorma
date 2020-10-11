@@ -45,13 +45,13 @@ public class Dao {
 	// TODO: (JEG) rewrite this to use prepared statement
 	public static <T extends Dvo> void insert(List<T> list, Connection conn) {
 		int cnt = 0;
-		for(Dvo dvo : list) {
+		for (Dvo dvo : list) {
 			cnt++;
 			log.info("Doing insert " + cnt + " of " + list.size());
 			insert(dvo, conn);
 		}
 	}
-	
+
 	public static int insert(Dvo dvo, Connection conn) {
 		try {
 			String sqlString = getInsertSqlString(dvo);
@@ -136,9 +136,12 @@ public class Dao {
 			ResultSet rs = null;
 			try {
 				rs = Database.executeQuery(sqlString, vals, conn);
-				rs.next();
-				load(dvo, rs);
-				return dvo;
+				if (rs.next()) {
+					load(dvo, rs);
+					return dvo;
+				} else {
+					return null;
+				}
 			} finally {
 				Database.closeResultSet(rs);
 			}
@@ -175,12 +178,12 @@ public class Dao {
 	public static <T extends Dvo> List<T> findList(T dvo, String key, String val, String orderBy, Connection conn) {
 		String sqlString = "";
 		sqlString += "select * from " + dvo.getSchemaName() + "." + dvo.getTableName() + " where " + key + " = ?";
-		if(orderBy != null) {
+		if (orderBy != null) {
 			sqlString += " order by " + orderBy;
 		}
 		return findListBySql(dvo, sqlString, val, conn);
 	}
-	
+
 	public static <T extends Dvo> List<T> findListBySql(T dvo, String sqlString, String param, Connection conn) {
 		try {
 			ArrayList<T> rtn = new ArrayList<T>();

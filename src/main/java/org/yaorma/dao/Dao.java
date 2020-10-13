@@ -226,10 +226,21 @@ public class Dao {
 				Object[] args = { value };
 				method.invoke(dvo, args);
 			} else {
-				String value = rs.getString(colName);
-				Method method = getStringSetterForName(dvo, javaName);
-				Object[] args = { value };
-				method.invoke(dvo, args);
+				try {
+					String value = rs.getString(colName);
+					Method method = getStringSetterForName(dvo, javaName);
+					Object[] args = { value };
+					method.invoke(dvo, args);
+				} catch (NoSuchMethodException nsme) {
+					try {
+						Long value = rs.getLong(colName);
+						Method method = getLongSetterForName(dvo, javaName);
+						Object[] args = { value };
+						method.invoke(dvo, args);
+					} catch(Exception exp) {
+						throw nsme;
+					}
+				}
 			}
 		}
 	}

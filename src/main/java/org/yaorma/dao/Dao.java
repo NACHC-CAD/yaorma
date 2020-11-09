@@ -100,6 +100,33 @@ public class Dao {
 		String schemaName = dvo.getSchemaName();
 		String tableName = dvo.getTableName();
 		String[] javaNames = dvo.getJavaNames();
+		String[] dbNames = dvo.getColumnNames();
+		String sqlString = "";
+		sqlString += "insert into " + schemaName + "." + tableName;
+		sqlString += "(\n";
+		for(String dbName : dbNames) {
+			if(sqlString.endsWith("\n") == false) {
+				sqlString += ",\n";
+			}
+			sqlString += dbName;
+		}
+		sqlString += ")\n";
+		sqlString += "values (\n";
+		for (int i = 0; i < javaNames.length; i++) {
+			if (i > 0) {
+				sqlString += ", \n";
+			}
+			sqlString += "  ?";
+		}
+		sqlString += "\n";
+		sqlString += ")\n";
+		return sqlString;
+	}
+
+	public static String getDatabricksInsertSqlString(Dvo dvo) {
+		String schemaName = dvo.getSchemaName();
+		String tableName = dvo.getTableName();
+		String[] javaNames = dvo.getJavaNames();
 		String sqlString = "";
 		sqlString += "insert into " + schemaName + "." + tableName;
 		sqlString += "\n";

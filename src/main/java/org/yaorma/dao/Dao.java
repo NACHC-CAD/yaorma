@@ -211,12 +211,22 @@ public class Dao {
 		return findListBySql(dvo, sqlString, val, conn);
 	}
 
+	public static <T extends Dvo> List<T> findListBySql(T dvo, String sqlString, Connection conn) {
+		String[] params = new String[] {};
+		return findListBySql(dvo, sqlString, params, conn);
+	}
+
 	public static <T extends Dvo> List<T> findListBySql(T dvo, String sqlString, String param, Connection conn) {
+		String[] params = new String[] {param};
+		return findListBySql(dvo, sqlString, params, conn);
+	}
+
+	public static <T extends Dvo> List<T> findListBySql(T dvo, String sqlString, String[] params, Connection conn) {
 		try {
 			ArrayList<T> rtn = new ArrayList<T>();
 			ResultSet rs = null;
 			try {
-				rs = Database.executeQuery(sqlString, param, conn);
+				rs = Database.executeQuery(sqlString, params, conn);
 				while (rs.next()) {
 					T instance = (T) dvo.getClass().newInstance();
 					load(instance, rs);

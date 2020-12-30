@@ -247,7 +247,7 @@ public class Database {
 
 	public static void close(Connection conn) {
 		try {
-			if(conn != null) {
+			if(conn != null && conn.isClosed() == false) {
 				conn.close();
 			}
 		} catch (Exception exp) {

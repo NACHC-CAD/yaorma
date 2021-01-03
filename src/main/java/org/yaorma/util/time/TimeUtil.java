@@ -3,6 +3,7 @@ package org.yaorma.util.time;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class TimeUtil {
 
@@ -86,6 +87,14 @@ public class TimeUtil {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd 'at' HH:mm:ss z");
 		String rtn = format.format(date);
 		return rtn;
+	}
+	
+	public static void sleep(int seconds) {
+		try {
+			TimeUnit.SECONDS.sleep(1);
+		} catch(Exception exp) {
+			throw new RuntimeException(exp);
+		}
 	}
 	
 }

@@ -1,5 +1,7 @@
 package org.yaorma.util.time;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -41,6 +43,20 @@ public class Timer {
 	
 	public long getStop() {
 		return this.stop;
+	}
+	
+	public String getStartAsString() {
+		return getAsString(this.start);
+	}
+	
+	public String getStopAsString() {
+		return getAsString(this.stop);
+	}
+	
+	public static String getAsString(long time) {
+		DateFormat df = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss");
+		String rtn = df.format(new Date(time));
+		return rtn;
 	}
 	
 }

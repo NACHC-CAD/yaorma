@@ -15,9 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.jdbc.ScriptRunner;
 import org.yaorma.util.string.DbToJavaNamingConverter;
@@ -51,6 +49,8 @@ public class Database {
 	public static Data query(String sqlString, List<String> params, Connection conn) {
 		Data rtn = new Data();
 		ResultSet rs = null;
+		rtn = new Data();
+		rs = null;
 		try {
 			rs = executeQuery(sqlString, params, conn);
 			List<String> colNames = getColumnNames(rs);
@@ -102,18 +102,18 @@ public class Database {
 				st = conn.prepareStatement(sqlString);
 				for (int i = 0; i < params.size(); i++) {
 					Object obj = params.get(i);
-					if(obj == null) {
-						st.setString((i+1), null);
-					} else if(obj instanceof Date) {
+					if (obj == null) {
+						st.setString((i + 1), null);
+					} else if (obj instanceof Date) {
 						Date date = (Date) obj;
 						java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-						st.setDate((i+1), sqlDate);
+						st.setDate((i + 1), sqlDate);
 					} else if (obj instanceof Integer) {
-						st.setInt((i+1), (Integer) obj);
+						st.setInt((i + 1), (Integer) obj);
 					} else if (obj instanceof Double) {
-						st.setDouble((i+1), (Double) obj);
+						st.setDouble((i + 1), (Double) obj);
 					} else if (obj instanceof Long) {
-						st.setLong((i+1), (Long) obj);
+						st.setLong((i + 1), (Long) obj);
 					} else {
 						st.setString(i + 1, params.get(i) + "");
 					}
@@ -197,7 +197,6 @@ public class Database {
 		return executeQuery(sqlString, list, conn);
 	}
 
-	
 	public static ResultSet executeQuery(String sqlString, List<String> params, Connection conn) {
 		try {
 			PreparedStatement st = conn.prepareStatement(sqlString);
@@ -247,7 +246,7 @@ public class Database {
 
 	public static void close(Connection conn) {
 		try {
-			if(conn != null && conn.isClosed() == false) {
+			if (conn != null && conn.isClosed() == false) {
 				conn.close();
 			}
 		} catch (Exception exp) {
@@ -284,7 +283,7 @@ public class Database {
 		try {
 			FileInputStream fis = new FileInputStream(file);
 			executeSqlScript(fis, conn);
-		} catch(Exception exp) {
+		} catch (Exception exp) {
 			throw new RuntimeException(exp);
 		}
 	}
@@ -293,7 +292,7 @@ public class Database {
 		InputStream in = new ByteArrayInputStream(str.getBytes());
 		executeSqlScript(in, conn);
 	}
-	
+
 	public static void executeSqlScript(InputStream in, Connection conn) {
 		Reader reader = null;
 		try {

@@ -17,6 +17,8 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import javax.sql.DataSource;
+
 import org.apache.ibatis.jdbc.ScriptRunner;
 import org.yaorma.util.string.DbToJavaNamingConverter;
 
@@ -239,6 +241,14 @@ public class Database {
 				rtn.add(str);
 			}
 			return rtn;
+		} catch (Exception exp) {
+			throw new RuntimeException(exp);
+		}
+	}
+
+	public static Connection getConnection(DataSource ds) {
+		try {
+			return ds.getConnection();
 		} catch (Exception exp) {
 			throw new RuntimeException(exp);
 		}

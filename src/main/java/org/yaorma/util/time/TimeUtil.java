@@ -73,6 +73,13 @@ public class TimeUtil {
 		return rtn;
 	}
 
+	public static String getDateAsYyyyMmDd(Date date, char separator) {
+		String formatString = "yyyy" + separator + "MM" + separator + "dd";
+		SimpleDateFormat format = new SimpleDateFormat(formatString);
+		String rtn = format.format(date);
+		return rtn;
+	}
+
 	//
 	// get time as a string from a time stamp long
 	//

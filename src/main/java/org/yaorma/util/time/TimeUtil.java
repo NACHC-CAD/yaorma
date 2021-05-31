@@ -43,7 +43,7 @@ public class TimeUtil {
 	
 	public static Date getDateForYyyy_Mm_Dd(String str) {
 		try {
-			SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			Date rtn = format.parse(str);
 			return rtn;
 		} catch(Exception exp) {

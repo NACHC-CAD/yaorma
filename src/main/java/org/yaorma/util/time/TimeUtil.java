@@ -98,7 +98,7 @@ public class TimeUtil {
 	
 	public static void sleep(int seconds) {
 		try {
-			TimeUnit.SECONDS.sleep(1);
+			TimeUnit.SECONDS.sleep(seconds);
 		} catch(Exception exp) {
 			throw new RuntimeException(exp);
 		}

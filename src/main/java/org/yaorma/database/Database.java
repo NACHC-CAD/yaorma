@@ -1,9 +1,11 @@
 package org.yaorma.database;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -19,9 +21,14 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
 import org.apache.ibatis.jdbc.ScriptRunner;
 import org.yaorma.util.string.DbToJavaNamingConverter;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Database {
 
 	// ------------------------------------------------------------------------
@@ -194,6 +201,10 @@ public class Database {
 		return executeQuery(sqlString, params, conn);
 	}
 
+	public static ResultSet executeQuery(String sqlString, Connection conn) {
+		return executeQuery(sqlString, new String[] {}, conn);
+	}
+
 	public static ResultSet executeQuery(String sqlString, String[] params, Connection conn) {
 		List<String> list = Arrays.asList(params);
 		return executeQuery(sqlString, list, conn);
@@ -320,6 +331,41 @@ public class Database {
 				} catch (Exception exp) {
 					throw new RuntimeException(exp);
 				}
+			}
+		}
+	}
+
+	public static void exportResultsAsCsv(String sqlString, File outFile, Connection conn) {
+		try {
+			doWriteToCsv(sqlString, outFile, conn);
+		} catch (Exception exp) {
+			throw new RuntimeException(exp);
+		}
+	}
+
+	private static void doWriteToCsv(String sqlString, File outFile, Connection conn) throws Exception {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			log.info("SQL STRING:\n" + sqlString);
+			ps = conn.prepareStatement(sqlString);
+			rs = ps.executeQuery();
+			File dir = outFile.getParentFile();
+			if (dir != null) {
+				dir.mkdirs();
+			}
+			BufferedWriter writer = new BufferedWriter(new FileWriter(outFile));
+			CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT.withHeader(rs));
+			csvPrinter.printRecords(rs);
+			csvPrinter.close();
+		} catch (Throwable exp) {
+			throw new RuntimeException(exp);
+		} finally {
+			if (rs != null) {
+				rs.close();
+			}
+			if (ps != null) {
+				ps.close();
 			}
 		}
 	}

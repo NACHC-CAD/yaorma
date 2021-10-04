@@ -370,4 +370,14 @@ public class Database {
 		}
 	}
 
+	public static void closeConnection(Connection conn) {
+		try {
+			if (conn != null) {
+				conn.close();
+			}
+		} catch (Exception exp) {
+			throw new RuntimeException(exp);
+		}
+	}
+
 }

@@ -74,7 +74,7 @@ public class DbToJavaNamingConverter {
 		boolean prevIsUpper = false;
 		for (int i = 0; i < src.length(); i++) {
 			ch = new Character(src.charAt(i));
-			boolean isUpper = Character.isUpperCase(ch);
+			boolean isUpper = Character.isUpperCase(ch) || Character.isDigit(ch);
 			if (isUpper && prevIsUpper == false && i != 0) {
 				rtn += "_";
 			}

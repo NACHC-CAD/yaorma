@@ -96,6 +96,13 @@ public class TimeUtilIntegrationTest {
 	}
 
 	@Test
+	public void shouldGetTimeAsLongFromString() {
+		long out = TimeUtil.getTime("2021-10-04");
+		log.info("Date as long: " + out);
+		assertTrue(1633320000000L == out);
+	}
+
+	@Test
 	public void shouldGetTimeStringFromLong() {
 		String str = TimeUtil.getTimeString(1633320000000L);
 		log.info("Timestamp String" + str);

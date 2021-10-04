@@ -104,6 +104,11 @@ public class TimeUtil {
 		return date.getTime();
 	}
 	
+	public static long getTime(String str) {
+		Date date = getDateForYyyy_Mm_Dd(str);
+		return date.getTime();
+	}
+	
 	public static String getTimeString(long timeStamp) {
 		Date date = new Date(timeStamp);
 		SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd 'at' HH:mm:ss z");

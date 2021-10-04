@@ -5,6 +5,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+
+/***
+ * 
+ * Utility functions to handle common tasks associated with time/date.  
+ *
+ */
 public class TimeUtil {
 
 	//
@@ -51,6 +57,11 @@ public class TimeUtil {
 		}
 	}
 
+	/***
+	 * 
+	 * Converts 2021-10-04 formatted date to 20211004 formatted date.  
+	 * 
+	 */
 	public static String getDateAsYyyyMmDdFromYyyy_Mm_Dd(String str) {
 		Date date = getDateForYyyy_Mm_Dd(str);
 		String rtn = getDateAsYyyyMmDd(date);
@@ -87,6 +98,10 @@ public class TimeUtil {
 	public static Date getTime(long timeStamp) {
 		Date date = new Date(timeStamp);
 		return date;
+	}
+	
+	public static long getTime(Date date) {
+		return date.getTime();
 	}
 	
 	public static String getTimeString(long timeStamp) {

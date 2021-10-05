@@ -17,11 +17,16 @@ public class DatabaseIntegrationTest {
 		Connection conn = MsAccessConnectionUtil.getNorthWind();
 		try {
 			List<String> tableNames = MsAccessDatabaseUtil.getTableNames(conn);
+			log.info("Got " + tableNames.size() + " tables");
+			for(String tableName : tableNames) {
+				log.info("\t" + tableName);
+			}
 		} finally {
 			if (conn != null) {
 				Database.close(conn);
 			}
 		}
+		log.info("Done.");
 	}
 
 }

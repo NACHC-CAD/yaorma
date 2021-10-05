@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.yaorma.database.Database;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -34,6 +36,7 @@ public class MsAccessDatabaseUtil {
 			sqlString += "order by MSysObjects.Name \n";
 			ps = conn.prepareStatement(sqlString);
 			rs = ps.executeQuery();
+			List<String> colNames = Database.getColumnNames(rs);
 			log.info("Got result set");
 			while (rs.next()) {
 				String tableName = rs.getString("table_name");

@@ -9,6 +9,12 @@ import org.yaorma.database.Database;
 
 public class GenerateOrmForSchema {
 
+	/***
+	 * 
+	 * This method can be used for MySql. The method that takes the Data object
+	 * should be used for other databases.
+	 * 
+	 */
 	public static void execute(Connection conn, String schemaName, String packageName, File destDir) throws Exception {
 		// generate all dvo classes for schema
 		String sqlString = "";
@@ -19,6 +25,19 @@ public class GenerateOrmForSchema {
 		for (int i = 0; i < data.size(); i++) {
 			String tableName = data.get(i).get("tableName");
 			DvoGenerator dvo = new DvoGenerator(tableName, schemaName, conn);
+			dvo.createDvo(destDir, packageName);
+		}
+	}
+
+	/***
+	 * 
+	 * Method to generated data access objects for the given schema.  
+	 * 
+	 */
+	public static void execute(Connection conn, Data data, String dataColName, String schemaColName, String packageName, File destDir) throws Exception {
+		for (int i = 0; i < data.size(); i++) {
+			String tableName = data.get(i).get(dataColName);
+			DvoGenerator dvo = new DvoGenerator(tableName, schemaColName, conn);
 			dvo.createDvo(destDir, packageName);
 		}
 	}

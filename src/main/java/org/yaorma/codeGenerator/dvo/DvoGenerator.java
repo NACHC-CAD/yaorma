@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.util.HashMap;
 
 import org.yaorma.codeGenerator.OrmCodeGenerator;
+import org.yaorma.codeGenerator.impl.def.OrmCodeGeneratorImpl;
 import org.yaorma.util.string.DbToJavaNamingConverter;
 
 import lombok.extern.slf4j.Slf4j;
@@ -14,9 +15,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class DvoGenerator extends OrmCodeGenerator {
 
-	public DvoGenerator(String tableName, String schemaName, Connection conn)
-			throws Exception {
-		super(tableName, schemaName, conn);
+	public DvoGenerator(String tableName, String schemaName, Connection conn, OrmCodeGeneratorImpl gen) throws Exception {
+		super(tableName, schemaName, conn, gen);
 	}
 
 	public void createDvo(File destDir, String packageName) throws Exception {
@@ -29,6 +29,7 @@ public class DvoGenerator extends OrmCodeGenerator {
 		File file = new File(destDir, fileName);
 
 		log.info("Writing to file: " + file.getCanonicalPath());
+		file.getParentFile().mkdirs();
 		this.writer = new BufferedWriter(new FileWriter(file));
 		writeln("//");
 		writeln("// Data Value Object (DVO) for " + tableName);
@@ -165,7 +166,11 @@ public class DvoGenerator extends OrmCodeGenerator {
 				writeln("private Long " + javaName + ";");
 			}
 			else {
-				writeln("private String " + javaName + ";");
+				if(isKeyWord(javaName)) {
+					writeln("private String " + javaName + "Val;");
+				} else {
+					writeln("private String " + javaName + ";");
+				}
 			}
 			writeln("");
 		}
@@ -220,7 +225,11 @@ public class DvoGenerator extends OrmCodeGenerator {
 				writeln("public void set" + javaNameProper + "(String val) {");
 			}
 			incTab();
-			writeln("this." + javaName + " = val;");
+			if(isKeyWord(javaName)) {
+				writeln("this." + javaName + "Val = val;");
+			} else {
+				writeln("this." + javaName + " = val;");
+			}
 			decTab();
 			writeln("}");
 			writeln("");
@@ -235,7 +244,11 @@ public class DvoGenerator extends OrmCodeGenerator {
 				writeln("public String get" + javaNameProper + "() {");
 			}
 			incTab();
-			writeln("return this." + javaName + ";");
+			if(isKeyWord(javaName)) {
+				writeln("return this." + javaName + "Val;");
+			} else {
+				writeln("return this." + javaName + ";");
+			}
 			decTab();
 			writeln("}");
 			writeln("");
@@ -256,7 +269,11 @@ public class DvoGenerator extends OrmCodeGenerator {
 			writeln("public void set" + varNameProper + "(" + dvoName
 					+ " dvo) {");
 			incTab();
-			writeln("this." + varName + " = dvo;");
+			if(isKeyWord(varName)) {
+				writeln("this." + varName + "Val = dvo;");
+			} else {
+				writeln("this." + varName + " = dvo;");
+			}
 			decTab();
 			writeln("}");
 			writeln("");
@@ -391,5 +408,12 @@ public class DvoGenerator extends OrmCodeGenerator {
 		writeln("}");
 		decTab();
 		writeln("}");
+	}
+	
+	private boolean isKeyWord(String str) {
+		if("default".equalsIgnoreCase(str)) {
+			return true;
+		} 
+		return false;
 	}
 }

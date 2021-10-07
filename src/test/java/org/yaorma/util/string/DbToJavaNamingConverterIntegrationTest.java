@@ -11,15 +11,17 @@ public class DbToJavaNamingConverterIntegrationTest {
 
 	private static final String DB01 = "database_style_string_01";
 	
-	private static final String DB02 = "DATABASE_STYLE_STRING_01";
+	private static final String DB02 = "DATABASE     	STYLE STRING 02";
+	
+	private static final String DB02_CHECK = "database_style_string_02";
 	
 	private static final String JP01 = "DatabaseStyleString01";
 	
-	private static final String JP02 = "DatabaseStyleString01";
+	private static final String JP02 = "DatabaseStyleString02";
 	
 	private static final String JC01 = "databaseStyleString01";
 	
-	private static final String JC02 = "databaseStyleString01";
+	private static final String JC02 = "databaseStyleString02";
 	
 	@Test
 	public void shouldGetJavaProper() {
@@ -49,7 +51,7 @@ public class DbToJavaNamingConverterIntegrationTest {
 		log.info(out[0]);
 		log.info(out[1]);
 		assertTrue(JP01.equals(out[0]));
-		assertTrue(JP01.equals(out[1]));
+		assertTrue(JP02.equals(out[1]));
 	}
 	
 	@Test
@@ -63,10 +65,11 @@ public class DbToJavaNamingConverterIntegrationTest {
 	public void shouldGetListOfJavaCommon() {
 		String[] in = {DB01, DB02};
 		String[] out = DbToJavaNamingConverter.toJavaName(in);
+		log.info("Common names:");
 		log.info(out[0]);
 		log.info(out[1]);
 		assertTrue(JC01.equals(out[0]));
-		assertTrue(JC01.equals(out[1]));
+		assertTrue(JC02.equals(out[1]));
 	}
 	
 	@Test
@@ -84,13 +87,13 @@ public class DbToJavaNamingConverterIntegrationTest {
 		assertTrue(DB01.equals(str));
 		str = DbToJavaNamingConverter.toDatabaseName(JP02);
 		log.info(str);
-		assertTrue(DB01.equals(str));
+		assertTrue(DB02_CHECK.equals(str));
 		str = DbToJavaNamingConverter.toDatabaseName(JC01);
 		log.info(str);
 		assertTrue(DB01.equals(str));
 		str = DbToJavaNamingConverter.toDatabaseName(JC02);
 		log.info(str);
-		assertTrue(DB01.equals(str));
+		assertTrue(DB02_CHECK.equals(str));
 	}
 	
 }

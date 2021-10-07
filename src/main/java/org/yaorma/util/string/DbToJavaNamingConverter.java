@@ -46,9 +46,28 @@ public class DbToJavaNamingConverter {
 			str = str.replaceFirst(ch.toString(), upperCh.toString());
 			rtn += str;
 		}
+		rtn = fixWhiteSpaces(rtn);
 		return rtn;
 	}
 
+	private static String fixWhiteSpaces(String src) {
+		if(src == null) {
+			return null;
+		} else {
+			src = src.replaceAll("\\s{2,}", " ").trim();
+			StringTokenizer toke = new StringTokenizer(src, " ");
+			String rtn = "";
+			while (toke.hasMoreTokens()) {
+				String str = toke.nextToken();
+				Character ch = new Character(str.charAt(0));
+				Character upperCh = Character.toUpperCase(ch);
+				str = str.replaceFirst(ch.toString(), upperCh.toString());
+				rtn += str;
+			}
+			return rtn;
+		}
+	}
+	
 	public static String[] toJavaName(String[] dbNames) {
 		String[] rtn = new String[dbNames.length];
 		for(int i=0;i<dbNames.length;i++) {

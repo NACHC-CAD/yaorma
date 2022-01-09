@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.util.List;
 
 import org.yaorma.codeGenerator.dvo.DvoGenerator;
+import org.yaorma.codeGenerator.impl.MySqlOrmCodeGenerator;
 import org.yaorma.codeGenerator.impl.def.OrmCodeGeneratorImpl;
 import org.yaorma.database.Data;
 import org.yaorma.database.Database;
@@ -17,6 +18,11 @@ public class GenerateOrmForSchema {
 	 * should be used for other databases.
 	 * 
 	 */
+	public static void execute(Connection conn, String schemaName, String packageName, File destDir) throws Exception {
+		execute(conn, schemaName, packageName, destDir, new MySqlOrmCodeGenerator());
+	}
+
+	
 	public static void execute(Connection conn, String schemaName, String packageName, File destDir, OrmCodeGeneratorImpl gen) throws Exception {
 		try {
 			// generate all dvo classes for schema

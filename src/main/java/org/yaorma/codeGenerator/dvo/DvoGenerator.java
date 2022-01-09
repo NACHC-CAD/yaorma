@@ -398,8 +398,7 @@ public class DvoGenerator extends OrmCodeGenerator {
 			if(cnt < this.primaryKeyColumnNames.size()) {
 				writeln("get" + DbToJavaNamingConverter.toJavaProperName(str) + "()  == null ? null: get" + DbToJavaNamingConverter.toJavaProperName(str) + "() + \"\",");
 			} else {
-				writeln("get" + DbToJavaNamingConverter.toJavaProperName(str) + "()");
-				writeln("get" + DbToJavaNamingConverter.toJavaProperName(str) + "()  == null ? null: get" + DbToJavaNamingConverter.toJavaProperName(str) + "()");
+				writeln("get" + DbToJavaNamingConverter.toJavaProperName(str) + "()  == null ? null: get" + DbToJavaNamingConverter.toJavaProperName(str) + "() + \"\"");
 			}
 		}
 		decTab();

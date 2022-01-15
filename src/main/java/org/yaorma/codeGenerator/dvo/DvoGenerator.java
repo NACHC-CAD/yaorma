@@ -4,7 +4,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.sql.Connection;
-import java.util.HashMap;
 
 import org.yaorma.codeGenerator.OrmCodeGenerator;
 import org.yaorma.codeGenerator.impl.def.OrmCodeGeneratorImpl;
@@ -150,23 +149,22 @@ public class DvoGenerator extends OrmCodeGenerator {
 		writeln("// member variables");
 		writeln("//");
 		writeln("");
-		
+
 		writeln("private HashMap<String, String> descriptions = new HashMap<String, String>();");
 		writeln("");
-		
+
 		for (int i = 0; i < columnNames.size(); i++) {
 			String columnName = columnNames.get(i)[0];
 			String dataType = columnNames.get(i)[1];
 			String javaName = DbToJavaNamingConverter.toJavaName(columnName);
-			if("datetime".equalsIgnoreCase(dataType)) {
+			if ("datetime".equalsIgnoreCase(dataType) || "date".equalsIgnoreCase(dataType)) {
 				writeln("private Date " + javaName + ";");
-			} else if("int".equalsIgnoreCase(dataType)) {
+			} else if ("int".equalsIgnoreCase(dataType)) {
 				writeln("private Integer " + javaName + ";");
-			} else if("mediumtext".equalsIgnoreCase(dataType)) {
+			} else if ("mediumtext".equalsIgnoreCase(dataType)) {
 				writeln("private Long " + javaName + ";");
-			}
-			else {
-				if(isKeyWord(javaName)) {
+			} else {
+				if (isKeyWord(javaName)) {
 					writeln("private String " + javaName + "Val;");
 				} else {
 					writeln("private String " + javaName + ";");
@@ -214,18 +212,17 @@ public class DvoGenerator extends OrmCodeGenerator {
 			String javaNameProper = DbToJavaNamingConverter.toJavaProperName(columnName);
 			writeln("// " + javaName);
 			writeln("");
-			if("datetime".equals(columnNames.get(i)[1])) {
+			if ("datetime".equals(columnNames.get(i)[1]) || "date".equals(columnNames.get(i)[1])) {
 				writeln("public void set" + javaNameProper + "(Date val) {");
-			} else if("int".equalsIgnoreCase(columnNames.get(i)[1])) {
+			} else if ("int".equalsIgnoreCase(columnNames.get(i)[1])) {
 				writeln("public void set" + javaNameProper + "(Integer val) {");
-			} else if("mediumtext".equalsIgnoreCase(columnNames.get(i)[1])) {
+			} else if ("mediumtext".equalsIgnoreCase(columnNames.get(i)[1])) {
 				writeln("public void set" + javaNameProper + "(Long val) {");
-			}
-			else {
+			} else {
 				writeln("public void set" + javaNameProper + "(String val) {");
 			}
 			incTab();
-			if(isKeyWord(javaName)) {
+			if (isKeyWord(javaName)) {
 				writeln("this." + javaName + "Val = val;");
 			} else {
 				writeln("this." + javaName + " = val;");
@@ -233,18 +230,17 @@ public class DvoGenerator extends OrmCodeGenerator {
 			decTab();
 			writeln("}");
 			writeln("");
-			if("datetime".equals(columnNames.get(i)[1])) {
+			if ("datetime".equals(columnNames.get(i)[1]) || "date".equals(columnNames.get(i)[1])) {
 				writeln("public Date get" + javaNameProper + "() {");
-			} else if("int".equalsIgnoreCase(columnNames.get(i)[1])) {
+			} else if ("int".equalsIgnoreCase(columnNames.get(i)[1])) {
 				writeln("public Integer get" + javaNameProper + "() {");
-			} else if("mediumtext".equalsIgnoreCase(columnNames.get(i)[1])) {
+			} else if ("mediumtext".equalsIgnoreCase(columnNames.get(i)[1])) {
 				writeln("public Long get" + javaNameProper + "() {");
-			}
-			else {
+			} else {
 				writeln("public String get" + javaNameProper + "() {");
 			}
 			incTab();
-			if(isKeyWord(javaName)) {
+			if (isKeyWord(javaName)) {
 				writeln("return this." + javaName + "Val;");
 			} else {
 				writeln("return this." + javaName + ";");
@@ -269,7 +265,7 @@ public class DvoGenerator extends OrmCodeGenerator {
 			writeln("public void set" + varNameProper + "(" + dvoName
 					+ " dvo) {");
 			incTab();
-			if(isKeyWord(varName)) {
+			if (isKeyWord(varName)) {
 				writeln("this." + varName + "Val = dvo;");
 			} else {
 				writeln("this." + varName + " = dvo;");
@@ -359,21 +355,21 @@ public class DvoGenerator extends OrmCodeGenerator {
 		//
 		// description methods
 		//
-		
+
 		writeln("public void setDescriptions(HashMap<String, String> descriptions) {");
 		incTab();
 		writeln("this.descriptions = descriptions;");
 		decTab();
 		writeln("}");
 		writeln("");
-		
+
 		writeln("public HashMap<String, String> getDescriptions() {");
 		incTab();
 		writeln("return this.descriptions;");
 		decTab();
 		writeln("}");
 		writeln("");
-		
+
 		writeln("public void addDescription(String javaName, String value) {");
 		incTab();
 		writeln("this.descriptions.put(javaName, value);");
@@ -387,15 +383,15 @@ public class DvoGenerator extends OrmCodeGenerator {
 		decTab();
 		writeln("}");
 		writeln("");
-		
+
 		writeln("public String[] getPrimaryKeyValues() {");
 		incTab();
 		writeln("String[] rtn = new String[] {");
 		incTab();
 		int cnt = 0;
-		for(String str : this.primaryKeyColumnNames) {
+		for (String str : this.primaryKeyColumnNames) {
 			cnt++;
-			if(cnt < this.primaryKeyColumnNames.size()) {
+			if (cnt < this.primaryKeyColumnNames.size()) {
 				writeln("get" + DbToJavaNamingConverter.toJavaProperName(str) + "()  == null ? null: get" + DbToJavaNamingConverter.toJavaProperName(str) + "() + \"\",");
 			} else {
 				writeln("get" + DbToJavaNamingConverter.toJavaProperName(str) + "()  == null ? null: get" + DbToJavaNamingConverter.toJavaProperName(str) + "() + \"\"");
@@ -409,11 +405,11 @@ public class DvoGenerator extends OrmCodeGenerator {
 		decTab();
 		writeln("}");
 	}
-	
+
 	private boolean isKeyWord(String str) {
-		if("default".equalsIgnoreCase(str)) {
+		if ("default".equalsIgnoreCase(str)) {
 			return true;
-		} 
+		}
 		return false;
 	}
 }

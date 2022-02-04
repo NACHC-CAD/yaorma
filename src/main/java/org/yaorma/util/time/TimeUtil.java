@@ -73,9 +73,17 @@ public class TimeUtil {
 	//
 	
 	public static String format(Date date, String formatString) {
-		SimpleDateFormat format = new SimpleDateFormat(formatString);
-		String rtn = format.format(date);
-		return rtn;
+		if(date == null) {
+			return null;
+		} else {
+			SimpleDateFormat format = new SimpleDateFormat(formatString);
+			String rtn = format.format(date);
+			return rtn;
+		}
+	}
+	
+	public static String format(Date date) {
+		return format(date, "yyyy-MM-dd");
 	}
 	
 	public static String getDateAsYyyyMmDd(Date date) {

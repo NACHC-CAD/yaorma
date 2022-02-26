@@ -70,7 +70,7 @@ public class Dao {
 
 	public static String getDatabricksLiteralInsertSqlString(Dvo dvo) {
 		List<Object> params = DvoUtil.getParamValues(dvo);
-		String sqlString = "insert into " + dvo.getSchemaName() + "." + dvo.getTableName() + " values (\n  ";
+		String sqlString = "insert into " + dvo.getTableName() + " values (\n  ";
 		for (int i = 0; i < params.size(); i++) {
 			if (sqlString.endsWith("values (\n  ") == false) {
 				sqlString += ",\n  ";
@@ -97,12 +97,11 @@ public class Dao {
 	}
 
 	public static String getInsertSqlString(Dvo dvo) {
-		String schemaName = dvo.getSchemaName();
 		String tableName = dvo.getTableName();
 		String[] javaNames = dvo.getJavaNames();
 		String[] dbNames = dvo.getColumnNames();
 		String sqlString = "";
-		sqlString += "insert into " + schemaName + "." + tableName;
+		sqlString += "insert into " + "." + tableName;
 		sqlString += "(\n";
 		for(String dbName : dbNames) {
 			if(sqlString.endsWith("\n") == false) {
@@ -124,11 +123,10 @@ public class Dao {
 	}
 
 	public static String getDatabricksInsertSqlString(Dvo dvo) {
-		String schemaName = dvo.getSchemaName();
 		String tableName = dvo.getTableName();
 		String[] javaNames = dvo.getJavaNames();
 		String sqlString = "";
-		sqlString += "insert into " + schemaName + "." + tableName;
+		sqlString += "insert into " + "." + tableName;
 		sqlString += "\n";
 		sqlString += "values (\n";
 		for (int i = 0; i < javaNames.length; i++) {
@@ -154,9 +152,8 @@ public class Dao {
 
 	public static <T extends Dvo> T find(T dvo, String[] keys, String[] vals, Connection conn) {
 		try {
-			String schemaName = dvo.getSchemaName();
 			String tableName = dvo.getTableName();
-			String sqlString = "select * from " + schemaName + "." + tableName + " where  1=1 \n";
+			String sqlString = "select * from " + tableName + " where  1=1 \n";
 			for (String key : keys) {
 				sqlString += " and " + key + " = ? \n";
 			}
@@ -179,7 +176,7 @@ public class Dao {
 
 	public static String getDeleteString(Dvo dvo) {
 		String[] primaryKeys = dvo.getPrimaryKeyColumnNames();
-		String sqlString = "delete from " + dvo.getSchemaName() + "." + dvo.getTableName() + " tbl where ";
+		String sqlString = "delete from " + dvo.getTableName() + " tbl where ";
 		for (int i = 0; i < primaryKeys.length; i++) {
 			if (sqlString.endsWith("where ") == false) {
 				sqlString += " and ";
@@ -204,7 +201,7 @@ public class Dao {
 
 	public static <T extends Dvo> List<T> findList(T dvo, String key, String val, String orderBy, Connection conn) {
 		String sqlString = "";
-		sqlString += "select * from " + dvo.getSchemaName() + "." + dvo.getTableName() + " where " + key + " = ?";
+		sqlString += "select * from " + dvo.getTableName() + " where " + key + " = ?";
 		if (orderBy != null) {
 			sqlString += " order by " + orderBy;
 		}

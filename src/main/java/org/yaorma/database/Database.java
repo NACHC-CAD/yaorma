@@ -81,6 +81,16 @@ public class Database {
 		return rtn;
 	}
 
+	public static String queryForFirst(String sqlString, String colName, Connection conn) {
+		Data data = query(sqlString, conn);
+		if(data.size() > 0) {
+			Row row = data.get(0);
+			String rtn = row.get(colName);
+			return rtn;
+		}
+		return null;
+	}
+	
 	// ------------------------------------------------------------------------
 	//
 	// insert methods

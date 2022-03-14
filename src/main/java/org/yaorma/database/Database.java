@@ -91,6 +91,14 @@ public class Database {
 		return null;
 	}
 	
+	public static Integer count(String tableName, Connection conn) {
+		Data data = query("select count(*) cnt from " + tableName, conn);
+		Row row = data.get(0);
+		String valString = row.get("cnt");
+		Integer rtn = Integer.parseInt(valString);
+		return rtn;
+	}
+	
 	// ------------------------------------------------------------------------
 	//
 	// insert methods

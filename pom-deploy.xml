@@ -6,9 +6,16 @@
     
     <modelVersion>4.0.0</modelVersion>
 
+	<properties>
+		<version>0.0.6</version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+
     <groupId>org.nachc.cad.tools</groupId>
     <artifactId>yaorma</artifactId>
-    <version>0.0.3-SNAPSHOT</version>
+    <version>${version}</version>
 
     <packaging>jar</packaging>
 
@@ -45,12 +52,6 @@
 	    <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
 	  </snapshotRepository>
 	</distributionManagement>
-
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-    </properties>
 
 	<!-- 
 	*
@@ -146,6 +147,17 @@
 		    <version>1.8</version>
 		</dependency>
 
+		<!-- 
+		*
+		* MS ACCESS DB DRIVER FOR TESTING
+		*
+		* -->
+
+		<dependency>
+		    <groupId>net.sf.ucanaccess</groupId>
+		    <artifactId>ucanaccess</artifactId>
+		    <version>4.0.4</version>
+		</dependency>
 	</dependencies>
 
 	<!-- 
@@ -292,7 +304,7 @@
 	            </configuration>
 	        </plugin>
 
-    		</plugins>
+    	</plugins>
 
 	</build>
     

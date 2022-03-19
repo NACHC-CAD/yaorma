@@ -28,6 +28,15 @@ public class Timer {
 		return elapsed;
 	}
 	
+	public long getTimeSinceStartInMilliseconds() {
+		return Calendar.getInstance().getTimeInMillis() - start;
+	}
+	
+	public double getTimeSinceStart() {
+		double elapsed = ((double)getElapsedInMilliseconds()) / 1000L;
+		return elapsed;
+	}
+	
 	public String getElapsedString() {
 		long totalSecs = getElapsedInMilliseconds() / 1000;
 		long hours = totalSecs / 3600;

@@ -98,10 +98,11 @@ public class Dao {
 
 	public static String getInsertSqlString(Dvo dvo) {
 		String tableName = dvo.getTableName();
+		String schemaName = dvo.getSchemaName();
 		String[] javaNames = dvo.getJavaNames();
 		String[] dbNames = dvo.getColumnNames();
 		String sqlString = "";
-		sqlString += "insert into " + "." + tableName;
+		sqlString += "insert into " + schemaName + "." + tableName;
 		sqlString += "(\n";
 		for(String dbName : dbNames) {
 			if(sqlString.endsWith("\n") == false) {

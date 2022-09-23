@@ -1,72 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    
-    <modelVersion>4.0.0</modelVersion>
+
+	<modelVersion>4.0.0</modelVersion>
 
 	<properties>
-		<version>0.0.14</version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-    </properties>
+		<version>1.0.001</version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
 
-    <groupId>org.nachc.cad.tools</groupId>
-    <artifactId>yaorma</artifactId>
-    <version>${version}</version>
+	<groupId>org.nachc.cad.tools</groupId>
+	<artifactId>yaorma</artifactId>
+	<version>${version}</version>
 
-    <packaging>jar</packaging>
+	<packaging>jar</packaging>
 
-    <name>YAORMA Project</name>
+	<name>YAORMA Project</name>
 	<description>This project contains the very low level code for basic database and other (file, string, etc.) operations including tools for the generation and use of an Object Relation Model (YetanotherObjectRelationalModelArchitecture)</description>
 	<url>https://github.com/NACHC-CAD/yaorma</url>
 
 	<licenses>
-	    <license>
-	      <name>Apache License, Version 2.0</name>
-	      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-	      <distribution>repo</distribution>
-	    </license>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
 	</licenses>
-  
-    <developers>
-	    <developer>
-		    <name>John Gresh</name>
-		    <email>johngresh@curlewconsulting.com</email>
-		    <organization>NACHC</organization>
-		    <organizationUrl>https.www.nachc.org</organizationUrl>
-	    </developer>
-    </developers>
-  
+
+	<developers>
+		<developer>
+			<name>John Gresh</name>
+			<email>johngresh@curlewconsulting.com</email>
+			<organization>NACHC</organization>
+			<organizationUrl>https.www.nachc.org</organizationUrl>
+		</developer>
+	</developers>
+
 	<scm>
 		<connection>scm:git:git://github.com/NACHC-CAD/yaorma</connection>
 		<developerConnection>scm:git:ssh://github.com:NACHC-CAD/yaorma.git</developerConnection>
 		<url>http://github.com/NACHC-CAD/yaorma/tree/master</url>
-	</scm>  
-  
+	</scm>
+
 	<distributionManagement>
-	  <snapshotRepository>
-	    <id>ossrh</id>
-	    <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
-	  </snapshotRepository>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
 	</distributionManagement>
 
-	<!-- 
-	*
-	* dependencies
-	*
-	-->
+	<!-- * * dependencies * -->
 
 	<dependencies>
 
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.8</version>
-            <scope>provided</scope>
-        </dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.8</version>
+			<scope>provided</scope>
+		</dependency>
 
 		<!-- JUNIT https://mvnrepository.com/artifact/junit/junit -->
 		<dependency>
@@ -75,7 +71,7 @@
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<!-- JUNIT-TOOLBOX https://mvnrepository.com/artifact/com.googlecode.junit-toolbox/junit-toolbox -->
 		<dependency>
 			<groupId>com.googlecode.junit-toolbox</groupId>
@@ -93,9 +89,9 @@
 
 		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
 		<dependency>
-		    <groupId>org.slf4j</groupId>
-		    <artifactId>slf4j-api</artifactId>
-		    <version>1.7.30</version>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.30</version>
 		</dependency>
 
 		<!-- JSTL https://mvnrepository.com/artifact/jstl/jstl -->
@@ -104,7 +100,7 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
-	
+
 		<!-- HTTPCLIENT https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
@@ -112,210 +108,184 @@
 			<version>4.5.6</version>
 		</dependency>
 
-        <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>3.1.0</version>
-            <scope>provided</scope>
-        </dependency>
-        
-        <!-- https://mvnrepository.com/artifact/javax.servlet/jsp-api -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jsp-api</artifactId>
-            <version>2.0</version>
-            <scope>provided</scope>
-        </dependency>
-        
+		<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/javax.servlet/jsp-api -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>2.0</version>
+			<scope>provided</scope>
+		</dependency>
+
 		<!-- IBATIS SQL Script runner from Apache (https://mvnrepository.com/artifact/org.apache.ibatis/ibatis-core) -->
 		<dependency>
-		    <groupId>org.apache.ibatis</groupId>
-		    <artifactId>ibatis-core</artifactId>
-		    <version>3.0</version>
+			<groupId>org.apache.ibatis</groupId>
+			<artifactId>ibatis-core</artifactId>
+			<version>3.0</version>
 		</dependency>
 
-		<!-- 
-		*
-		* APACHE COMMONS CSV
-		*
-		* -->
+		<!-- * * APACHE COMMONS CSV * * -->
 
 		<dependency>
-		    <groupId>org.apache.commons</groupId>
-		    <artifactId>commons-csv</artifactId>
-		    <version>1.8</version>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-csv</artifactId>
+			<version>1.8</version>
 		</dependency>
 
-		<!-- 
-		*
-		* MS ACCESS DB DRIVER FOR TESTING
-		*
-		* -->
+		<!-- * * MS ACCESS DB DRIVER FOR TESTING * * -->
 
 		<dependency>
-		    <groupId>net.sf.ucanaccess</groupId>
-		    <artifactId>ucanaccess</artifactId>
-		    <version>4.0.4</version>
+			<groupId>net.sf.ucanaccess</groupId>
+			<artifactId>ucanaccess</artifactId>
+			<version>4.0.4</version>
 		</dependency>
 	</dependencies>
 
-	<!-- 
-	*
-	* build
-	*
-	-->
+	<!-- * * build * -->
 
 	<build>
 
 		<plugins>
-		
-			<!-- 
-			*
-			* Compile, test, and jar
-			*
-			* -->
-		
+
+			<!-- * * Compile, test, and jar * * -->
+
 			<!-- compile -->
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.7.0</version>
+				<version>3.8.0</version>
 				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
+					<release>11</release>
 				</configuration>
 			</plugin>
+
 			<!-- test -->
 			<plugin>
-				  <groupId>org.apache.maven.plugins</groupId>
-				  <artifactId>maven-surefire-plugin</artifactId>
-				  <version>3.0.0-M5</version>
-				  <configuration>
-				    <skipTests>true</skipTests>
-				  </configuration>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.0.0-M5</version>
+				<configuration>
+					<skipTests>true</skipTests>
+				</configuration>
 			</plugin>
 			<!-- jar -->
 			<plugin>
-			    <groupId>org.apache.maven.plugins</groupId>
-			    <artifactId>maven-jar-plugin</artifactId>
-			    <version>2.3.2</version>
-			    <configuration>
-			        <finalName>nachc-cad-core-${build.version}</finalName>                   
-			    </configuration>
-			</plugin>      
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<finalName>nachc-cad-core-${build.version}</finalName>
+				</configuration>
+			</plugin>
 
-			<!-- 
-			*
-			* Generate sources and java docs (required for mvn distribution) 
-			*
-			* -->
-			
+			<!-- * * Generate sources and java docs (required for mvn distribution) 
+				* * -->
+
 			<!-- source -->
 			<plugin>
-			  <groupId>org.apache.maven.plugins</groupId>
-			  <artifactId>maven-source-plugin</artifactId>
-			  <version>2.2.1</version>
-			  <executions>
-			    <execution>
-			      <id>attach-sources</id>
-			      <goals>
-			        <goal>jar-no-fork</goal>
-			      </goals>
-			    </execution>
-			  </executions>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.2.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<!-- javadoc -->
 			<plugin>
-			  <groupId>org.apache.maven.plugins</groupId>
-			  <artifactId>maven-javadoc-plugin</artifactId>
-			  <version>2.9.1</version>
-			  <executions>
-			    <execution>
-			      <id>attach-javadocs</id>
-			      <goals>
-			        <goal>jar</goal>
-			      </goals>
-			    </execution>
-			  </executions>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.9.1</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
-	
-			<!-- 
-			*
-			* MVN Distribution
-			* (see https://central.sonatype.org/publish/publish-maven/ for details)
-			*
-			* -->
-	
+
+			<!-- * * MVN Distribution * (see https://central.sonatype.org/publish/publish-maven/ 
+				for details) * * -->
+
 			<!-- staging -->
-		    <plugin>
-		      <groupId>org.sonatype.plugins</groupId>
-		      <artifactId>nexus-staging-maven-plugin</artifactId>
-		      <version>1.6.7</version>
-		      <extensions>true</extensions>
-		      <configuration>
-		        <serverId>ossrh</serverId>
-		        <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
-		        <autoReleaseAfterClose>true</autoReleaseAfterClose>
-		      </configuration>
-		    </plugin>
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<version>1.6.7</version>
+				<extensions>true</extensions>
+				<configuration>
+					<serverId>ossrh</serverId>
+					<nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+					<autoReleaseAfterClose>true</autoReleaseAfterClose>
+				</configuration>
+			</plugin>
 
 			<!-- certificate signing -->
 			<plugin>
-			  <groupId>org.apache.maven.plugins</groupId>
-			  <artifactId>maven-gpg-plugin</artifactId>
-			  <version>1.5</version>
-			  <executions>
-			    <execution>
-			      <id>sign-artifacts</id>
-			      <phase>verify</phase>
-			      <goals>
-			        <goal>sign</goal>
-			      </goals>
-			    </execution>
-			  </executions>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>1.5</version>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
-			
+
 			<plugin>
-			  <groupId>org.sonatype.plugins</groupId>
-			  <artifactId>nexus-staging-maven-plugin</artifactId>
-			  <version>1.6.7</version>
-			  <extensions>true</extensions>
-			  <configuration>
-			     <serverId>ossrh</serverId>
-			     <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
-			     <autoReleaseAfterClose>true</autoReleaseAfterClose>
-			  </configuration>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<version>1.6.7</version>
+				<extensions>true</extensions>
+				<configuration>
+					<serverId>ossrh</serverId>
+					<nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+					<autoReleaseAfterClose>true</autoReleaseAfterClose>
+				</configuration>
 			</plugin>
-    
-   			<!-- 
-			*
-			* Static code analysis
-			*
-			* -->
+
+			<!-- * * Static code analysis * * -->
 
 			<!-- tool that does static analysis for quality of code -->
-	        <plugin>
-	            <groupId>org.hjug.refactorfirst.plugin</groupId>
-	            <artifactId>refactor-first-maven-plugin</artifactId>
-	            <version>0.2.0</version>       
-	            <!-- optional -->
-	            <configuration>
-	                <showDetails>true</showDetails>
-	            </configuration>
-	        </plugin>
+			<plugin>
+				<groupId>org.hjug.refactorfirst.plugin</groupId>
+				<artifactId>refactor-first-maven-plugin</artifactId>
+				<version>0.2.0</version>
+				<!-- optional -->
+				<configuration>
+					<showDetails>true</showDetails>
+				</configuration>
+			</plugin>
 
-    	</plugins>
+		</plugins>
 
 	</build>
-    
+
 	<reporting>
-	    <plugins>
-	        <plugin>
-	            <groupId>org.hjug.refactorfirst.plugin</groupId>
-	            <artifactId>refactor-first-maven-plugin</artifactId>
-	            <version>0.1.1</version>       
-	        </plugin>
-	    </plugins>
+		<plugins>
+			<plugin>
+				<groupId>org.hjug.refactorfirst.plugin</groupId>
+				<artifactId>refactor-first-maven-plugin</artifactId>
+				<version>0.1.1</version>
+			</plugin>
+		</plugins>
 	</reporting>
 
 </project>

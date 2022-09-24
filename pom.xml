@@ -15,7 +15,7 @@
 
     <groupId>org.nachc.cad.tools</groupId>
     <artifactId>yaorma</artifactId>
-    <version>${version}</version>
+    <version>1.0.001</version>
 
     <packaging>jar</packaging>
 

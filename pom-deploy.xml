@@ -7,7 +7,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<properties>
-		<version>1.0.001</version>
+		<version>1.0.003</version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
@@ -51,9 +51,13 @@
 			<id>ossrh</id>
 			<url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
 		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>		
 	</distributionManagement>
 
-	<!-- * * dependencies * -->
+	<!-- dependencies -->
 
 	<dependencies>
 
@@ -131,7 +135,7 @@
 			<version>3.0</version>
 		</dependency>
 
-		<!-- * * APACHE COMMONS CSV * * -->
+		<!-- APACHE COMMONS CSV -->
 
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -139,7 +143,7 @@
 			<version>1.8</version>
 		</dependency>
 
-		<!-- * * MS ACCESS DB DRIVER FOR TESTING * * -->
+		<!-- MS ACCESS DB DRIVER FOR TESTING -->
 
 		<dependency>
 			<groupId>net.sf.ucanaccess</groupId>
@@ -148,13 +152,13 @@
 		</dependency>
 	</dependencies>
 
-	<!-- * * build * -->
+	<!-- build -->
 
 	<build>
 
 		<plugins>
 
-			<!-- * * Compile, test, and jar * * -->
+			<!-- Compile, test, and jar -->
 
 			<!-- compile -->
 			<plugin>
@@ -175,6 +179,7 @@
 					<skipTests>true</skipTests>
 				</configuration>
 			</plugin>
+			
 			<!-- jar -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -185,8 +190,7 @@
 				</configuration>
 			</plugin>
 
-			<!-- * * Generate sources and java docs (required for mvn distribution) 
-				* * -->
+			<!-- Generate sources and java docs (required for mvn distribution) -->
 
 			<!-- source -->
 			<plugin>
@@ -202,6 +206,7 @@
 					</execution>
 				</executions>
 			</plugin>
+			
 			<!-- javadoc -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -217,8 +222,7 @@
 				</executions>
 			</plugin>
 
-			<!-- * * MVN Distribution * (see https://central.sonatype.org/publish/publish-maven/ 
-				for details) * * -->
+			<!-- MVN Distribution (see https://central.sonatype.org/publish/publish-maven/ for details) -->
 
 			<!-- staging -->
 			<plugin>
@@ -261,7 +265,19 @@
 				</configuration>
 			</plugin>
 
-			<!-- * * Static code analysis * * -->
+			<plugin>
+			  <groupId>org.apache.maven.plugins</groupId>
+			  <artifactId>maven-release-plugin</artifactId>
+			  <version>2.5.3</version>
+			  <configuration>
+			    <autoVersionSubmodules>true</autoVersionSubmodules>
+			    <useReleaseProfile>false</useReleaseProfile>
+			    <releaseProfiles>release</releaseProfiles>
+			    <goals>deploy</goals>
+			  </configuration>
+			</plugin>
+
+			<!-- Static code analysis -->
 
 			<!-- tool that does static analysis for quality of code -->
 			<plugin>

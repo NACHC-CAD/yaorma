@@ -7,10 +7,8 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<properties>
-		<version>1.0.003</version>
+		<version>1.0.004</version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
 
 	<groupId>org.nachc.cad.tools</groupId>

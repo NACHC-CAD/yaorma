@@ -13,7 +13,7 @@ import org.yaorma.testutil.file.FileUtil;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class GenerateOrmForSchemaMsAccessIntegrationTest {
+public class GenerateOrmForSchemaMsAccessGenerationTest {
 
 	private static final String SCHEMA_NAME = "northwind";
 
@@ -23,9 +23,11 @@ public class GenerateOrmForSchemaMsAccessIntegrationTest {
 
 	@Test
 	public void shouldGenerateOrm() {
+		log.info("Starting test...");
 		Connection conn = MsAccessConnectionUtil.getNorthWind();
 		List<String> tableNames = MsAccessDatabaseUtil.getTableNames(conn);
 		GenerateOrmForSchema.execute(conn, tableNames, SCHEMA_NAME, PACKAGE_NAME, DEST_DIR, new MsAccessOrmCodeGenerator());
+		log.info("Done.");
 	}
 
 }

@@ -6,7 +6,7 @@ import java.io.FileWriter;
 import java.sql.Connection;
 
 import org.yaorma.codeGenerator.OrmCodeGenerator;
-import org.yaorma.codeGenerator.impl.def.OrmCodeGeneratorImpl;
+import org.yaorma.codeGenerator.impl.OrmCodeGeneratorImpl;
 import org.yaorma.util.string.DbToJavaNamingConverter;
 
 import lombok.extern.slf4j.Slf4j;

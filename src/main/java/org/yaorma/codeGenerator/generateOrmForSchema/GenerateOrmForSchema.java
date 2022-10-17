@@ -5,8 +5,8 @@ import java.sql.Connection;
 import java.util.List;
 
 import org.yaorma.codeGenerator.dvo.DvoGenerator;
-import org.yaorma.codeGenerator.impl.MySqlOrmCodeGenerator;
-import org.yaorma.codeGenerator.impl.def.OrmCodeGeneratorImpl;
+import org.yaorma.codeGenerator.impl.OrmCodeGeneratorImpl;
+import org.yaorma.codeGenerator.impl.mysql.MySqlOrmCodeGenerator;
 import org.yaorma.database.Data;
 import org.yaorma.database.Database;
 
@@ -22,23 +22,9 @@ public class GenerateOrmForSchema {
 		execute(conn, schemaName, packageName, destDir, new MySqlOrmCodeGenerator());
 	}
 
-	
 	public static void execute(Connection conn, String schemaName, String packageName, File destDir, OrmCodeGeneratorImpl gen) throws Exception {
-		try {
-			// generate all dvo classes for schema
-			String sqlString = "";
-			sqlString += "select table_name \n";
-			sqlString += "from information_schema.tables \n";
-			sqlString += "where table_schema = ?";
-			Data data = Database.query(sqlString, schemaName, conn);
-			for (int i = 0; i < data.size(); i++) {
-				String tableName = data.get(i).get("tableName");
-				DvoGenerator dvo = new DvoGenerator(tableName, schemaName, conn, gen);
-				dvo.createDvo(destDir, packageName);
-			}
-		} catch(Exception exp) {
-			throw new RuntimeException(exp);
-		}
+		List<String> tableNames = gen.getTableNames(conn);
+		execute(conn, tableNames, schemaName, packageName, destDir, gen);
 	}
 
 	/***

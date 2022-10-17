@@ -5,8 +5,8 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.yaorma.codeGenerator.impl.MySqlOrmCodeGenerator;
-import org.yaorma.codeGenerator.impl.def.OrmCodeGeneratorImpl;
+import org.yaorma.codeGenerator.impl.OrmCodeGeneratorImpl;
+import org.yaorma.codeGenerator.impl.mysql.MySqlOrmCodeGenerator;
 import org.yaorma.database.Data;
 import org.yaorma.database.Database;
 

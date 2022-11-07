@@ -16,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 @RunWith(WildcardPatternSuite.class)
 
 @SuiteClasses({ "**/*IntegrationTest.class" })
-public class RunIntegrationTestsAll {
+public class RunAllIntegrationTests {
 
 	private static Timer TIMER = new Timer();
 
@@ -41,7 +41,7 @@ public class RunIntegrationTestsAll {
 
 	public static void exec() {
 		JUnitCore junit = new JUnitCore();
-		Result result = junit.run(RunIntegrationTestsAll.class);
+		Result result = junit.run(RunAllIntegrationTests.class);
 		System.out.println("Finished. Result: Failures: " +
 				result.getFailureCount() + ". Ignored: " +
 				result.getIgnoreCount() + ". Tests run: " +

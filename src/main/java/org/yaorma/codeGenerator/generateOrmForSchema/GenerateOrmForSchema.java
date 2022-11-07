@@ -14,24 +14,14 @@ public class GenerateOrmForSchema {
 
 	/***
 	 * 
-	 * This method can be used for MySql. The method that takes the Data object
-	 * should be used for other databases.
+	 * Method to generated data access objects for the given schema.  
 	 * 
 	 */
-	public static void execute(Connection conn, String schemaName, String packageName, File destDir) throws Exception {
-		execute(conn, schemaName, packageName, destDir, new MySqlOrmCodeGenerator());
-	}
-
-	public static void execute(Connection conn, String schemaName, String packageName, File destDir, OrmCodeGeneratorImpl gen) throws Exception {
+	public static void execute(Connection conn, String schemaName, String packageName, File destDir, OrmCodeGeneratorImpl gen) {
 		List<String> tableNames = gen.getTableNames(conn);
 		execute(conn, tableNames, schemaName, packageName, destDir, gen);
 	}
 
-	/***
-	 * 
-	 * Method to generated data access objects for the given schema.  
-	 * 
-	 */
 	public static void execute(Connection conn, List<String> tableNames, String schemaName, String packageName, File destDir, OrmCodeGeneratorImpl gen) {
 		try {
 			for (String tableName : tableNames) {

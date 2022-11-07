@@ -1,0 +1,75 @@
+<html>
+	
+	<head>
+		<!-- favicon link -->
+		<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+		<!-- include lib code -->
+		<script src="/fhir-to-omop/site_libs/jquery-1.11.3/jquery.min.js"></script>
+		<div id="headerInclude"></div>
+		<script>$("#headerInclude").load("/fhir-to-omop/header.html");</script>
+	</head>
+
+	<body>
+		<div class="container-fluid main-container">
+			
+			<div id="navbarInclude"></div>
+			<script>$("#navbarInclude").load("/fhir-to-omop/navbar.html");</script>
+			
+			<!-- contents of splash page --> 
+			<h1>NACHC fhir-to-omop: Tools and utilities for FHIR and OMOP</h1>
+			<p>
+				Welcome to the NACHC fhir-to-omop documentation.  This is currently a work in progress.  Please let us know if you have any questions, issues, or haikus you would like to share with us.
+				The best way to get in touch with us is to <a target="issues" href="https://github.com/NACHC-CAD/fhir-to-omop/issues">open a github issue</a> for this project.  
+				We also try to attend the OHDSI Weekly meeting and we try to follow the <a target="forum" href="https://forums.ohdsi.org/c/implementers">OHDSI Developers Forum</a>.
+			</p>
+			<p>
+				The tools presented here use a file based solution to transform FHIR data to OMOP.  
+				We download files from our FHIR Patient Server and then use those files to write the data to an OMOP CDM database instance.  
+				The tools and utilities used here could also be used to create a complete passthrough appllication 
+				that writes FHIR resources from a sever directly to an OMOP database without creating any files as part of the process.  
+				The file base solution was selected here as we had a strong motivation to keep the files for testing, 
+				working off line, validation, etc.  
+			</p>
+
+			<p align="center">
+				<img width="600px" src="./images/fhir-to-omop-solution-overview.JPG" />
+			</p>
+
+			<h2>Everything you need to:</h2>
+			<h3>
+				<p>
+				- <a href="/fhir-to-omop/pages/navbar/getting-started/list-of-tools/tools/instant-omop/InstantOmop.html">Build Your OMOP CDM Database</a><br/>
+				- <a href="/fhir-to-omop/pages/navbar/getting-started/list-of-tools/tools/download-ids/DownloadIds.html">Get the IDs of the Patients on Your FHIR Server</a><br/>
+				- <a href="/fhir-to-omop/pages/navbar/getting-started/list-of-tools/tools/download-patients/DownloadPatients.html">Download Patients from Your FHIR Server</a><br/>
+				- <a href="/fhir-to-omop/pages/navbar/getting-started/list-of-tools/tools/upload/UploadToOmop.html">Upload Your FHIR Patients into Your OMOP CDM Database</a><br/>
+				</p>
+				<p>
+				- <a href="/fhir-to-omop/pages/navbar/getting-started/list-of-tools/ListOfTools.html">Available as Individual Tools, Comoponents, and API</a><br/>
+				- <a href="/fhir-to-omop/pages/navbar/getting-started/list-of-tools/Standalone.html">All available as a Single Downloadable Standalone Application</a>
+				</p>
+			</h3>
+
+			<h3>Get The Latest Standalone Application (Release 0.0.20, 2022-06-02)</h3>
+
+			<a href="https://github.com/NACHC-CAD/fhir-to-omop/releases/download/0.0.20/fhir-to-omop-2022-06-02.zip">
+				<img  width="200px" src="./images/fhir-to-omop-zip.JPG" />
+			</a>
+			<br/>
+			<a href="https://github.com/NACHC-CAD/fhir-to-omop/releases/download/0.0.20/fhir-to-omop-2022-06-02.zip">Click to download the latest version of the fhir-to-omop standalone application.</a>
+
+			<div id="current-status"></div>
+
+			<script>
+				$("#current-status").load("/fhir-to-omop/pages/navbar/history-and-milestones/reports/2022-04-25.html");
+			</script>
+
+		<!-- end main container -->	
+		</div>			
+	</body>
+
+</html>
+
+
+
+
+

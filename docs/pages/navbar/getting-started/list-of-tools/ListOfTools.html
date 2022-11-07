@@ -1,0 +1,595 @@
+<html>
+	
+	<head>
+		<!-- favicon link -->
+		<link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.ico">
+		<!-- include lib code -->
+		<script src="../../../../site_libs/jquery-1.11.3/jquery.min.js"></script>
+		<div id="headerInclude"></div>
+		<script>$("#headerInclude").load("/fhir-to-omop/header.html");</script>
+	</head>
+
+	<body>
+		<div class="container-fluid main-container">
+
+			<!-- navbar -->
+			<div id="navbarInclude"></div>
+			<script>$("#navbarInclude").load("/fhir-to-omop/navbar.html");</script>
+
+			<h1>List of fhir-to-omop Tools and Utilities: Create and Populate an OMOP CDM Database with FHIR Patients From Scratch</h1>
+
+			This page summarizes the tools that are available in the fhir-to-omop project to build and populate and OMOP CDM database from scratch using data from a FHIR Server.  
+			All of the components used to do this are also available and can be used independently.  
+			These components are listed below as Utilities.  
+			These utilities include functionality such as authenticating to a FHIR server using OAUTH2 (or any other method),
+			getting a list of patient ids from a FHIR server that can then be used to get patients from a FHIR server, 
+			retrieving patients from a FHIR server, converting FHIR patients into OMOP CDM resources, etc.  
+			The tools and Utilities listed below are currently provided publicly under the Apache 2 license by the fhir-to-omop project.  
+			All of the tools listed here have a simplest complete example listed.  
+			These examples are all JUnit integration tests.  
+			These examples can be run individually to observe the intended behavior.  
+			These tests are also run routinely as part of our build process.  
+			To run these tests, follow the instructions for how to 
+			<a target="developer" href="/fhir-to-omop/pages/navbar/getting-started/start-here/use-fhir-to-omop/UseFhirToOmopAsADeveloper.html">
+				use fhir-to-omop as a developer
+			</a>.
+			
+			<h2>Details for Each Component are Available Here:</h2>
+			<h3>
+				- <a href="/fhir-to-omop/pages/navbar/getting-started/list-of-tools/tools/instant-omop/InstantOmop.html">Build Your OMOP CDM Database</a><br/>
+				- <a href="/fhir-to-omop/pages/navbar/getting-started/list-of-tools/tools/download-ids/DownloadIds.html">Get the IDs of the Patients on Your FHIR Server</a><br/>
+				- <a href="/fhir-to-omop/pages/navbar/getting-started/list-of-tools/tools/download-patients/DownloadPatients.html">Download Patients from Your FHIR Server</a><br/>
+				- <a href="/fhir-to-omop/pages/navbar/getting-started/list-of-tools/tools/upload/UploadToOmop.html">Upload Your FHIR Patients into Your OMOP CDM Database</a><br/>
+			</h3>
+
+			<!-- configuration -->
+			<h2>Notes on Configuration and Testing</h2>
+			All of the fhir-to-omop tools are configured using a single properties file.  
+			Most of the parameters in this file are for the instance of OMOP that can be created locally by these tools.  
+			Therefore, most of the parameters are all ready populated with default values.  
+			A copy of this file is provided in the root directory of the fhir-to-omop.zip file created for each distribution
+			(e.g. fhir-to-omop-0.0.14.zip).  
+			The fhir-to-omop project maintains a robust set of JUnit integration tests that can be run individually.
+			The entire JUnit test suite can be run using the 
+			<a target="_blank" href="https://github.com/NACHC-CAD/fhir-to-omop/blob/main/src/test/java/org/nachc/tools/fhirtoomop/RunAllIntegrationTests.java">RunAllIntegrationTests</a> class.  
+			
+			<!-- notes on design patterns and system architecture -->
+			<h2>Notes on Design Patterns and System Architecture</h2>
+			Architecture and design of the fhir-to-omop project is discussed in detail 
+			<a target="arch" href="/fhir-to-omop/pages/navbar/architecture-and-design/ArchitectureOverview.html">
+				here
+			</a>, however there are a few key features that should be noted here.  
+			<table class="table">
+				
+				<!-- header -->
+				<tr>
+					<th>Element</th>
+					<th>Description</th>
+				</tr>
+
+				<!-- authentication -->
+				<tr>
+					<td>
+						Authentication and Application Parameters
+					</td>
+					<td>
+						All authentication tokens and other configurable parameters are storred in the app.properties file.  
+						A (mostly) working example of this file is included in the root of the folder of the zip file that is used by application users.  
+						For full functionality you will need to provide your UMLS and Synthea keys.  
+						Developers can add an app.properties file to the fhir-to-omop/src/main/resources/auth folder.
+						This file is excluded from our repository explicitly in .gitignore and is explicitly removed as part of the deploy build.  
+					</td>
+				</tr>
+
+				<!-- data value objects -->
+				<tr>
+					<td>
+						Data&nbsp;Value&nbsp;Objects (DVOs)
+					</td>
+					<td>
+						<p>
+							The OMOP Common Data Model (CDM) tables are represented in the Java code base of fhir-to-omop as Data Value Objects (DVOs).  
+							These data value objects are auto generated by querying the databases meta data and then constructing Java classes that exactly represent these tables.  
+						</p>
+						<p>
+							The intersection between FHIR and OMOP is completely encapsulated in the OmopPersonEverything class.
+							The OmopPersonEverything is constructed using and FHIR /Person/[ID]/$everything resource.
+							The OmopPersonEverything then provides this resources as collections of DVOs that exactly map to OMOP tables.  
+							These DVO objects can then be used to directly write data to the data base using the Dao class.
+							These DVO objects can also be used to otherwise represent the data as CDM structures 
+							(e.g. by writing the data to CSV files that represent the CDM tables).  
+							In some cases additional information is derived from the data.  This additional data is managed using the DvoProxy class
+							(which create DVO classes under the hood).  
+							Details for the OmopPersonEverything and OmopPersonEverythingFactory are listed in the Utilities section below.  
+						</p>
+					</td>
+				</tr>
+				
+			</table>
+			
+			<!-- 
+			* 
+			* tools 
+			*
+			-->
+			
+			<a id="build"></a>
+			<h2>Tools</h2>
+			The fhir-to-omop tools are the more complete solutions that perform complex tasks.
+			Things like creating an entire OMOP instance including populated vocabulary tables from scratch.  
+			Things like populating an OMOP instance with the entire contents of a FHIR Patient server. 
+			All of the Tools listed in this section can be launched from the 
+			<a href="/fhir-to-omop/pages/navbar/getting-started/list-of-tools/Standalone.html">Standalone Application</a>.  
+			The fhir-to-omop standalone command for each tool is shown below the title of each description (e.g. fhir-to-omop i will Build a complete OMOP CDM Database).  
+						
+			<table class="table">
+
+				<!-- header -->
+				<tr>
+					<th>Tool</th>
+					<th>Description</th>
+				</tr>
+	
+				<!-- build -->
+				<tr>
+					<td>
+						Build Your OMOP CDM Database
+					</td>
+					<td>
+						<p>
+							Build a complete OMOP CDM Database
+							<br/>
+							(fhir-to-omop i)
+						</p>
+						<p>
+							The 
+							<a target="_blank" href="https://github.com/NACHC-CAD/fhir-to-omop/blob/main/src/main/java/org/nachc/tools/fhirtoomop/tools/build/CreateOmopInstanceTool.java">CreateOmopInstanceTool</a> class 
+							will build a complete OMOP CDM database that is ready to receive data and get plugged into OHDSI tools. 
+							This tool will 
+							<ul>
+								<li>Drop the OMOP Database to be created if it exists</li>
+								<li>Create the OMOP database instance using the CDM 5.4 scripts</li>
+								<li>Create the OMOP DQD results database instance</li>
+								<li>Create an OMOP Database user</li>
+								<li>Create tables used for mappings</li>
+								<li>Create a cdm_source record (this is used by the Data Quality Dashboard)</li>
+								<li>Create the sequences used to generate the primary keys when FHIR resources are imported</li>
+								<li>Load all of the terminology tables (e.g. concept)</li>
+								<li>Create indexes used during the data loading process</li>
+							</ul> 
+							The following prerequisites must be met before this tool can be run.  
+							<ul>
+								<li>A running instance of Microsoft Sql Server</li>
+								<li>
+									A folder containing the files that define the vocabularies to be used for the instance downloaded from 
+									<a href="https://athena.ohdsi.org">Athena</a>
+								</li>
+								<li>
+									Correct settings in the app.properties file. 
+									The <a href="https://github.com/NACHC-CAD/fhir-to-omop/blob/main/src/main/resources/main/example-params/app.properties">app.properties</a>  
+									file provided with the distribution has everything required for a default build 
+									except for the location of your Athena vocabularies files 
+									and the settings for your MS Sql Server database.  
+								</li>
+								<li>
+									Java: This application was developed and tested using Java 1.8.0
+								</li>
+							</ul>
+							
+							This tool can be run using the 
+							<a target="_blank" href="https://github.com/NACHC-CAD/fhir-to-omop/blob/main/src/main/java/org/nachc/tools/fhirtoomop/tools/build/CreateOmopInstanceTool.java">CreateOmopInstanceTool</a> class 
+							directly.  This class has a main method that will create the database, user, etc. based on the parameters in the app.properties file.  
+						</p>							
+						<p>
+							<a id="get-ids"></a>
+							This tool can be run from the <a href="/fhir-to-omop/pages/navbar/getting-started/list-of-tools/Standalone.html">Standalone Application</a> using the "instant-omop" or "i" option:
+							<br/>
+							fhir-to-omop instant-omop
+							<br/>
+							fhir-to-omop i
+						</p>
+					</td>
+				</tr>
+
+				<!-- get-ids -->
+				<tr>
+					<td>
+						Get the IDs of the Patients on Your FHIR Server
+					</td>
+					<td>
+						<p>
+							Get a list of all of the IDs for all of the patients on a FHIR server.
+							<br/>
+							(fhir-to-omop ids)
+						</p>
+						<p>
+							Before you can ask for a patient, you'll need to know what patients exist on a server.  
+							This tool can be used to fetch the entire list of patients that exist on a server.
+							The ids will be written to a list of files with 1000 patient ids each.
+							The files are written to the dir specified in the app.properties file.
+							This utility gets all of its parameters from the app.properties file. 
+							This tool was developed using the Synthea 
+							<a href="https://synthea.mitre.org/">SyntheticMass</a> FHIR Server.   
+							To run this tool using SyntheticMass you will need to get Synthea credentials as describe in the 
+							<a target="getting-started2" href="/fhir-to-omop/pages/navbar/getting-started/start-here/StartHere.html">
+								Getting Started
+							</a> document.  
+						</p>
+						<p>
+							This tool can be run using the
+							<a href="https://github.com/NACHC-CAD/fhir-to-omop/blob/main/src/main/java/org/nachc/tools/fhirtoomop/tools/download/DownloadPatientIds.java">DownloadPatientIds</a> tool.
+							This class has a main method that can be call directly.  
+						</p>
+						<p>
+							<a id="download-fhir"></a>
+							This tool can be run from the <a href="/fhir-to-omop/pages/navbar/getting-started/list-of-tools/Standalone.html">Standalone Application</a> using the "download-patient-ids" or "ids" option:
+							<br/>
+							fhir-to-omop download-patient-ids
+							<br/>
+							fhir-to-omop ids
+						<p>
+					</td>
+				</tr>
+
+				<!-- download -->
+				<tr>
+					<td>
+						Download Patients from Your FHIR Server
+					</td>
+					<td>
+						<p>
+							Download a set of patients from a FHIR Server.  
+							<br/>
+							(fhir-to-omop d)
+						</p>
+						<p>
+							The 
+							<a href="https://github.com/NACHC-CAD/fhir-to-omop/blob/main/src/main/java/org/nachc/tools/fhirtoomop/tools/download/DownloadPatients.java">DownloadPatients</a> tool 
+							is used to download a set of patients from a FHIR server.  
+							This class has a main method that can be called directly.  
+							The FHIR server is configured in the app.properties file.  
+							This tool uses the files down loaded by the DownloadPatientIds tool that contain the patient ids for the FHIR server.  
+							This tool is configured in the app.properties file to point to the directory containing the id files.  
+							When the tool is run all of the resources representing the Patient/[id]/$everything resource for each patient is downloaded. 
+							The Patient/[id]/$everything resource is allowed to be paged so each patient is usually represented by more than one file.  
+							The files representing each patient are downloaded into a directory given the name of the patient id.  
+							Each file in that directory is prefixed with the download order (0_, 1_, etc.) and the patient id and an arbitrary guid (to prevent duplicates).  
+						</p>
+						<p>
+							<a id="upload-omop"></a>
+							This tool can be run from the <a href="/fhir-to-omop/pages/navbar/getting-started/list-of-tools/Standalone.html">Standalone Application</a> using the "download" or "d" option:
+							<br/>
+							fhir-to-omop download
+							<br/>
+							fhir-to-omop d
+						<p>
+					</td>
+				</tr>
+
+				<!-- upload -->
+				<tr>
+					<td>
+						Upload Patients
+					</td>
+					<td>
+						<p>
+							Upload Your FHIR Patients into Your OMOP CDM Database
+							<br/>
+							(fhir-to-omop u)
+						</p>
+						<p>
+							The <a href="https://github.com/NACHC-CAD/fhir-to-omop/blob/main/src/main/java/org/nachc/tools/fhirtoomop/tools/populate/PopulateOmopInstanceFromFhirFiles.java">PopulateOmopInstanceFromFhirFiles</a> tool 
+							can be used to populate an OMOP instance from a set of files representing FHIR patients.  
+							This tool is configured in the app.properties file.  
+							This tool will scan a root directory.  
+							Each directory in the root directory represents a patient.  
+							All of the files in that directory are Patient/[id]/$everything resources.  
+							Each Patient/[id]/$everything file is read.  
+							The set of files are parsed into a single 
+							<a href="https://github.com/NACHC-CAD/fhir-to-omop/blob/main/src/main/java/org/nachc/tools/fhirtoomop/omop/person/OmopPerson.java">OmopPerson</a> object.  
+							The OmopPerson object is composed of Data Value Objects (DVOs) that are exact 1:1 mappings to the OMOP CDM.  
+							The OmopPerson object is then written to the OMOP CDM Database.  
+						</p>
+						<p>
+							The <a href="https://github.com/NACHC-CAD/fhir-to-omop/blob/main/src/main/java/org/nachc/tools/fhirtoomop/tools/populate/PopulateOmopInstanceFromFhirFiles.java">PopulateOmopInstanceFromFhirFiles</a> tool 
+							has a main method and can be called directly.  
+						</p>						
+						<p>
+							This tool can be run from the <a href="/fhir-to-omop/pages/navbar/getting-started/list-of-tools/Standalone.html">Standalone Application</a> using the "download" or "d" option:
+							<br/>
+							fhir-to-omop upload
+							<br/>
+							fhir-to-omop u
+						<p>
+					</td>
+				</tr>
+
+				<!-- Atlas Init -->
+				<tr>
+					<td>
+						Atlas: Initialization
+					</td>
+					<td>
+						<p>
+							Initialize Atlas MS Sql Server Database and PostgreSql Database
+							<br/>
+							(fhir-to-omop atlas)
+						</p>
+						<p>
+							This tool is provided to automate the creation of the database objects (e.g. users, permissions, schemas, tables, etc.) 
+							required for installation of Atlas.  
+							Detailed instructions for installing Atlas are provided 
+							<a href="/fhir-to-omop/pages/navbar/ohdsi-tools/atlas/Atlas.html">here</a>.  
+						</p>
+						<p>
+							This tool can be run from the <a href="/fhir-to-omop/pages/navbar/getting-started/list-of-tools/Standalone.html">Standalone Application</a> using the "download" or "d" option:
+							<br/>
+							fhir-to-omop atlas
+						</p>
+					</td>
+				</tr>
+
+				<!-- Atlas: Datasources -->
+				<tr>
+					<td>
+						Atlas: Datasources
+					</td>
+					<td>
+						<p>
+							Initialize Atlas MS Sql Server Datasources
+							<br/>
+							(fhir-to-omop atlas2)
+						</p>
+						<p>
+							This tool is provided to automate the creation of the database objects (e.g. users, permissions, schemas, tables, etc.) 
+							required for the Atlas Data Sources functionality. 
+							This needs to be a separate process from the Atlas initialization 
+							as other steps need to be peformed before this step can be completed 
+							(e.g. the Postgres server needs to be created manually before this process can be executed).   
+							Detailed instructions for installing Atlas are provided 
+							<a href="/fhir-to-omop/pages/navbar/ohdsi-tools/atlas/Atlas.html">here</a>.  
+						</p>
+						<p>
+							This tool can be run from the <a href="/fhir-to-omop/pages/navbar/getting-started/list-of-tools/Standalone.html">Standalone Application</a> using the "download" or "d" option:
+							<br/>
+							fhir-to-omop atlas2
+						<p>
+					</td>
+				</tr>
+
+
+
+				<!-- blank row deliberately included to give bottom line -->
+				<tr>
+					<td>
+					</td>
+					<td>
+					</td>
+				</tr>
+
+			</table>
+
+			<!-- 
+			*
+			* UTILITIES
+			*
+			* -->
+
+			<h1>Utilities</h1>
+			The fhir-to-omop utilities are the building blocks of the fhir-to-omop environment.  
+			These tools can be used individually.
+			Each tool has a simplest complete example that exists as a JUnit integration test in the fhir-to-omop project.  
+			This integration test is listed at the bottom of the description for each entry in the list below.  
+
+			<table class="table">
+
+				<!-- OAUTH Authentication -->
+				<tr>
+					<td>
+						OAUTH Authentication
+					</td>
+					<td>
+						The fhir-to-omop tools use dynamic class loading to allow for any authentication method to be integrated into this framework.  
+						Authentication is done in the FhirServerAuthenticator class.
+						This class dynamically loads the implementation of the HttpClientAuthenticator interface specified in the app.properties file.  
+						The HeaderTokenAuthenticator class is an implementation of HttpClientAuthenticator that is provided by this framework.  
+						This is the authenticator that has been used to authenticate to the SyntheticMass FHIR patient server.  
+						Other authenticators will be made available as requirements dictate as new servers become supported.  
+						The 
+						<a href="https://github.com/NACHC-CAD/fhir-to-omop/blob/main/src/test/java/org/nachc/tools/fhirtoomop/tools/download/authenticate/FhirServerAuthenticatorIntegrationTest.java">FhirServerAuthenticatorIntegrationTest</a> 
+						class demonstrates how this authentication is implemented.  
+					</td>
+				</tr>
+
+				<!-- FHIR Parser Classes -->
+				<tr>
+					<td>
+						FHIR Parser Classes
+					</td>
+					<td>
+						The 
+						<a href="https://github.com/NACHC-CAD/fhir-to-omop/tree/main/src/main/java/org/nachc/tools/fhirtoomop/fhir/parser">org.nachc.tools.fhirtoomop.fhir.parser</a> 
+						package contains a series of Parser classes.  
+						These classes use the 
+						<a href="https://hapifhir.io/">HAPI FHIR API</a> to parse FHIR resources.  
+						The Parser classes encapsulate HAPI FHIR API functionality and simplify common tasks
+						such as reducing indirection and aggregating functionality in to single method calls.  
+					</td>
+				</tr>
+
+				<!-- FHIR Patient -->
+				<tr>
+					<td>
+						FHIR Patient
+					</td>
+					<td>
+						The 
+						<a href="https://github.com/NACHC-CAD/fhir-to-omop/blob/main/src/main/java/org/nachc/tools/fhirtoomop/fhir/patient/FhirPatient.java">FhirPatient</a>  
+						class is a Data Value Object (DVO) that represents a FHIR Patient resource.  
+						The FhirPatient is composed of a series of FhirParser objects that represent the different components of a FhirPatient.  
+						For example, for each FhirPatient instance, there is a single PatientParser representing the patient data 
+						and lists of EncounterParser, ConditionParser, MedicationRequestParser, etc. objects that compose each FhirPatient instance.  
+					</td>
+				</tr>
+
+				<!-- FHIR Patient Factory -->
+				<tr>
+					<td>
+						FHIR Patient Factory
+					</td>
+					<td>
+						The 
+						<a href="https://github.com/NACHC-CAD/fhir-to-omop/blob/main/src/main/java/org/nachc/tools/fhirtoomop/fhir/patient/factory/FhirPatientFactory.java">FhirPatientFactory</a> class builds a FhirPatient from a 
+						<a href="https://github.com/NACHC-CAD/fhir-to-omop/blob/main/src/main/java/org/nachc/tools/fhirtoomop/fhir/patient/factory/FhirPatientResources.java">FhirPatientResources</a>.  
+						The FhirPatientResources class represents a list of resources that represent a single FHIR 
+						<a href="https://build.fhir.org/operation-patient-everything.html">Patient/[id]/$everything resource</a>.  
+						FhirPatientResources is an interface and can be used for any FHIR resource that can be converted into an InputStream 
+						(e.g. FhirPatientResources can use files or pull data directly from a FHIR REST service).  
+						Use of the FhirPatientFactory is demonstrated in the 
+						<a href="https://github.com/NACHC-CAD/fhir-to-omop/blob/main/src/test/java/org/nachc/tools/fhirtoomop/fhir/patient/factory/FhirPatientFactoryIntegrationTest.java">FhirPatientFactoryIntegrationTest</a> class.
+					</td>
+				</tr>
+
+				<!-- DVO Classes -->
+				<tr>
+					<td>
+						DVO Classes
+					</td>
+					<td>
+						The 
+						<a href="https://github.com/NACHC-CAD/fhir-to-omop/tree/main/src/main/java/org/nachc/tools/omop/yaorma/dvo">org.nachc.tools.omop.yaorma.dvo</a> 
+						package contains a series of Data Value Objects (DVOs).  
+						These DVOs represent a one-to-one mapping of the OMOP Common Data Model (CDM).  
+						Each DVO represents an OMOP CDM table.  
+						Each DVO has a field that represents each attribute of the OMOP CDM entity it represents.  
+						These classes are used to compose the OmopPerson class described below.  
+						These classes can be written to the database directly, or can be used to otherwise persist the information they contain 
+						(for example, they could be used to write the data to csv files etc.).  
+					</td>
+				</tr>
+
+				<!-- OmopPerson -->
+				<tr>
+					<td>
+						OMOP Person
+					</td>
+					<td>
+						The <a href="https://github.com/NACHC-CAD/fhir-to-omop/blob/main/src/main/java/org/nachc/tools/fhirtoomop/omop/person/OmopPerson.java">OmopPerson</a> class represents all of the OMOP CDM data for a single person.  
+						The OmopPerson object is composed of collections of DVO objects that are one-to-one mappings to the OMOP CDM.  
+						Instances of OmopPerson are created from a FhirPatient object by the OmopPersonFactory class described below.  
+					</td>
+				</tr>
+
+				<!-- OmopPersonFactory -->
+				<tr>
+					<td>
+						OMOP Person Factory
+					</td>
+					<td>
+						The <a href="https://github.com/NACHC-CAD/fhir-to-omop/blob/main/src/main/java/org/nachc/tools/fhirtoomop/omop/person/factory/OmopPersonFactory.java">OmopPersonFactory</a> 
+						class takes an instance of a FhirPerson and creates an OmopPerson instance.  
+						Each component of the OmopPerson is built by its respective Builder class.  
+						Builder classes are found in the 
+						<a href="https://github.com/NACHC-CAD/fhir-to-omop/tree/main/src/main/java/org/nachc/tools/fhirtoomop/omop/person/factory/builder">org.nachc.tools.fhirtoomop.omop.person.factory.builder</a> package.  
+						The functionality of the OmopPersonFactory class is demonstrated in the 
+						<a href="https://github.com/NACHC-CAD/fhir-to-omop/blob/main/src/test/java/org/nachc/tools/fhirtoomop/omop/person/factory/builder/person/OmopPersonBuilderIntegrationTest.java">OmopPersonBuilderIntegrationTest</a> class.  
+					</td>
+				</tr>
+
+				<!-- Write OMOP Person to CDM -->
+				<tr>
+					<td>
+						Write OMOP Person to CDM Database
+					</td>
+					<td>
+						The <a href="https://github.com/NACHC-CAD/fhir-to-omop/blob/main/src/main/java/org/nachc/tools/fhirtoomop/omop/write/singlepatient/WriteOmopPersonToDatabase.java">WriteOmopPersonToDatabase</a> class writes a single OmopPerson to an instance of the CDM as specified in the app.parameters file.  
+						The functionality of this class is demonstrated in the 
+						<a href="https://github.com/NACHC-CAD/fhir-to-omop/blob/main/src/test/java/org/nachc/tools/fhirtoomop/omop/write/singlepatient/WriteOmopPersonToDatabaseIntegrationTest.java">WriteOmopPeopleToDatabaseIntegrationTest</a> class.  
+						This class is used in a multi-threaded environment to write up to 200 patients per second to an OMOP instance 
+						(approximately 1.5 million patients in 2 hours).  
+					</td>
+				</tr>
+
+				<!-- Write OMOP people to database -->
+				<tr>
+					<td>
+						Write OMOP People to CDM Database (Threading Implementation)
+					</td>
+					<td>
+						The <a href="https://github.com/NACHC-CAD/fhir-to-omop/blob/main/src/main/java/org/nachc/tools/fhirtoomop/omop/write/threaded/WriteOmopPeopleToDatabase.java">WriteOmopPeopleToDatabase</a> class 
+						implements the threading model used by the fhir-to-omop tools to write FHIR Patients to OMOP.  
+						This threading model is very efficient and is capable of processing 1.5 million FHIR Patients in approximately 2 hours.  
+						This includes the entire process including reading the file from disc, parsing the FHIR content using HAPI FHIR, 
+						mapping of FHIR systems and codes to OMOP vocabulary_id values and OMOP concept_id values, 
+						and the inserts in to the OMOP data tables to populate the OMOP database.  
+						This threading model is based on the ThreadTool framework described below.  
+						The functionality of the WriteOmopPeopleToDatabase class is demonstrated in the  
+						<a href="https://github.com/NACHC-CAD/fhir-to-omop/blob/main/src/test/java/org/nachc/tools/fhirtoomop/omop/write/threaded/WriteOmopPeopleToDatabaseIntegrationTest.java">WriteOmopPeopleToDatabaseIntegrationTest</a> class.
+					</td>
+				</tr>
+
+				<!-- ThreadTool -->
+				<tr>
+					<td>
+						thread-tool (Threading Framework)						
+					</td>
+					<td>
+						The <a href="https://github.com/NACHC-CAD/thread-tool">thread-tool</a> project
+						is a framework that can be used to easily create very efficient multi-threaded applications.  
+						This framework provides several advantages over other strategies for implementing multi-threaded applications in Java
+						<ul>
+							<li>
+								<b>Simplicity and Ease of Use:</b> 
+								The implementer using this framework only needs to implement a class that extends the ThreadToolUser
+								and then create and execute a ThreadRunner.  
+								The details of implementation of a Java threading model are encapsulated by the framework thereby eliminating errors 
+								that often occur when multi-threaded applications are written in Java from scratch.  
+							</li>
+							<li>
+								<b>Sustained Continuous High Throughput</b> 
+								Other threading models in Java tend to create a set of threads and run that set of threads until each finishes.  
+								Only then is another set of threads created and executed.  
+								This leads to spikes and troughs in activity.  
+								As a new set of threads is started all threads are running and peak activity is achieved.  
+								As each thread finishes, activity diminishes until only a few or one stragglers are running.  
+								At this point activity is minimized until the final thread finishes and a new batch is created and started.  
+								The ThreadTool prevents these periods of inactivity by creating groups of threads.  
+								A constant number of groups of threads are kept running at all times.  
+								As one group finishes, it is replaced by a new group of threads.  
+								When one group of threads is left with only a few stragglers, the other thread groups are still running.  
+								Thereby a relatively constant and maximum level of activity is maintained.   
+							</li>
+							<li>
+								<b>Reuse:</b> This framework can be used anywhere high performance multi-threading is required. 
+								The thread-tool framework can be included in any Java project using the following Maven dependency declaration.  
+<pre class="pre-scrollable">
+&lt;dependency&gt;
+	&lt;groupId&gt;org.nachc.cad.tools&lt;/groupId&gt;
+	&lt;artifactId&gt;thread-tool&lt;/artifactId&gt;
+	&lt;version&gt;0.0.2&lt;/version&gt;
+&lt;/dependency&gt;
+</pre> 
+							</li>
+						</ul>
+						Functionality of the thread-tool framework is demonstrated in the 
+						<a href="https://github.com/NACHC-CAD/thread-tool/blob/main/src/test/java/org/nachc/tools/threadtool/ThreadRunnerIntegrationTest.java">ThreadRunnerIntegrationTest</a> 
+						class of the 
+						<a href="https://github.com/NACHC-CAD/thread-tool">thread-tool</a> project. 
+					</td>
+				</tr>
+
+				<!-- blank row deliberately included to give bottom line -->
+				<tr>
+					<td>
+					</td>
+					<td>
+					</td>
+				</tr>
+
+			</table>
+
+			<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+	
+		</div>
+	</body>
+</html>

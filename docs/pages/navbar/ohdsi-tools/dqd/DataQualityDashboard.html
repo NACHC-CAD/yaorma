@@ -1,0 +1,75 @@
+<html>
+	
+	<head>
+		<!-- favicon link -->
+		<link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.ico">
+		<!-- include lib code -->
+		<script src="../../../../site_libs/jquery-1.11.3/jquery.min.js"></script>
+		<div id="headerInclude"></div>
+		<script>$("#headerInclude").load("/fhir-to-omop/header.html");</script>
+	</head>
+
+	<body>
+		<div class="container-fluid main-container">
+
+			<!-- navbar -->
+			<div id="navbarInclude"></div>
+			<script>$("#navbarInclude").load("/fhir-to-omop/navbar.html");</script>
+
+			<h1>Install, Run, and View The OHDHSI Data Quality Dashboard (DQD)</h1>
+			The instructions here will guide you through the installation of the OHDSI Data Quality Dashboard (DQD).  
+			The Data Quality Dashboard is a tool written in R that can perform a number of configurable tests on your OMOP instance.  
+			More information is available at <a target="dqd" href="https://github.com/OHDSI/DataQualityDashboard">https://github.com/OHDSI/DataQualityDashboard</a>
+			The DQD collects meta data for your instance by running an R script that generates a single JSON file.  
+			This file is then read as a web page using any browser.  
+			The instructions here show how to view your DQD information using a server that is launched from R.   
+
+			<h2>Installing and Running DQD Quick Links</h2>
+			The scripts to in stall, run, and view the DQD are in Github 
+			<a target="github" href="https://github.com/NACHC-CAD/fhir-to-omop/tree/main/docs/ohdsi-tools/dqd/r-scripts">here</a>.
+			Click on the links below to download the scripts individually.  
+			<br/>
+			<br/>
+			<img width="800px" src="/fhir-to-omop/pages/navbar/ohdsi-tools/dqd/img/dqd-scripts.PNG" />
+			<br/>
+			<br/>
+			<ul>
+				<li>
+					<b>install-dqd.r:</b> Run the R script <a href="../../../../ohdsi-tools/dqd/r-scripts/install-dqd.r" download>here</a> 
+					to install components required for the DQD.  
+				</li>
+				<li>
+					<b>init-params-for-dtq.r:</b> Run the R script <a href="../../../../ohdsi-tools/dqd/r-scripts/init-params-for-dtq.r" download>here</a> 
+					to initialize parameters to run either the DQD or to view the results.  
+				</li>
+				<li>
+					<b>run-dqd.r:</b> Run the R script <a href="../../../../ohdsi-tools/dqd/r-scripts/run-dqd.r" download>here</a> 
+					to run the DQD.  
+				</li>
+				<li>
+					<b>view-dqd.r:</b> Run the R script <a href="../../../../ohdsi-tools/dqd/r-scripts/view-dqd.r" download>here</a> 
+					to view the results.  
+				</li>
+			</ul>
+			<br/>
+			<br/>
+			Run the <b>install-dqd.r</b> script one time to install the components required to run or view the DQD.
+			<br/>
+			<br/>
+			Run the <b>init-params-for-dtq.r</b> script before you run either the run-dqd.r script or the view-dqd.r script.
+			This script contains all of the parameters to run or view the DQD.  
+			This script can be edited to fit your OMOP instance.  
+			The other scripts should not need to be edited to run the scripts.  
+			<br/>    
+			<br/>
+			Run the <b>run-dqd.r</b> script to generate the metrics for your OMOP instance.  This will take several minutes.  
+			<br/>
+			<br/>
+			Run the <b>view-dqd.r</b> script to view the results.  Runing this script will start the "shiny" server
+			and should open the DQD web application in your default browser.  
+		</div>
+	</body>
+
+</html>
+
+

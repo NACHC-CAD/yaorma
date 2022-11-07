@@ -1,0 +1,128 @@
+<html>
+	
+	<head>
+		<!-- favicon link -->
+		<link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.ico">
+		<!-- include lib code -->
+		<script src="../../../../site_libs/jquery-1.11.3/jquery.min.js"></script>
+		<div id="headerInclude"></div>
+		<script>$("#headerInclude").load("/fhir-to-omop/header.html");</script>
+	</head>
+
+	<body>
+		<div class="container-fluid main-container">
+
+			<!-- navbar -->
+			<div id="navbarInclude"></div>
+			<script>$("#navbarInclude").load("/fhir-to-omop/navbar.html");</script>
+
+			<!-- introduction -->
+			<h1>Start Here: Installing and First Steps with fhir-to-omop Tools</h1>
+			<p>
+				This page will show you the steps to install and get started with fhir-to-omop as a developer. 
+			</p>
+			<p>
+				Getting started with fhir-to-omop means different things to different users.  
+				The fhir-to-omop project includes several tools including utilities to download FHIR resources from a FHIR server in a highly paralleized and scalable way, tools for converting FHIR to OMOP, tools for writing data to OMOP, as well as several other tools and utilities.  
+				We suggest looking at the <a target="tools" href="/fhir-to-omop/pages/tools/fhir-to-omop-tools-and-utilities/FhirToOmopToolsAndUtilities.html">fhir-to-omop Tools and Utilities</a> page for the functionality you are interested in.  
+			</p>
+			
+			<!-- prerequsites -->
+			<h1>Prerequisites</h1>
+			Don't panic, the list below are the prerequisites to get started as a developer on the fhir-to-omop team.  
+			The fhir-to-omop tool suit is also available as a 
+			<a href="/fhir-to-omop/pages/navbar/getting-started/list-of-tools/Standalone.html">Standalone Application</a>. The only prerequisites for the Standalone application are a MS Sql Server database, terminology files from Athena, and Java.  
+			
+			<h2>List of prerequisites</h2>
+			<p style="color:red;">Note: A new UMLS licence can take up to 3 business days to process. Do this first ! ! !</p>
+			<p>
+				The following resources are required for the fhir-to-omop tool suite. Links to how to get each of these resources are shown in the next section.     
+				<ol>
+					<li>Java: fhir-to-omop is a suite of Java applications.</li>
+					<li>Git: Git used to download fhir-to-omop</li>
+					<li>Maven: MVN is used to build the project from source files</li>
+					<li>
+						MS Sql Server:
+						An installation of Microsoft Sql Server used as the database to host the OMOP instance we will be creating, and a download of the terminology tables from <a target="athena" href="https://athena.ohdsi.org/vocabulary/list">OHDSI Athena</a>.
+					</li>
+					<li>
+						It is also helpful to have Microsoft Sql Server Management Studio (MSSM) installed. 
+					</li>
+					<li>
+						MS Sql Server JDBC Driver: Used by applications to connect to your OMOP instance.  
+					</li>
+					<li>
+						Eclipse (or other IDE):
+						It is also useful to have an integrated development environment (IDE).  
+						I prefer <a target="eclipse" href="https://www.eclipse.org/">Eclipse</a> 
+						(because I'm older than the mountains... at least I'm not using emaccs, because I'm younger than the trees).   
+					</li>
+					<li>An identity provider. I'm using secure.login.gov. Others such as Microsoft or Google (gmail) can also be used.  
+					<li>A UMLS Account: Some of the terminologies used in OMOP require a UMLS account.  </li>
+					<li>A UMLS API Key: This is required to integrate CPT codes after the terminology has been downloaded.  </li>
+					<li>An OHDSI Athena account: Athena will be used to download the terminologies we will add to our OHDSI implementation</li>
+					<li>A Synthea SyntheticMass Account and Application ID</li>
+					<li>R and RStudio: R and RStudio are used for tools like the Data Quality Dashboard</li>
+					<li>PostgreSql 10: PostgreSql 10 is required if you want to install an instance of Atlas (you definitely want to install an instance of Atlas)
+				</ol>
+				
+				<h2>Links to Instructions on How to Get Prerequisites</h2>
+				Instructions for each are in the pages shown below.
+				<ul>
+					<li><a target="java" href="/fhir-to-omop/pages/navbar/getting-started/start-here/InstallJava.html">Install Java</a></li>
+					<li><a target="git" href="/fhir-to-omop/pages/navbar/getting-started/start-here/InstallGit.html">Install Git</a></li>
+					<li><a target="mvn" href="./InstallMaven.html">Install Maven (MVN)</a>
+					<li><a target="sqlServer" href="/fhir-to-omop/pages/navbar/getting-started/start-here/InstallMsSqlServer.html">Install Microsoft Sql Server</a></li>
+					<li><a target="eclipse" href="/fhir-to-omop/pages/navbar/getting-started/start-here/InstallEclipse.html">Install Eclipse</a></li>
+					<li><a target="usa" href="/fhir-to-omop/pages/navbar/getting-started/start-here/GetUsGovLogin.html">Get A secure.login.gov Account</a></li>
+					<li><a target="umls" href="/fhir-to-omop/pages/navbar/getting-started/start-here/GetAUmlsAccount.html">Get UMLS Account</a></li>					
+					<li><a target="umls-api" href="/fhir-to-omop/pages/navbar/getting-started/start-here/GetAUmlsApiKey.html">Get UMLS API Key</a></li>					
+					<li><a target="athena" href="/fhir-to-omop/pages/navbar/getting-started/start-here/GetAthenaLogin.html">Get Athena Login</a></li>
+					<li><a target="terminology" href="/fhir-to-omop/pages/navbar/getting-started/start-here/DownloadTerminology.html">Download the OMOP Terminology to be used for your OMOP instance</a></li>
+					<li><a target="synthea" href="/fhir-to-omop/pages/navbar/getting-started/start-here/GetSyntheaAccount.html">Create a Synthea Account and Application ID</a></li>
+					<li><a target="synthea" href="/fhir-to-omop/pages/navbar/getting-started/start-here/GetR.html">Install R and RStudio</a></li>
+					<li><a target="postgresql" href="./GetPostgreSql.html">Install PostgreSql</a></li>
+				</ul>
+				<p>
+					<h2>Versions</h2>
+					The current version of fhir-to-omop has been built and tested using the following versions of the above tools:
+					<ul>
+						<li>Windows: Windows 10 Home version 21H2, OS Build 19044.1526, Experience Windows Feature Experience Pack 120.2212_4170.0</li>
+						<li>Java: java version "1.8.0_261", Java(TM) SE Runtime Environment (build 1.8.0_261-b12), Java HotSpot(TM) 64-Bit Server VM (build 25.261-b12, mixed mode)
+						<li>Git: git version 2.27.0.windows.1</li>
+						<li>Maven: MVN version 3.8.5 installed from apache-maven-3.8.5-bin.zip.  
+						<li>MS Sql Server (64 bit): Microsoft SQL Server 2019 (RTM-GDR) (KB4583458) - 15.0.2080.9 (X64)   Nov  6 2020 16:50:01   Copyright (C) 2019 Microsoft Corporation  Developer Edition (64-bit) on Windows 10 Home 10.0 <X64> (Build 19044: ) (Hypervisor) </li>
+						<li>MS Sql Server Management Studio (SSMS): 15.0.18390.0</li>
+						<li>MS Sql Server JDBC jar file: mssql-jdbc-10.2.0.jre8.jar</li>
+						<li>Eclipse: Eclipse IDE for Enterprise Java and Web Developers (includes Incubating components), Version: 2021-09 (4.21.0), Build id: 20210910-1417, OS: Windows 10, v.10.0, x86_64 / win32, Java vendor: Oracle Corporation, Java runtime version: 16.0.2+7-67, Java version: 16.0.2</li>
+						<li>OMOP Terminology: The versions downloaded are listed <a target="vocabularies" href="/fhir-to-omop/pages/navbar/getting-started/start-here/Vocabularies.html" >here</a></li>
+						<li>R: R was installed from rtools40-x86_64.exe</li>
+						<li>RStudio: RStudio was installed from RStudio-1.4.1103.exe</li>
+						<li>PostgreSql: PostgreSql was installed from PostgreSql 10.21-1.  
+					</ul>
+				</p>
+			</p>			
+			
+			<h1>Download and Install fhir-to-omop</h1>
+			<p>
+				The fhir-to-omop tools can be downloaded and installed by simply checking out the fhir-to-omop project from github using the following.
+				<br/>
+				<code>git clone https://github.com/NACHC-CAD/fhir-to-omop</code>
+				<br/><br/>
+				Then switch to the tag you want to use as shown below (kind of, you definitely do NOT want the primordial branch)
+				<br/>
+				<code>git checkout tags/primordial</code>
+				<br/><br/>
+				<img src="/fhir-to-omop/pages/navbar/getting-started/start-here/git.png" />
+				<br/><br/>
+				This project uses tags like v0.0.0. You probably want the most recent tag.  
+				You can find the most recent tag by going to 
+				<a target="github" href="https://github.com/NACHC-CAD/fhir-to-omop">https://github.com/NACHC-CAD/fhir-to-omop</a> 
+				and then selecting the <a target="github" href="https://github.com/NACHC-CAD/fhir-to-omop/tags">tag</a> link.  
+				<br/>
+				<img src="/fhir-to-omop/pages/navbar/getting-started/start-here/select-tag.png" />
+			</p>
+		</div>
+	</body>
+
+</html>

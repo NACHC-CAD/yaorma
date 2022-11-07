@@ -14,11 +14,10 @@ buildNumber.properties
 .mvn/wrapper/maven-wrapper.jar
 
 # logical link created for http-server
-# /_ETC/http-server/yaorma
+/_ETC/http-server/yaorma
 
 # maven and eclipse
-# /target/
-# /src/main/resources/auth/
-# .classpath
-# .project
-# /.settings/
+/target/
+.classpath
+.project
+/.settings/

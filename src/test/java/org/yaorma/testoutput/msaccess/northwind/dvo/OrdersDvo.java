@@ -73,10 +73,10 @@ public class OrdersDvo implements Dvo {
         "paymentType",
         "shipAddress",
         "shipCity",
-        "shipCountry/region",
+        "shipCountry_SLASH_region",
         "shipName",
-        "shipState/province",
-        "shipZip/postalCode",
+        "shipState_SLASH_province",
+        "shipZip_SLASH_postalCode",
         "shippedDate",
         "shipperId",
         "shippingFee",
@@ -84,7 +84,7 @@ public class OrdersDvo implements Dvo {
         "taxRate",
         "taxStatus",
         "taxes",
-        "versionhistoryF5f8918f-0a3f-4da9-ae71-184ee5012880"
+        "versionhistoryF5f8918f_0a3f_4da9_ae71_184ee5012880"
     };
     
     //
@@ -101,10 +101,10 @@ public class OrdersDvo implements Dvo {
         "PaymentType",
         "ShipAddress",
         "ShipCity",
-        "ShipCountry/region",
+        "ShipCountry_SLASH_region",
         "ShipName",
-        "ShipState/province",
-        "ShipZip/postalCode",
+        "ShipState_SLASH_province",
+        "ShipZip_SLASH_postalCode",
         "ShippedDate",
         "ShipperId",
         "ShippingFee",
@@ -112,7 +112,7 @@ public class OrdersDvo implements Dvo {
         "TaxRate",
         "TaxStatus",
         "Taxes",
-        "VersionhistoryF5f8918f-0a3f-4da9-ae71-184ee5012880"
+        "VersionhistoryF5f8918f_0a3f_4da9_ae71_184ee5012880"
     };
     
     
@@ -140,13 +140,13 @@ public class OrdersDvo implements Dvo {
     
     private String shipCity;
     
-    private String shipCountry/region;
+    private String shipCountry_SLASH_region;
     
     private String shipName;
     
-    private String shipState/province;
+    private String shipState_SLASH_province;
     
-    private String shipZip/postalCode;
+    private String shipZip_SLASH_postalCode;
     
     private String shippedDate;
     
@@ -162,7 +162,7 @@ public class OrdersDvo implements Dvo {
     
     private String taxes;
     
-    private String versionhistoryF5f8918f-0a3f-4da9-ae71-184ee5012880;
+    private String versionhistoryF5f8918f_0a3f_4da9_ae71_184ee5012880;
     
     //
     // trivial getters and setters
@@ -258,14 +258,14 @@ public class OrdersDvo implements Dvo {
         return this.shipCity;
     }
     
-    // shipCountry/region
+    // shipCountry_SLASH_region
     
-    public void setShipCountry/region(String val) {
-        this.shipCountry/region = val;
+    public void setShipCountry_SLASH_region(String val) {
+        this.shipCountry_SLASH_region = val;
     }
     
-    public String getShipCountry/region() {
-        return this.shipCountry/region;
+    public String getShipCountry_SLASH_region() {
+        return this.shipCountry_SLASH_region;
     }
     
     // shipName
@@ -278,24 +278,24 @@ public class OrdersDvo implements Dvo {
         return this.shipName;
     }
     
-    // shipState/province
+    // shipState_SLASH_province
     
-    public void setShipState/province(String val) {
-        this.shipState/province = val;
+    public void setShipState_SLASH_province(String val) {
+        this.shipState_SLASH_province = val;
     }
     
-    public String getShipState/province() {
-        return this.shipState/province;
+    public String getShipState_SLASH_province() {
+        return this.shipState_SLASH_province;
     }
     
-    // shipZip/postalCode
+    // shipZip_SLASH_postalCode
     
-    public void setShipZip/postalCode(String val) {
-        this.shipZip/postalCode = val;
+    public void setShipZip_SLASH_postalCode(String val) {
+        this.shipZip_SLASH_postalCode = val;
     }
     
-    public String getShipZip/postalCode() {
-        return this.shipZip/postalCode;
+    public String getShipZip_SLASH_postalCode() {
+        return this.shipZip_SLASH_postalCode;
     }
     
     // shippedDate
@@ -368,14 +368,14 @@ public class OrdersDvo implements Dvo {
         return this.taxes;
     }
     
-    // versionhistoryF5f8918f-0a3f-4da9-ae71-184ee5012880
+    // versionhistoryF5f8918f_0a3f_4da9_ae71_184ee5012880
     
-    public void setVersionhistoryF5f8918f-0a3f-4da9-ae71-184ee5012880(String val) {
-        this.versionhistoryF5f8918f-0a3f-4da9-ae71-184ee5012880 = val;
+    public void setVersionhistoryF5f8918f_0a3f_4da9_ae71_184ee5012880(String val) {
+        this.versionhistoryF5f8918f_0a3f_4da9_ae71_184ee5012880 = val;
     }
     
-    public String getVersionhistoryF5f8918f-0a3f-4da9-ae71-184ee5012880() {
-        return this.versionhistoryF5f8918f-0a3f-4da9-ae71-184ee5012880;
+    public String getVersionhistoryF5f8918f_0a3f_4da9_ae71_184ee5012880() {
+        return this.versionhistoryF5f8918f_0a3f_4da9_ae71_184ee5012880;
     }
     
     //

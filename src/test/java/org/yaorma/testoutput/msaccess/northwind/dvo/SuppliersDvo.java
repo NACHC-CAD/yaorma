@@ -66,8 +66,8 @@ public class SuppliersDvo implements Dvo {
         "businessPhone",
         "city",
         "company",
-        "country/region",
-        "e-mailAddress",
+        "country_SLASH_region",
+        "e_mailAddress",
         "faxNumber",
         "firstName",
         "homePhone",
@@ -76,9 +76,9 @@ public class SuppliersDvo implements Dvo {
         "lastName",
         "mobilePhone",
         "notes",
-        "state/province",
+        "state_SLASH_province",
         "webPage",
-        "zip/postalCode"
+        "zip_SLASH_postalCode"
     };
     
     //
@@ -91,8 +91,8 @@ public class SuppliersDvo implements Dvo {
         "BusinessPhone",
         "City",
         "Company",
-        "Country/region",
-        "E-mailAddress",
+        "Country_SLASH_region",
+        "E_mailAddress",
         "FaxNumber",
         "FirstName",
         "HomePhone",
@@ -101,9 +101,9 @@ public class SuppliersDvo implements Dvo {
         "LastName",
         "MobilePhone",
         "Notes",
-        "State/province",
+        "State_SLASH_province",
         "WebPage",
-        "Zip/postalCode"
+        "Zip_SLASH_postalCode"
     };
     
     
@@ -123,9 +123,9 @@ public class SuppliersDvo implements Dvo {
     
     private String company;
     
-    private String country/region;
+    private String country_SLASH_region;
     
-    private String e-mailAddress;
+    private String e_mailAddress;
     
     private String faxNumber;
     
@@ -143,11 +143,11 @@ public class SuppliersDvo implements Dvo {
     
     private String notes;
     
-    private String state/province;
+    private String state_SLASH_province;
     
     private String webPage;
     
-    private String zip/postalCode;
+    private String zip_SLASH_postalCode;
     
     //
     // trivial getters and setters
@@ -203,24 +203,24 @@ public class SuppliersDvo implements Dvo {
         return this.company;
     }
     
-    // country/region
+    // country_SLASH_region
     
-    public void setCountry/region(String val) {
-        this.country/region = val;
+    public void setCountry_SLASH_region(String val) {
+        this.country_SLASH_region = val;
     }
     
-    public String getCountry/region() {
-        return this.country/region;
+    public String getCountry_SLASH_region() {
+        return this.country_SLASH_region;
     }
     
-    // e-mailAddress
+    // e_mailAddress
     
-    public void setE-mailAddress(String val) {
-        this.e-mailAddress = val;
+    public void setE_mailAddress(String val) {
+        this.e_mailAddress = val;
     }
     
-    public String getE-mailAddress() {
-        return this.e-mailAddress;
+    public String getE_mailAddress() {
+        return this.e_mailAddress;
     }
     
     // faxNumber
@@ -303,14 +303,14 @@ public class SuppliersDvo implements Dvo {
         return this.notes;
     }
     
-    // state/province
+    // state_SLASH_province
     
-    public void setState/province(String val) {
-        this.state/province = val;
+    public void setState_SLASH_province(String val) {
+        this.state_SLASH_province = val;
     }
     
-    public String getState/province() {
-        return this.state/province;
+    public String getState_SLASH_province() {
+        return this.state_SLASH_province;
     }
     
     // webPage
@@ -323,14 +323,14 @@ public class SuppliersDvo implements Dvo {
         return this.webPage;
     }
     
-    // zip/postalCode
+    // zip_SLASH_postalCode
     
-    public void setZip/postalCode(String val) {
-        this.zip/postalCode = val;
+    public void setZip_SLASH_postalCode(String val) {
+        this.zip_SLASH_postalCode = val;
     }
     
-    public String getZip/postalCode() {
-        return this.zip/postalCode;
+    public String getZip_SLASH_postalCode() {
+        return this.zip_SLASH_postalCode;
     }
     
     //

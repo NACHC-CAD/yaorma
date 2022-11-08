@@ -1,5 +1,5 @@
 //
-// Data Value Object (DVO) for Purchase Order Status
+// Data Value Object (DVO) for Orders Status
 //
 
 package org.yaorma.testoutput.msaccess.northwind.dvo;
@@ -10,13 +10,13 @@ import java.util.Date;
 
 import org.yaorma.dvo.Dvo;
 
-public class PurchaseOrderStatusDvo implements Dvo {
+public class Orders_SPACE_statusDvo implements Dvo {
 
     //
     // tableName
     //
     
-    public static final String TABLE_NAME = "Purchase Order Status";
+    public static final String TABLE_NAME = "Orders Status";
     
     //
     // schemaName
@@ -29,8 +29,8 @@ public class PurchaseOrderStatusDvo implements Dvo {
     //
     
     public static final String[] COLUMN_NAMES = {
-        "STATUS",
-        "STATUS ID"
+        "STATUS ID",
+        "STATUS NAME"
     };
     
     //
@@ -45,8 +45,8 @@ public class PurchaseOrderStatusDvo implements Dvo {
     //
     
     public static final String[] JAVA_NAMES = {
-        "status",
-        "statusId"
+        "status_SPACE_id",
+        "status_SPACE_name"
     };
     
     //
@@ -54,8 +54,8 @@ public class PurchaseOrderStatusDvo implements Dvo {
     //
     
     public static final String[] JAVA_NAMES_PROPER = {
-        "Status",
-        "StatusId"
+        "Status_SPACE_id",
+        "Status_SPACE_name"
     };
     
     
@@ -65,32 +65,32 @@ public class PurchaseOrderStatusDvo implements Dvo {
     
     private HashMap<String, String> descriptions = new HashMap<String, String>();
     
-    private String status;
+    private String status_SPACE_id;
     
-    private String statusId;
+    private String status_SPACE_name;
     
     //
     // trivial getters and setters
     //
     
-    // status
+    // status_SPACE_id
     
-    public void setStatus(String val) {
-        this.status = val;
+    public void setStatus_SPACE_id(String val) {
+        this.status_SPACE_id = val;
     }
     
-    public String getStatus() {
-        return this.status;
+    public String getStatus_SPACE_id() {
+        return this.status_SPACE_id;
     }
     
-    // statusId
+    // status_SPACE_name
     
-    public void setStatusId(String val) {
-        this.statusId = val;
+    public void setStatus_SPACE_name(String val) {
+        this.status_SPACE_name = val;
     }
     
-    public String getStatusId() {
-        return this.statusId;
+    public String getStatus_SPACE_name() {
+        return this.status_SPACE_name;
     }
     
     //

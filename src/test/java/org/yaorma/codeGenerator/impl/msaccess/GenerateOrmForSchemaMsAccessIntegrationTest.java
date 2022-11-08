@@ -7,6 +7,7 @@ import java.sql.Connection;
 
 import org.junit.Test;
 import org.yaorma.codeGenerator.generateOrmForSchema.GenerateOrmForSchema;
+import org.yaorma.database.Database;
 import org.yaorma.testutil.database.MsAccessConnectionUtil;
 import org.yaorma.testutil.file.FileUtil;
 
@@ -23,15 +24,20 @@ public class GenerateOrmForSchemaMsAccessIntegrationTest {
 
 	@Test
 	public void shouldGenerateOrm() {
-		log.info("Generating DVO objects...");
-		// remove the existing dvo dir
-		FileUtil.rmdir(DEST_DIR);
-		// check that the dest dir was deleted
-		assertTrue(DEST_DIR.exists() == false);
 		// get a connection
 		Connection conn = MsAccessConnectionUtil.getNorthWind();
-		// generate the dvo objects for the schema
-		GenerateOrmForSchema.execute(conn, SCHEMA_NAME, PACKAGE_NAME, DEST_DIR, new MsAccessOrmCodeGenerator());
+		try {
+			log.info("Generating DVO objects...");
+			// remove the existing dvo dir
+			FileUtil.rmdir(DEST_DIR);
+			// check that the dest dir was deleted
+			assertTrue(DEST_DIR.exists() == false);
+			// generate the dvo objects for the schema
+			GenerateOrmForSchema.execute(conn, SCHEMA_NAME, PACKAGE_NAME, DEST_DIR, new MsAccessOrmCodeGenerator());
+		} finally {
+			// close the connection
+			Database.close(conn);
+		}
 		// done
 		log.info("Done.");
 	}

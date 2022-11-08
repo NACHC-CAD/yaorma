@@ -45,8 +45,8 @@ public class PrivilegesDvo implements Dvo {
     //
     
     public static final String[] JAVA_NAMES = {
-        "privilegeId",
-        "privilegeName"
+        "privilege_SPACE_id",
+        "privilege_SPACE_name"
     };
     
     //
@@ -54,8 +54,8 @@ public class PrivilegesDvo implements Dvo {
     //
     
     public static final String[] JAVA_NAMES_PROPER = {
-        "PrivilegeId",
-        "PrivilegeName"
+        "Privilege_SPACE_id",
+        "Privilege_SPACE_name"
     };
     
     
@@ -65,32 +65,32 @@ public class PrivilegesDvo implements Dvo {
     
     private HashMap<String, String> descriptions = new HashMap<String, String>();
     
-    private String privilegeId;
+    private Integer privilege_SPACE_id;
     
-    private String privilegeName;
+    private String privilege_SPACE_name;
     
     //
     // trivial getters and setters
     //
     
-    // privilegeId
+    // privilege_SPACE_id
     
-    public void setPrivilegeId(String val) {
-        this.privilegeId = val;
+    public void setPrivilege_SPACE_id(Integer val) {
+        this.privilege_SPACE_id = val;
     }
     
-    public String getPrivilegeId() {
-        return this.privilegeId;
+    public Integer getPrivilege_SPACE_id() {
+        return this.privilege_SPACE_id;
     }
     
-    // privilegeName
+    // privilege_SPACE_name
     
-    public void setPrivilegeName(String val) {
-        this.privilegeName = val;
+    public void setPrivilege_SPACE_name(String val) {
+        this.privilege_SPACE_name = val;
     }
     
-    public String getPrivilegeName() {
-        return this.privilegeName;
+    public String getPrivilege_SPACE_name() {
+        return this.privilege_SPACE_name;
     }
     
     //

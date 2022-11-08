@@ -45,8 +45,8 @@ public class StringsDvo implements Dvo {
     //
     
     public static final String[] JAVA_NAMES = {
-        "stringData",
-        "stringId"
+        "string_SPACE_data",
+        "string_SPACE_id"
     };
     
     //
@@ -54,8 +54,8 @@ public class StringsDvo implements Dvo {
     //
     
     public static final String[] JAVA_NAMES_PROPER = {
-        "StringData",
-        "StringId"
+        "String_SPACE_data",
+        "String_SPACE_id"
     };
     
     
@@ -65,32 +65,32 @@ public class StringsDvo implements Dvo {
     
     private HashMap<String, String> descriptions = new HashMap<String, String>();
     
-    private String stringData;
+    private String string_SPACE_data;
     
-    private String stringId;
+    private Integer string_SPACE_id;
     
     //
     // trivial getters and setters
     //
     
-    // stringData
+    // string_SPACE_data
     
-    public void setStringData(String val) {
-        this.stringData = val;
+    public void setString_SPACE_data(String val) {
+        this.string_SPACE_data = val;
     }
     
-    public String getStringData() {
-        return this.stringData;
+    public String getString_SPACE_data() {
+        return this.string_SPACE_data;
     }
     
-    // stringId
+    // string_SPACE_id
     
-    public void setStringId(String val) {
-        this.stringId = val;
+    public void setString_SPACE_id(Integer val) {
+        this.string_SPACE_id = val;
     }
     
-    public String getStringId() {
-        return this.stringId;
+    public Integer getString_SPACE_id() {
+        return this.string_SPACE_id;
     }
     
     //

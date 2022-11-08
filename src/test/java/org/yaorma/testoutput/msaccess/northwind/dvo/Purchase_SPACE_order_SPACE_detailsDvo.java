@@ -1,5 +1,5 @@
 //
-// Data Value Object (DVO) for Order Details
+// Data Value Object (DVO) for Purchase Order Details
 //
 
 package org.yaorma.testoutput.msaccess.northwind.dvo;
@@ -10,13 +10,13 @@ import java.util.Date;
 
 import org.yaorma.dvo.Dvo;
 
-public class OrderDetailsDvo implements Dvo {
+public class Purchase_SPACE_order_SPACE_detailsDvo implements Dvo {
 
     //
     // tableName
     //
     
-    public static final String TABLE_NAME = "Order Details";
+    public static final String TABLE_NAME = "Purchase Order Details";
     
     //
     // schemaName
@@ -29,16 +29,14 @@ public class OrderDetailsDvo implements Dvo {
     //
     
     public static final String[] COLUMN_NAMES = {
-        "DATE ALLOCATED",
-        "DISCOUNT",
+        "DATE RECEIVED",
         "ID",
         "INVENTORY ID",
-        "ORDER ID",
+        "POSTED TO INVENTORY",
         "PRODUCT ID",
         "PURCHASE ORDER ID",
         "QUANTITY",
-        "STATUS ID",
-        "UNIT PRICE"
+        "UNIT COST"
     };
     
     //
@@ -53,16 +51,14 @@ public class OrderDetailsDvo implements Dvo {
     //
     
     public static final String[] JAVA_NAMES = {
-        "dateAllocated",
-        "discount",
+        "date_SPACE_received",
         "id",
-        "inventoryId",
-        "orderId",
-        "productId",
-        "purchaseOrderId",
+        "inventory_SPACE_id",
+        "posted_SPACE_to_SPACE_inventory",
+        "product_SPACE_id",
+        "purchase_SPACE_order_SPACE_id",
         "quantity",
-        "statusId",
-        "unitPrice"
+        "unit_SPACE_cost"
     };
     
     //
@@ -70,16 +66,14 @@ public class OrderDetailsDvo implements Dvo {
     //
     
     public static final String[] JAVA_NAMES_PROPER = {
-        "DateAllocated",
-        "Discount",
+        "Date_SPACE_received",
         "Id",
-        "InventoryId",
-        "OrderId",
-        "ProductId",
-        "PurchaseOrderId",
+        "Inventory_SPACE_id",
+        "Posted_SPACE_to_SPACE_inventory",
+        "Product_SPACE_id",
+        "Purchase_SPACE_order_SPACE_id",
         "Quantity",
-        "StatusId",
-        "UnitPrice"
+        "Unit_SPACE_cost"
     };
     
     
@@ -89,98 +83,84 @@ public class OrderDetailsDvo implements Dvo {
     
     private HashMap<String, String> descriptions = new HashMap<String, String>();
     
-    private String dateAllocated;
+    private String date_SPACE_received;
     
-    private String discount;
+    private Integer id;
     
-    private String id;
+    private Integer inventory_SPACE_id;
     
-    private String inventoryId;
+    private String posted_SPACE_to_SPACE_inventory;
     
-    private String orderId;
+    private Integer product_SPACE_id;
     
-    private String productId;
-    
-    private String purchaseOrderId;
+    private Integer purchase_SPACE_order_SPACE_id;
     
     private String quantity;
     
-    private String statusId;
-    
-    private String unitPrice;
+    private String unit_SPACE_cost;
     
     //
     // trivial getters and setters
     //
     
-    // dateAllocated
+    // date_SPACE_received
     
-    public void setDateAllocated(String val) {
-        this.dateAllocated = val;
+    public void setDate_SPACE_received(String val) {
+        this.date_SPACE_received = val;
     }
     
-    public String getDateAllocated() {
-        return this.dateAllocated;
-    }
-    
-    // discount
-    
-    public void setDiscount(String val) {
-        this.discount = val;
-    }
-    
-    public String getDiscount() {
-        return this.discount;
+    public String getDate_SPACE_received() {
+        return this.date_SPACE_received;
     }
     
     // id
     
-    public void setId(String val) {
+    public void setId(Integer val) {
         this.id = val;
     }
     
-    public String getId() {
+    public Integer getId() {
         return this.id;
     }
     
-    // inventoryId
+    // inventory_SPACE_id
     
-    public void setInventoryId(String val) {
-        this.inventoryId = val;
+    public void setInventory_SPACE_id(Integer val) {
+        this.inventory_SPACE_id = val;
     }
     
-    public String getInventoryId() {
-        return this.inventoryId;
+    public Integer getInventory_SPACE_id() {
+        return this.inventory_SPACE_id;
     }
     
-    // orderId
+    // posted_SPACE_to_SPACE_inventory
     
-    public void setOrderId(String val) {
-        this.orderId = val;
+    public void setPosted_SPACE_to_SPACE_inventory(String val) {
+        this.posted_SPACE_to_SPACE_inventory = val;
     }
     
-    public String getOrderId() {
-        return this.orderId;
+    public String getPosted_SPACE_to_SPACE_inventory() {
+        return this.posted_SPACE_to_SPACE_inventory;
     }
     
-    // productId
+    // product_SPACE_id
     
-    public void setProductId(String val) {
-        this.productId = val;
+    public void setProduct_SPACE_id(Integer val) {
+        this.product_SPACE_id = val;
     }
     
-    public String getProductId() {
-        return this.productId;
+    public Integer getProduct_SPACE_id() {
+        return this.product_SPACE_id;
     }
     
-    // purchaseOrderId
+    // purchase_SPACE_order_SPACE_id
     
-    public void setPurchaseOrderId(String val) {
-        this.purchaseOrderId = val;
+    public void setPurchase_SPACE_order_SPACE_id(Integer val) {
+        this.purchase_SPACE_order_SPACE_id = val;
     }
     
-    public String getPurchaseOrderId() {
-        return this.purchaseOrderId;
+    public Integer getPurchase_SPACE_order_SPACE_id() {
+        return this.purchase_SPACE_order_SPACE_id;
     }
     
     // quantity
@@ -193,24 +173,14 @@ public class OrderDetailsDvo implements Dvo {
         return this.quantity;
     }
     
-    // statusId
+    // unit_SPACE_cost
     
-    public void setStatusId(String val) {
-        this.statusId = val;
+    public void setUnit_SPACE_cost(String val) {
+        this.unit_SPACE_cost = val;
     }
     
-    public String getStatusId() {
-        return this.statusId;
-    }
-    
-    // unitPrice
-    
-    public void setUnitPrice(String val) {
-        this.unitPrice = val;
-    }
-    
-    public String getUnitPrice() {
-        return this.unitPrice;
+    public String getUnit_SPACE_cost() {
+        return this.unit_SPACE_cost;
     }
     
     //

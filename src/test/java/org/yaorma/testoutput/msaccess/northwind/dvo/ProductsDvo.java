@@ -62,15 +62,15 @@ public class ProductsDvo implements Dvo {
         "description",
         "discontinued",
         "id",
-        "listPrice",
-        "minimumReorderQuantity",
-        "productCode",
-        "productName",
-        "quantityPerUnit",
-        "reorderLevel",
-        "standardCost",
-        "supplierIds",
-        "targetLevel"
+        "list_SPACE_price",
+        "minimum_SPACE_reorder_SPACE_quantity",
+        "product_SPACE_code",
+        "product_SPACE_name",
+        "quantity_SPACE_per_SPACE_unit",
+        "reorder_SPACE_level",
+        "standard_SPACE_cost",
+        "supplier_SPACE_ids",
+        "target_SPACE_level"
     };
     
     //
@@ -83,15 +83,15 @@ public class ProductsDvo implements Dvo {
         "Description",
         "Discontinued",
         "Id",
-        "ListPrice",
-        "MinimumReorderQuantity",
-        "ProductCode",
-        "ProductName",
-        "QuantityPerUnit",
-        "ReorderLevel",
-        "StandardCost",
-        "SupplierIds",
-        "TargetLevel"
+        "List_SPACE_price",
+        "Minimum_SPACE_reorder_SPACE_quantity",
+        "Product_SPACE_code",
+        "Product_SPACE_name",
+        "Quantity_SPACE_per_SPACE_unit",
+        "Reorder_SPACE_level",
+        "Standard_SPACE_cost",
+        "Supplier_SPACE_ids",
+        "Target_SPACE_level"
     };
     
     
@@ -109,25 +109,25 @@ public class ProductsDvo implements Dvo {
     
     private String discontinued;
     
-    private String id;
+    private Integer id;
     
-    private String listPrice;
+    private String list_SPACE_price;
     
-    private String minimumReorderQuantity;
+    private String minimum_SPACE_reorder_SPACE_quantity;
     
-    private String productCode;
+    private String product_SPACE_code;
     
-    private String productName;
+    private String product_SPACE_name;
     
-    private String quantityPerUnit;
+    private String quantity_SPACE_per_SPACE_unit;
     
-    private String reorderLevel;
+    private String reorder_SPACE_level;
     
-    private String standardCost;
+    private String standard_SPACE_cost;
     
-    private String supplierIds;
+    private String supplier_SPACE_ids;
     
-    private String targetLevel;
+    private Integer target_SPACE_level;
     
     //
     // trivial getters and setters
@@ -175,102 +175,102 @@ public class ProductsDvo implements Dvo {
     
     // id
     
-    public void setId(String val) {
+    public void setId(Integer val) {
         this.id = val;
     }
     
-    public String getId() {
+    public Integer getId() {
         return this.id;
     }
     
-    // listPrice
+    // list_SPACE_price
     
-    public void setListPrice(String val) {
-        this.listPrice = val;
+    public void setList_SPACE_price(String val) {
+        this.list_SPACE_price = val;
     }
     
-    public String getListPrice() {
-        return this.listPrice;
+    public String getList_SPACE_price() {
+        return this.list_SPACE_price;
     }
     
-    // minimumReorderQuantity
+    // minimum_SPACE_reorder_SPACE_quantity
     
-    public void setMinimumReorderQuantity(String val) {
-        this.minimumReorderQuantity = val;
+    public void setMinimum_SPACE_reorder_SPACE_quantity(String val) {
+        this.minimum_SPACE_reorder_SPACE_quantity = val;
     }
     
-    public String getMinimumReorderQuantity() {
-        return this.minimumReorderQuantity;
+    public String getMinimum_SPACE_reorder_SPACE_quantity() {
+        return this.minimum_SPACE_reorder_SPACE_quantity;
     }
     
-    // productCode
+    // product_SPACE_code
     
-    public void setProductCode(String val) {
-        this.productCode = val;
+    public void setProduct_SPACE_code(String val) {
+        this.product_SPACE_code = val;
     }
     
-    public String getProductCode() {
-        return this.productCode;
+    public String getProduct_SPACE_code() {
+        return this.product_SPACE_code;
     }
     
-    // productName
+    // product_SPACE_name
     
-    public void setProductName(String val) {
-        this.productName = val;
+    public void setProduct_SPACE_name(String val) {
+        this.product_SPACE_name = val;
     }
     
-    public String getProductName() {
-        return this.productName;
+    public String getProduct_SPACE_name() {
+        return this.product_SPACE_name;
     }
     
-    // quantityPerUnit
+    // quantity_SPACE_per_SPACE_unit
     
-    public void setQuantityPerUnit(String val) {
-        this.quantityPerUnit = val;
+    public void setQuantity_SPACE_per_SPACE_unit(String val) {
+        this.quantity_SPACE_per_SPACE_unit = val;
     }
     
-    public String getQuantityPerUnit() {
-        return this.quantityPerUnit;
+    public String getQuantity_SPACE_per_SPACE_unit() {
+        return this.quantity_SPACE_per_SPACE_unit;
     }
     
-    // reorderLevel
+    // reorder_SPACE_level
     
-    public void setReorderLevel(String val) {
-        this.reorderLevel = val;
+    public void setReorder_SPACE_level(String val) {
+        this.reorder_SPACE_level = val;
     }
     
-    public String getReorderLevel() {
-        return this.reorderLevel;
+    public String getReorder_SPACE_level() {
+        return this.reorder_SPACE_level;
     }
     
-    // standardCost
+    // standard_SPACE_cost
     
-    public void setStandardCost(String val) {
-        this.standardCost = val;
+    public void setStandard_SPACE_cost(String val) {
+        this.standard_SPACE_cost = val;
     }
     
-    public String getStandardCost() {
-        return this.standardCost;
+    public String getStandard_SPACE_cost() {
+        return this.standard_SPACE_cost;
     }
     
-    // supplierIds
+    // supplier_SPACE_ids
     
-    public void setSupplierIds(String val) {
-        this.supplierIds = val;
+    public void setSupplier_SPACE_ids(String val) {
+        this.supplier_SPACE_ids = val;
     }
     
-    public String getSupplierIds() {
-        return this.supplierIds;
+    public String getSupplier_SPACE_ids() {
+        return this.supplier_SPACE_ids;
     }
     
-    // targetLevel
+    // target_SPACE_level
     
-    public void setTargetLevel(String val) {
-        this.targetLevel = val;
+    public void setTarget_SPACE_level(Integer val) {
+        this.target_SPACE_level = val;
     }
     
-    public String getTargetLevel() {
-        return this.targetLevel;
+    public Integer getTarget_SPACE_level() {
+        return this.target_SPACE_level;
     }
     
     //

@@ -10,7 +10,7 @@ import java.util.Date;
 
 import org.yaorma.dvo.Dvo;
 
-public class EmployeePrivilegesDvo implements Dvo {
+public class Employee_SPACE_privilegesDvo implements Dvo {
 
     //
     // tableName
@@ -45,8 +45,8 @@ public class EmployeePrivilegesDvo implements Dvo {
     //
     
     public static final String[] JAVA_NAMES = {
-        "employeeId",
-        "privilegeId"
+        "employee_SPACE_id",
+        "privilege_SPACE_id"
     };
     
     //
@@ -54,8 +54,8 @@ public class EmployeePrivilegesDvo implements Dvo {
     //
     
     public static final String[] JAVA_NAMES_PROPER = {
-        "EmployeeId",
-        "PrivilegeId"
+        "Employee_SPACE_id",
+        "Privilege_SPACE_id"
     };
     
     
@@ -65,32 +65,32 @@ public class EmployeePrivilegesDvo implements Dvo {
     
     private HashMap<String, String> descriptions = new HashMap<String, String>();
     
-    private String employeeId;
+    private Integer employee_SPACE_id;
     
-    private String privilegeId;
+    private Integer privilege_SPACE_id;
     
     //
     // trivial getters and setters
     //
     
-    // employeeId
+    // employee_SPACE_id
     
-    public void setEmployeeId(String val) {
-        this.employeeId = val;
+    public void setEmployee_SPACE_id(Integer val) {
+        this.employee_SPACE_id = val;
     }
     
-    public String getEmployeeId() {
-        return this.employeeId;
+    public Integer getEmployee_SPACE_id() {
+        return this.employee_SPACE_id;
     }
     
-    // privilegeId
+    // privilege_SPACE_id
     
-    public void setPrivilegeId(String val) {
-        this.privilegeId = val;
+    public void setPrivilege_SPACE_id(Integer val) {
+        this.privilege_SPACE_id = val;
     }
     
-    public String getPrivilegeId() {
-        return this.privilegeId;
+    public Integer getPrivilege_SPACE_id() {
+        return this.privilege_SPACE_id;
     }
     
     //

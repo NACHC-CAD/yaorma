@@ -1,5 +1,5 @@
 //
-// Data Value Object (DVO) for Orders Tax Status
+// Data Value Object (DVO) for Order Details Status
 //
 
 package org.yaorma.testoutput.msaccess.northwind.dvo;
@@ -10,13 +10,13 @@ import java.util.Date;
 
 import org.yaorma.dvo.Dvo;
 
-public class OrdersTaxStatusDvo implements Dvo {
+public class Order_SPACE_details_SPACE_statusDvo implements Dvo {
 
     //
     // tableName
     //
     
-    public static final String TABLE_NAME = "Orders Tax Status";
+    public static final String TABLE_NAME = "Order Details Status";
     
     //
     // schemaName
@@ -29,8 +29,8 @@ public class OrdersTaxStatusDvo implements Dvo {
     //
     
     public static final String[] COLUMN_NAMES = {
-        "ID",
-        "TAX STATUS NAME"
+        "STATUS ID",
+        "STATUS NAME"
     };
     
     //
@@ -45,8 +45,8 @@ public class OrdersTaxStatusDvo implements Dvo {
     //
     
     public static final String[] JAVA_NAMES = {
-        "id",
-        "taxStatusName"
+        "status_SPACE_id",
+        "status_SPACE_name"
     };
     
     //
@@ -54,8 +54,8 @@ public class OrdersTaxStatusDvo implements Dvo {
     //
     
     public static final String[] JAVA_NAMES_PROPER = {
-        "Id",
-        "TaxStatusName"
+        "Status_SPACE_id",
+        "Status_SPACE_name"
     };
     
     
@@ -65,32 +65,32 @@ public class OrdersTaxStatusDvo implements Dvo {
     
     private HashMap<String, String> descriptions = new HashMap<String, String>();
     
-    private String id;
+    private Integer status_SPACE_id;
     
-    private String taxStatusName;
+    private String status_SPACE_name;
     
     //
     // trivial getters and setters
     //
     
-    // id
+    // status_SPACE_id
     
-    public void setId(String val) {
-        this.id = val;
+    public void setStatus_SPACE_id(Integer val) {
+        this.status_SPACE_id = val;
     }
     
-    public String getId() {
-        return this.id;
+    public Integer getStatus_SPACE_id() {
+        return this.status_SPACE_id;
     }
     
-    // taxStatusName
+    // status_SPACE_name
     
-    public void setTaxStatusName(String val) {
-        this.taxStatusName = val;
+    public void setStatus_SPACE_name(String val) {
+        this.status_SPACE_name = val;
     }
     
-    public String getTaxStatusName() {
-        return this.taxStatusName;
+    public String getStatus_SPACE_name() {
+        return this.status_SPACE_name;
     }
     
     //

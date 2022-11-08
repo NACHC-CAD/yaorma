@@ -10,7 +10,7 @@ import java.util.Date;
 
 import org.yaorma.dvo.Dvo;
 
-public class InventoryTransactionsDvo implements Dvo {
+public class Inventory_SPACE_transactionsDvo implements Dvo {
 
     //
     // tableName
@@ -53,14 +53,14 @@ public class InventoryTransactionsDvo implements Dvo {
     
     public static final String[] JAVA_NAMES = {
         "comments",
-        "customerOrderId",
-        "productId",
-        "purchaseOrderId",
+        "customer_SPACE_order_SPACE_id",
+        "product_SPACE_id",
+        "purchase_SPACE_order_SPACE_id",
         "quantity",
-        "transactionCreatedDate",
-        "transactionId",
-        "transactionModifiedDate",
-        "transactionType"
+        "transaction_SPACE_created_SPACE_date",
+        "transaction_SPACE_id",
+        "transaction_SPACE_modified_SPACE_date",
+        "transaction_SPACE_type"
     };
     
     //
@@ -69,14 +69,14 @@ public class InventoryTransactionsDvo implements Dvo {
     
     public static final String[] JAVA_NAMES_PROPER = {
         "Comments",
-        "CustomerOrderId",
-        "ProductId",
-        "PurchaseOrderId",
+        "Customer_SPACE_order_SPACE_id",
+        "Product_SPACE_id",
+        "Purchase_SPACE_order_SPACE_id",
         "Quantity",
-        "TransactionCreatedDate",
-        "TransactionId",
-        "TransactionModifiedDate",
-        "TransactionType"
+        "Transaction_SPACE_created_SPACE_date",
+        "Transaction_SPACE_id",
+        "Transaction_SPACE_modified_SPACE_date",
+        "Transaction_SPACE_type"
     };
     
     
@@ -88,21 +88,21 @@ public class InventoryTransactionsDvo implements Dvo {
     
     private String comments;
     
-    private String customerOrderId;
+    private Integer customer_SPACE_order_SPACE_id;
     
-    private String productId;
+    private Integer product_SPACE_id;
     
-    private String purchaseOrderId;
+    private Integer purchase_SPACE_order_SPACE_id;
     
-    private String quantity;
+    private Integer quantity;
     
-    private String transactionCreatedDate;
+    private String transaction_SPACE_created_SPACE_date;
     
-    private String transactionId;
+    private Integer transaction_SPACE_id;
     
-    private String transactionModifiedDate;
+    private String transaction_SPACE_modified_SPACE_date;
     
-    private String transactionType;
+    private String transaction_SPACE_type;
     
     //
     // trivial getters and setters
@@ -118,84 +118,84 @@ public class InventoryTransactionsDvo implements Dvo {
         return this.comments;
     }
     
-    // customerOrderId
+    // customer_SPACE_order_SPACE_id
     
-    public void setCustomerOrderId(String val) {
-        this.customerOrderId = val;
+    public void setCustomer_SPACE_order_SPACE_id(Integer val) {
+        this.customer_SPACE_order_SPACE_id = val;
     }
     
-    public String getCustomerOrderId() {
-        return this.customerOrderId;
+    public Integer getCustomer_SPACE_order_SPACE_id() {
+        return this.customer_SPACE_order_SPACE_id;
     }
     
-    // productId
+    // product_SPACE_id
     
-    public void setProductId(String val) {
-        this.productId = val;
+    public void setProduct_SPACE_id(Integer val) {
+        this.product_SPACE_id = val;
     }
     
-    public String getProductId() {
-        return this.productId;
+    public Integer getProduct_SPACE_id() {
+        return this.product_SPACE_id;
     }
     
-    // purchaseOrderId
+    // purchase_SPACE_order_SPACE_id
     
-    public void setPurchaseOrderId(String val) {
-        this.purchaseOrderId = val;
+    public void setPurchase_SPACE_order_SPACE_id(Integer val) {
+        this.purchase_SPACE_order_SPACE_id = val;
     }
     
-    public String getPurchaseOrderId() {
-        return this.purchaseOrderId;
+    public Integer getPurchase_SPACE_order_SPACE_id() {
+        return this.purchase_SPACE_order_SPACE_id;
     }
     
     // quantity
     
-    public void setQuantity(String val) {
+    public void setQuantity(Integer val) {
         this.quantity = val;
     }
     
-    public String getQuantity() {
+    public Integer getQuantity() {
         return this.quantity;
     }
     
-    // transactionCreatedDate
+    // transaction_SPACE_created_SPACE_date
     
-    public void setTransactionCreatedDate(String val) {
-        this.transactionCreatedDate = val;
+    public void setTransaction_SPACE_created_SPACE_date(String val) {
+        this.transaction_SPACE_created_SPACE_date = val;
     }
     
-    public String getTransactionCreatedDate() {
-        return this.transactionCreatedDate;
+    public String getTransaction_SPACE_created_SPACE_date() {
+        return this.transaction_SPACE_created_SPACE_date;
     }
     
-    // transactionId
+    // transaction_SPACE_id
     
-    public void setTransactionId(String val) {
-        this.transactionId = val;
+    public void setTransaction_SPACE_id(Integer val) {
+        this.transaction_SPACE_id = val;
     }
     
-    public String getTransactionId() {
-        return this.transactionId;
+    public Integer getTransaction_SPACE_id() {
+        return this.transaction_SPACE_id;
     }
     
-    // transactionModifiedDate
+    // transaction_SPACE_modified_SPACE_date
     
-    public void setTransactionModifiedDate(String val) {
-        this.transactionModifiedDate = val;
+    public void setTransaction_SPACE_modified_SPACE_date(String val) {
+        this.transaction_SPACE_modified_SPACE_date = val;
     }
     
-    public String getTransactionModifiedDate() {
-        return this.transactionModifiedDate;
+    public String getTransaction_SPACE_modified_SPACE_date() {
+        return this.transaction_SPACE_modified_SPACE_date;
     }
     
-    // transactionType
+    // transaction_SPACE_type
     
-    public void setTransactionType(String val) {
-        this.transactionType = val;
+    public void setTransaction_SPACE_type(String val) {
+        this.transaction_SPACE_type = val;
     }
     
-    public String getTransactionType() {
-        return this.transactionType;
+    public String getTransaction_SPACE_type() {
+        return this.transaction_SPACE_type;
     }
     
     //

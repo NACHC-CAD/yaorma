@@ -1,5 +1,5 @@
 //
-// Data Value Object (DVO) for Orders Status
+// Data Value Object (DVO) for Orders Tax Status
 //
 
 package org.yaorma.testoutput.msaccess.northwind.dvo;
@@ -10,13 +10,13 @@ import java.util.Date;
 
 import org.yaorma.dvo.Dvo;
 
-public class OrdersStatusDvo implements Dvo {
+public class Orders_SPACE_tax_SPACE_statusDvo implements Dvo {
 
     //
     // tableName
     //
     
-    public static final String TABLE_NAME = "Orders Status";
+    public static final String TABLE_NAME = "Orders Tax Status";
     
     //
     // schemaName
@@ -29,8 +29,8 @@ public class OrdersStatusDvo implements Dvo {
     //
     
     public static final String[] COLUMN_NAMES = {
-        "STATUS ID",
-        "STATUS NAME"
+        "ID",
+        "TAX STATUS NAME"
     };
     
     //
@@ -45,8 +45,8 @@ public class OrdersStatusDvo implements Dvo {
     //
     
     public static final String[] JAVA_NAMES = {
-        "statusId",
-        "statusName"
+        "id",
+        "tax_SPACE_status_SPACE_name"
     };
     
     //
@@ -54,8 +54,8 @@ public class OrdersStatusDvo implements Dvo {
     //
     
     public static final String[] JAVA_NAMES_PROPER = {
-        "StatusId",
-        "StatusName"
+        "Id",
+        "Tax_SPACE_status_SPACE_name"
     };
     
     
@@ -65,32 +65,32 @@ public class OrdersStatusDvo implements Dvo {
     
     private HashMap<String, String> descriptions = new HashMap<String, String>();
     
-    private String statusId;
+    private String id;
     
-    private String statusName;
+    private String tax_SPACE_status_SPACE_name;
     
     //
     // trivial getters and setters
     //
     
-    // statusId
+    // id
     
-    public void setStatusId(String val) {
-        this.statusId = val;
+    public void setId(String val) {
+        this.id = val;
     }
     
-    public String getStatusId() {
-        return this.statusId;
+    public String getId() {
+        return this.id;
     }
     
-    // statusName
+    // tax_SPACE_status_SPACE_name
     
-    public void setStatusName(String val) {
-        this.statusName = val;
+    public void setTax_SPACE_status_SPACE_name(String val) {
+        this.tax_SPACE_status_SPACE_name = val;
     }
     
-    public String getStatusName() {
-        return this.statusName;
+    public String getTax_SPACE_status_SPACE_name() {
+        return this.tax_SPACE_status_SPACE_name;
     }
     
     //

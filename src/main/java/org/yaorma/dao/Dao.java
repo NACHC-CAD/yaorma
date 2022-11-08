@@ -245,6 +245,10 @@ public class Dao {
 			String javaName = colNames.get(i);
 			String colName = DbToJavaNamingConverter.toDatabaseName(javaName);
 			int type = rs.getMetaData().getColumnType(i + 1);
+			if (type == 1111) {
+				// attachment
+				continue;
+			}
 			if (type == Types.DATE || type == Types.TIME || type == Types.TIMESTAMP) {
 				Date value = rs.getDate(colName);
 				Method method = getDateSetterForName(dvo, javaName);
@@ -295,7 +299,7 @@ public class Dao {
 			String colName = meta.getColumnName(i + 1);
 			for (int d = 0; d < dvoColumns.length; d++) {
 				String dvoColumnName = dvoColumns[d];
-				if (dvoColumnName != null && dvoColumnName.equals(colName)) {
+				if (dvoColumnName != null && dvoColumnName.equalsIgnoreCase(colName)) {
 					String javaName = DbToJavaNamingConverter.toJavaProperName(colName);
 					rtn.add(javaName);
 					continue;

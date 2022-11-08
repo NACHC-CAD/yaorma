@@ -1,5 +1,5 @@
 //
-// Data Value Object (DVO) for Inventory Transaction Types
+// Data Value Object (DVO) for Purchase Order Status
 //
 
 package org.yaorma.testoutput.msaccess.northwind.dvo;
@@ -10,13 +10,13 @@ import java.util.Date;
 
 import org.yaorma.dvo.Dvo;
 
-public class InventoryTransactionTypesDvo implements Dvo {
+public class Purchase_SPACE_order_SPACE_statusDvo implements Dvo {
 
     //
     // tableName
     //
     
-    public static final String TABLE_NAME = "Inventory Transaction Types";
+    public static final String TABLE_NAME = "Purchase Order Status";
     
     //
     // schemaName
@@ -29,8 +29,8 @@ public class InventoryTransactionTypesDvo implements Dvo {
     //
     
     public static final String[] COLUMN_NAMES = {
-        "ID",
-        "TYPE NAME"
+        "STATUS",
+        "STATUS ID"
     };
     
     //
@@ -45,8 +45,8 @@ public class InventoryTransactionTypesDvo implements Dvo {
     //
     
     public static final String[] JAVA_NAMES = {
-        "id",
-        "typeName"
+        "status",
+        "status_SPACE_id"
     };
     
     //
@@ -54,8 +54,8 @@ public class InventoryTransactionTypesDvo implements Dvo {
     //
     
     public static final String[] JAVA_NAMES_PROPER = {
-        "Id",
-        "TypeName"
+        "Status",
+        "Status_SPACE_id"
     };
     
     
@@ -65,32 +65,32 @@ public class InventoryTransactionTypesDvo implements Dvo {
     
     private HashMap<String, String> descriptions = new HashMap<String, String>();
     
-    private String id;
+    private String status;
     
-    private String typeName;
+    private Integer status_SPACE_id;
     
     //
     // trivial getters and setters
     //
     
-    // id
+    // status
     
-    public void setId(String val) {
-        this.id = val;
+    public void setStatus(String val) {
+        this.status = val;
     }
     
-    public String getId() {
-        return this.id;
+    public String getStatus() {
+        return this.status;
     }
     
-    // typeName
+    // status_SPACE_id
     
-    public void setTypeName(String val) {
-        this.typeName = val;
+    public void setStatus_SPACE_id(Integer val) {
+        this.status_SPACE_id = val;
     }
     
-    public String getTypeName() {
-        return this.typeName;
+    public Integer getStatus_SPACE_id() {
+        return this.status_SPACE_id;
     }
     
     //

@@ -64,25 +64,25 @@ public class OrdersDvo implements Dvo {
     //
     
     public static final String[] JAVA_NAMES = {
-        "customerId",
-        "employeeId",
+        "customer_SPACE_id",
+        "employee_SPACE_id",
         "notes",
-        "orderDate",
-        "orderId",
-        "paidDate",
-        "paymentType",
-        "shipAddress",
-        "shipCity",
-        "shipCountry_SLASH_region",
-        "shipName",
-        "shipState_SLASH_province",
-        "shipZip_SLASH_postalCode",
-        "shippedDate",
-        "shipperId",
-        "shippingFee",
-        "statusId",
-        "taxRate",
-        "taxStatus",
+        "order_SPACE_date",
+        "order_SPACE_id",
+        "paid_SPACE_date",
+        "payment_SPACE_type",
+        "ship_SPACE_address",
+        "ship_SPACE_city",
+        "ship_SPACE_country_SLASH_region",
+        "ship_SPACE_name",
+        "ship_SPACE_state_SLASH_province",
+        "ship_SPACE_zip_SLASH_postal_SPACE_code",
+        "shipped_SPACE_date",
+        "shipper_SPACE_id",
+        "shipping_SPACE_fee",
+        "status_SPACE_id",
+        "tax_SPACE_rate",
+        "tax_SPACE_status",
         "taxes",
         "versionhistoryF5f8918f_0a3f_4da9_ae71_184ee5012880"
     };
@@ -92,25 +92,25 @@ public class OrdersDvo implements Dvo {
     //
     
     public static final String[] JAVA_NAMES_PROPER = {
-        "CustomerId",
-        "EmployeeId",
+        "Customer_SPACE_id",
+        "Employee_SPACE_id",
         "Notes",
-        "OrderDate",
-        "OrderId",
-        "PaidDate",
-        "PaymentType",
-        "ShipAddress",
-        "ShipCity",
-        "ShipCountry_SLASH_region",
-        "ShipName",
-        "ShipState_SLASH_province",
-        "ShipZip_SLASH_postalCode",
-        "ShippedDate",
-        "ShipperId",
-        "ShippingFee",
-        "StatusId",
-        "TaxRate",
-        "TaxStatus",
+        "Order_SPACE_date",
+        "Order_SPACE_id",
+        "Paid_SPACE_date",
+        "Payment_SPACE_type",
+        "Ship_SPACE_address",
+        "Ship_SPACE_city",
+        "Ship_SPACE_country_SLASH_region",
+        "Ship_SPACE_name",
+        "Ship_SPACE_state_SLASH_province",
+        "Ship_SPACE_zip_SLASH_postal_SPACE_code",
+        "Shipped_SPACE_date",
+        "Shipper_SPACE_id",
+        "Shipping_SPACE_fee",
+        "Status_SPACE_id",
+        "Tax_SPACE_rate",
+        "Tax_SPACE_status",
         "Taxes",
         "VersionhistoryF5f8918f_0a3f_4da9_ae71_184ee5012880"
     };
@@ -122,43 +122,43 @@ public class OrdersDvo implements Dvo {
     
     private HashMap<String, String> descriptions = new HashMap<String, String>();
     
-    private String customerId;
+    private Integer customer_SPACE_id;
     
-    private String employeeId;
+    private Integer employee_SPACE_id;
     
     private String notes;
     
-    private String orderDate;
+    private String order_SPACE_date;
     
-    private String orderId;
+    private Integer order_SPACE_id;
     
-    private String paidDate;
+    private String paid_SPACE_date;
     
-    private String paymentType;
+    private String payment_SPACE_type;
     
-    private String shipAddress;
+    private String ship_SPACE_address;
     
-    private String shipCity;
+    private String ship_SPACE_city;
     
-    private String shipCountry_SLASH_region;
+    private String ship_SPACE_country_SLASH_region;
     
-    private String shipName;
+    private String ship_SPACE_name;
     
-    private String shipState_SLASH_province;
+    private String ship_SPACE_state_SLASH_province;
     
-    private String shipZip_SLASH_postalCode;
+    private String ship_SPACE_zip_SLASH_postal_SPACE_code;
     
-    private String shippedDate;
+    private String shipped_SPACE_date;
     
-    private String shipperId;
+    private Integer shipper_SPACE_id;
     
-    private String shippingFee;
+    private String shipping_SPACE_fee;
     
-    private String statusId;
+    private String status_SPACE_id;
     
-    private String taxRate;
+    private String tax_SPACE_rate;
     
-    private String taxStatus;
+    private String tax_SPACE_status;
     
     private String taxes;
     
@@ -168,24 +168,24 @@ public class OrdersDvo implements Dvo {
     // trivial getters and setters
     //
     
-    // customerId
+    // customer_SPACE_id
     
-    public void setCustomerId(String val) {
-        this.customerId = val;
+    public void setCustomer_SPACE_id(Integer val) {
+        this.customer_SPACE_id = val;
     }
     
-    public String getCustomerId() {
-        return this.customerId;
+    public Integer getCustomer_SPACE_id() {
+        return this.customer_SPACE_id;
     }
     
-    // employeeId
+    // employee_SPACE_id
     
-    public void setEmployeeId(String val) {
-        this.employeeId = val;
+    public void setEmployee_SPACE_id(Integer val) {
+        this.employee_SPACE_id = val;
     }
     
-    public String getEmployeeId() {
-        return this.employeeId;
+    public Integer getEmployee_SPACE_id() {
+        return this.employee_SPACE_id;
     }
     
     // notes
@@ -198,164 +198,164 @@ public class OrdersDvo implements Dvo {
         return this.notes;
     }
     
-    // orderDate
+    // order_SPACE_date
     
-    public void setOrderDate(String val) {
-        this.orderDate = val;
+    public void setOrder_SPACE_date(String val) {
+        this.order_SPACE_date = val;
     }
     
-    public String getOrderDate() {
-        return this.orderDate;
+    public String getOrder_SPACE_date() {
+        return this.order_SPACE_date;
     }
     
-    // orderId
+    // order_SPACE_id
     
-    public void setOrderId(String val) {
-        this.orderId = val;
+    public void setOrder_SPACE_id(Integer val) {
+        this.order_SPACE_id = val;
     }
     
-    public String getOrderId() {
-        return this.orderId;
+    public Integer getOrder_SPACE_id() {
+        return this.order_SPACE_id;
     }
     
-    // paidDate
+    // paid_SPACE_date
     
-    public void setPaidDate(String val) {
-        this.paidDate = val;
+    public void setPaid_SPACE_date(String val) {
+        this.paid_SPACE_date = val;
     }
     
-    public String getPaidDate() {
-        return this.paidDate;
+    public String getPaid_SPACE_date() {
+        return this.paid_SPACE_date;
     }
     
-    // paymentType
+    // payment_SPACE_type
     
-    public void setPaymentType(String val) {
-        this.paymentType = val;
+    public void setPayment_SPACE_type(String val) {
+        this.payment_SPACE_type = val;
     }
     
-    public String getPaymentType() {
-        return this.paymentType;
+    public String getPayment_SPACE_type() {
+        return this.payment_SPACE_type;
     }
     
-    // shipAddress
+    // ship_SPACE_address
     
-    public void setShipAddress(String val) {
-        this.shipAddress = val;
+    public void setShip_SPACE_address(String val) {
+        this.ship_SPACE_address = val;
     }
     
-    public String getShipAddress() {
-        return this.shipAddress;
+    public String getShip_SPACE_address() {
+        return this.ship_SPACE_address;
     }
     
-    // shipCity
+    // ship_SPACE_city
     
-    public void setShipCity(String val) {
-        this.shipCity = val;
+    public void setShip_SPACE_city(String val) {
+        this.ship_SPACE_city = val;
     }
     
-    public String getShipCity() {
-        return this.shipCity;
+    public String getShip_SPACE_city() {
+        return this.ship_SPACE_city;
     }
     
-    // shipCountry_SLASH_region
+    // ship_SPACE_country_SLASH_region
     
-    public void setShipCountry_SLASH_region(String val) {
-        this.shipCountry_SLASH_region = val;
+    public void setShip_SPACE_country_SLASH_region(String val) {
+        this.ship_SPACE_country_SLASH_region = val;
     }
     
-    public String getShipCountry_SLASH_region() {
-        return this.shipCountry_SLASH_region;
+    public String getShip_SPACE_country_SLASH_region() {
+        return this.ship_SPACE_country_SLASH_region;
     }
     
-    // shipName
+    // ship_SPACE_name
     
-    public void setShipName(String val) {
-        this.shipName = val;
+    public void setShip_SPACE_name(String val) {
+        this.ship_SPACE_name = val;
     }
     
-    public String getShipName() {
-        return this.shipName;
+    public String getShip_SPACE_name() {
+        return this.ship_SPACE_name;
     }
     
-    // shipState_SLASH_province
+    // ship_SPACE_state_SLASH_province
     
-    public void setShipState_SLASH_province(String val) {
-        this.shipState_SLASH_province = val;
+    public void setShip_SPACE_state_SLASH_province(String val) {
+        this.ship_SPACE_state_SLASH_province = val;
     }
     
-    public String getShipState_SLASH_province() {
-        return this.shipState_SLASH_province;
+    public String getShip_SPACE_state_SLASH_province() {
+        return this.ship_SPACE_state_SLASH_province;
     }
     
-    // shipZip_SLASH_postalCode
+    // ship_SPACE_zip_SLASH_postal_SPACE_code
     
-    public void setShipZip_SLASH_postalCode(String val) {
-        this.shipZip_SLASH_postalCode = val;
+    public void setShip_SPACE_zip_SLASH_postal_SPACE_code(String val) {
+        this.ship_SPACE_zip_SLASH_postal_SPACE_code = val;
     }
     
-    public String getShipZip_SLASH_postalCode() {
-        return this.shipZip_SLASH_postalCode;
+    public String getShip_SPACE_zip_SLASH_postal_SPACE_code() {
+        return this.ship_SPACE_zip_SLASH_postal_SPACE_code;
     }
     
-    // shippedDate
+    // shipped_SPACE_date
     
-    public void setShippedDate(String val) {
-        this.shippedDate = val;
+    public void setShipped_SPACE_date(String val) {
+        this.shipped_SPACE_date = val;
     }
     
-    public String getShippedDate() {
-        return this.shippedDate;
+    public String getShipped_SPACE_date() {
+        return this.shipped_SPACE_date;
     }
     
-    // shipperId
+    // shipper_SPACE_id
     
-    public void setShipperId(String val) {
-        this.shipperId = val;
+    public void setShipper_SPACE_id(Integer val) {
+        this.shipper_SPACE_id = val;
     }
     
-    public String getShipperId() {
-        return this.shipperId;
+    public Integer getShipper_SPACE_id() {
+        return this.shipper_SPACE_id;
     }
     
-    // shippingFee
+    // shipping_SPACE_fee
     
-    public void setShippingFee(String val) {
-        this.shippingFee = val;
+    public void setShipping_SPACE_fee(String val) {
+        this.shipping_SPACE_fee = val;
     }
     
-    public String getShippingFee() {
-        return this.shippingFee;
+    public String getShipping_SPACE_fee() {
+        return this.shipping_SPACE_fee;
     }
     
-    // statusId
+    // status_SPACE_id
     
-    public void setStatusId(String val) {
-        this.statusId = val;
+    public void setStatus_SPACE_id(String val) {
+        this.status_SPACE_id = val;
     }
     
-    public String getStatusId() {
-        return this.statusId;
+    public String getStatus_SPACE_id() {
+        return this.status_SPACE_id;
     }
     
-    // taxRate
+    // tax_SPACE_rate
     
-    public void setTaxRate(String val) {
-        this.taxRate = val;
+    public void setTax_SPACE_rate(String val) {
+        this.tax_SPACE_rate = val;
     }
     
-    public String getTaxRate() {
-        return this.taxRate;
+    public String getTax_SPACE_rate() {
+        return this.tax_SPACE_rate;
     }
     
-    // taxStatus
+    // tax_SPACE_status
     
-    public void setTaxStatus(String val) {
-        this.taxStatus = val;
+    public void setTax_SPACE_status(String val) {
+        this.tax_SPACE_status = val;
     }
     
-    public String getTaxStatus() {
-        return this.taxStatus;
+    public String getTax_SPACE_status() {
+        return this.tax_SPACE_status;
     }
     
     // taxes

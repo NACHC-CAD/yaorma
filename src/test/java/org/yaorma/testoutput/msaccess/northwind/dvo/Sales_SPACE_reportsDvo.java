@@ -10,7 +10,7 @@ import java.util.Date;
 
 import org.yaorma.dvo.Dvo;
 
-public class SalesReportsDvo implements Dvo {
+public class Sales_SPACE_reportsDvo implements Dvo {
 
     //
     // tableName
@@ -50,8 +50,8 @@ public class SalesReportsDvo implements Dvo {
     public static final String[] JAVA_NAMES = {
         "default",
         "display",
-        "filterRowSource",
-        "groupBy",
+        "filter_SPACE_row_SPACE_source",
+        "group_SPACE_by",
         "title"
     };
     
@@ -62,8 +62,8 @@ public class SalesReportsDvo implements Dvo {
     public static final String[] JAVA_NAMES_PROPER = {
         "Default",
         "Display",
-        "FilterRowSource",
-        "GroupBy",
+        "Filter_SPACE_row_SPACE_source",
+        "Group_SPACE_by",
         "Title"
     };
     
@@ -78,9 +78,9 @@ public class SalesReportsDvo implements Dvo {
     
     private String display;
     
-    private String filterRowSource;
+    private String filter_SPACE_row_SPACE_source;
     
-    private String groupBy;
+    private String group_SPACE_by;
     
     private String title;
     
@@ -108,24 +108,24 @@ public class SalesReportsDvo implements Dvo {
         return this.display;
     }
     
-    // filterRowSource
+    // filter_SPACE_row_SPACE_source
     
-    public void setFilterRowSource(String val) {
-        this.filterRowSource = val;
+    public void setFilter_SPACE_row_SPACE_source(String val) {
+        this.filter_SPACE_row_SPACE_source = val;
     }
     
-    public String getFilterRowSource() {
-        return this.filterRowSource;
+    public String getFilter_SPACE_row_SPACE_source() {
+        return this.filter_SPACE_row_SPACE_source;
     }
     
-    // groupBy
+    // group_SPACE_by
     
-    public void setGroupBy(String val) {
-        this.groupBy = val;
+    public void setGroup_SPACE_by(String val) {
+        this.group_SPACE_by = val;
     }
     
-    public String getGroupBy() {
-        return this.groupBy;
+    public String getGroup_SPACE_by() {
+        return this.group_SPACE_by;
     }
     
     // title

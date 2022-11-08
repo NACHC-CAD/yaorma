@@ -10,6 +10,7 @@ public class DbToJavaNamingConverter {
 		str = str.replaceFirst(ch.toString(), upperCh.toString());
 		str = str.replace("-", "_");
 		str = str.replace("/", "_SLASH_");
+		str = str.replace(" ", "_SPACE_");
 		return str;
 	}
 
@@ -19,6 +20,7 @@ public class DbToJavaNamingConverter {
 		str = str.replaceFirst(ch.toString(), upperCh.toString());
 		str = str.replace("-", "_");
 		str = str.replace("/", "_SLASH_");
+		str = str.replace(" ", "_SPACE_");
 		return str;
 	}
 
@@ -50,9 +52,11 @@ public class DbToJavaNamingConverter {
 			str = str.replaceFirst(ch.toString(), upperCh.toString());
 			rtn += str;
 		}
-		rtn = fixWhiteSpaces(rtn);
+//		rtn = fixWhiteSpaces(rtn);
+//		rtn = rtn.replaceAll("\\s{2,}", " ").trim();
 		rtn = rtn.replace("-", "_");
 		rtn = rtn.replace("/", "_SLASH_");
+		rtn = rtn.replace(" ", "_SPACE_");
 		return rtn;
 	}
 
@@ -89,26 +93,30 @@ public class DbToJavaNamingConverter {
 		rtn = rtn.replaceFirst(ch.toString(), lowerCh.toString());
 		rtn = rtn.replace("-", "_");
 		rtn = rtn.replace("/", "_SLASH_");
+		rtn = rtn.replace(" ", "_SPACE_");
 		return rtn;
 	}
 
 	public static String toDatabaseName(String src) {
-		src = src.replace("_", "-");
 		src = src.replace("_SLASH_", "/");
+		src = src.replace("_SPACE_", " ");
+		src = src.replace("_", "-");
 		String rtn = "";
 		if(src.toUpperCase().equals(src)) {
 			return src.toLowerCase();
 		}
 		Character ch = new Character(src.charAt(0));
 		boolean prevIsUpper = false;
+		boolean prevIsSpace = false;
 		for (int i = 0; i < src.length(); i++) {
 			ch = new Character(src.charAt(i));
-			boolean isUpper = Character.isUpperCase(ch) || Character.isDigit(ch);
-			if (isUpper && prevIsUpper == false && i != 0) {
+			boolean isUpper = (Character.isUpperCase(ch) || Character.isDigit(ch));
+			if (isUpper && prevIsSpace == false && prevIsUpper == false && i != 0) {
 				rtn += "_";
 			}
 			rtn += ch;
 			prevIsUpper = isUpper;
+			prevIsSpace = " ".equals(ch + "");
 		}
 		rtn = rtn.toLowerCase();
 		rtn = rtn.trim();

@@ -50,11 +50,11 @@ public class InvoicesDvo implements Dvo {
     //
     
     public static final String[] JAVA_NAMES = {
-        "amountDue",
-        "dueDate",
-        "invoiceDate",
-        "invoiceId",
-        "orderId",
+        "amount_SPACE_due",
+        "due_SPACE_date",
+        "invoice_SPACE_date",
+        "invoice_SPACE_id",
+        "order_SPACE_id",
         "shipping",
         "tax"
     };
@@ -64,11 +64,11 @@ public class InvoicesDvo implements Dvo {
     //
     
     public static final String[] JAVA_NAMES_PROPER = {
-        "AmountDue",
-        "DueDate",
-        "InvoiceDate",
-        "InvoiceId",
-        "OrderId",
+        "Amount_SPACE_due",
+        "Due_SPACE_date",
+        "Invoice_SPACE_date",
+        "Invoice_SPACE_id",
+        "Order_SPACE_id",
         "Shipping",
         "Tax"
     };
@@ -80,15 +80,15 @@ public class InvoicesDvo implements Dvo {
     
     private HashMap<String, String> descriptions = new HashMap<String, String>();
     
-    private String amountDue;
+    private String amount_SPACE_due;
     
-    private String dueDate;
+    private String due_SPACE_date;
     
-    private String invoiceDate;
+    private String invoice_SPACE_date;
     
-    private String invoiceId;
+    private Integer invoice_SPACE_id;
     
-    private String orderId;
+    private Integer order_SPACE_id;
     
     private String shipping;
     
@@ -98,54 +98,54 @@ public class InvoicesDvo implements Dvo {
     // trivial getters and setters
     //
     
-    // amountDue
+    // amount_SPACE_due
     
-    public void setAmountDue(String val) {
-        this.amountDue = val;
+    public void setAmount_SPACE_due(String val) {
+        this.amount_SPACE_due = val;
     }
     
-    public String getAmountDue() {
-        return this.amountDue;
+    public String getAmount_SPACE_due() {
+        return this.amount_SPACE_due;
     }
     
-    // dueDate
+    // due_SPACE_date
     
-    public void setDueDate(String val) {
-        this.dueDate = val;
+    public void setDue_SPACE_date(String val) {
+        this.due_SPACE_date = val;
     }
     
-    public String getDueDate() {
-        return this.dueDate;
+    public String getDue_SPACE_date() {
+        return this.due_SPACE_date;
     }
     
-    // invoiceDate
+    // invoice_SPACE_date
     
-    public void setInvoiceDate(String val) {
-        this.invoiceDate = val;
+    public void setInvoice_SPACE_date(String val) {
+        this.invoice_SPACE_date = val;
     }
     
-    public String getInvoiceDate() {
-        return this.invoiceDate;
+    public String getInvoice_SPACE_date() {
+        return this.invoice_SPACE_date;
     }
     
-    // invoiceId
+    // invoice_SPACE_id
     
-    public void setInvoiceId(String val) {
-        this.invoiceId = val;
+    public void setInvoice_SPACE_id(Integer val) {
+        this.invoice_SPACE_id = val;
     }
     
-    public String getInvoiceId() {
-        return this.invoiceId;
+    public Integer getInvoice_SPACE_id() {
+        return this.invoice_SPACE_id;
     }
     
-    // orderId
+    // order_SPACE_id
     
-    public void setOrderId(String val) {
-        this.orderId = val;
+    public void setOrder_SPACE_id(Integer val) {
+        this.order_SPACE_id = val;
     }
     
-    public String getOrderId() {
-        return this.orderId;
+    public Integer getOrder_SPACE_id() {
+        return this.order_SPACE_id;
     }
     
     // shipping

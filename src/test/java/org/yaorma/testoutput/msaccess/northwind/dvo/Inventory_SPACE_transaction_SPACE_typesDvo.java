@@ -1,5 +1,5 @@
 //
-// Data Value Object (DVO) for Purchase Order Details
+// Data Value Object (DVO) for Inventory Transaction Types
 //
 
 package org.yaorma.testoutput.msaccess.northwind.dvo;
@@ -10,13 +10,13 @@ import java.util.Date;
 
 import org.yaorma.dvo.Dvo;
 
-public class PurchaseOrderDetailsDvo implements Dvo {
+public class Inventory_SPACE_transaction_SPACE_typesDvo implements Dvo {
 
     //
     // tableName
     //
     
-    public static final String TABLE_NAME = "Purchase Order Details";
+    public static final String TABLE_NAME = "Inventory Transaction Types";
     
     //
     // schemaName
@@ -29,14 +29,8 @@ public class PurchaseOrderDetailsDvo implements Dvo {
     //
     
     public static final String[] COLUMN_NAMES = {
-        "DATE RECEIVED",
         "ID",
-        "INVENTORY ID",
-        "POSTED TO INVENTORY",
-        "PRODUCT ID",
-        "PURCHASE ORDER ID",
-        "QUANTITY",
-        "UNIT COST"
+        "TYPE NAME"
     };
     
     //
@@ -51,14 +45,8 @@ public class PurchaseOrderDetailsDvo implements Dvo {
     //
     
     public static final String[] JAVA_NAMES = {
-        "dateReceived",
         "id",
-        "inventoryId",
-        "postedToInventory",
-        "productId",
-        "purchaseOrderId",
-        "quantity",
-        "unitCost"
+        "type_SPACE_name"
     };
     
     //
@@ -66,14 +54,8 @@ public class PurchaseOrderDetailsDvo implements Dvo {
     //
     
     public static final String[] JAVA_NAMES_PROPER = {
-        "DateReceived",
         "Id",
-        "InventoryId",
-        "PostedToInventory",
-        "ProductId",
-        "PurchaseOrderId",
-        "Quantity",
-        "UnitCost"
+        "Type_SPACE_name"
     };
     
     
@@ -83,35 +65,13 @@ public class PurchaseOrderDetailsDvo implements Dvo {
     
     private HashMap<String, String> descriptions = new HashMap<String, String>();
     
-    private String dateReceived;
-    
     private String id;
     
-    private String inventoryId;
-    
-    private String postedToInventory;
-    
-    private String productId;
-    
-    private String purchaseOrderId;
-    
-    private String quantity;
-    
-    private String unitCost;
+    private String type_SPACE_name;
     
     //
     // trivial getters and setters
     //
-    
-    // dateReceived
-    
-    public void setDateReceived(String val) {
-        this.dateReceived = val;
-    }
-    
-    public String getDateReceived() {
-        return this.dateReceived;
-    }
     
     // id
     
@@ -123,64 +83,14 @@ public class PurchaseOrderDetailsDvo implements Dvo {
         return this.id;
     }
     
-    // inventoryId
+    // type_SPACE_name
     
-    public void setInventoryId(String val) {
-        this.inventoryId = val;
+    public void setType_SPACE_name(String val) {
+        this.type_SPACE_name = val;
     }
     
-    public String getInventoryId() {
-        return this.inventoryId;
-    }
-    
-    // postedToInventory
-    
-    public void setPostedToInventory(String val) {
-        this.postedToInventory = val;
-    }
-    
-    public String getPostedToInventory() {
-        return this.postedToInventory;
-    }
-    
-    // productId
-    
-    public void setProductId(String val) {
-        this.productId = val;
-    }
-    
-    public String getProductId() {
-        return this.productId;
-    }
-    
-    // purchaseOrderId
-    
-    public void setPurchaseOrderId(String val) {
-        this.purchaseOrderId = val;
-    }
-    
-    public String getPurchaseOrderId() {
-        return this.purchaseOrderId;
-    }
-    
-    // quantity
-    
-    public void setQuantity(String val) {
-        this.quantity = val;
-    }
-    
-    public String getQuantity() {
-        return this.quantity;
-    }
-    
-    // unitCost
-    
-    public void setUnitCost(String val) {
-        this.unitCost = val;
-    }
-    
-    public String getUnitCost() {
-        return this.unitCost;
+    public String getType_SPACE_name() {
+        return this.type_SPACE_name;
     }
     
     //

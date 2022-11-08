@@ -63,22 +63,22 @@ public class CustomersDvo implements Dvo {
     public static final String[] JAVA_NAMES = {
         "address",
         "attachments",
-        "businessPhone",
+        "business_SPACE_phone",
         "city",
         "company",
         "country_SLASH_region",
-        "e_mailAddress",
-        "faxNumber",
-        "firstName",
-        "homePhone",
+        "e_mail_SPACE_address",
+        "fax_SPACE_number",
+        "first_SPACE_name",
+        "home_SPACE_phone",
         "id",
-        "jobTitle",
-        "lastName",
-        "mobilePhone",
+        "job_SPACE_title",
+        "last_SPACE_name",
+        "mobile_SPACE_phone",
         "notes",
         "state_SLASH_province",
-        "webPage",
-        "zip_SLASH_postalCode"
+        "web_SPACE_page",
+        "zip_SLASH_postal_SPACE_code"
     };
     
     //
@@ -88,22 +88,22 @@ public class CustomersDvo implements Dvo {
     public static final String[] JAVA_NAMES_PROPER = {
         "Address",
         "Attachments",
-        "BusinessPhone",
+        "Business_SPACE_phone",
         "City",
         "Company",
         "Country_SLASH_region",
-        "E_mailAddress",
-        "FaxNumber",
-        "FirstName",
-        "HomePhone",
+        "E_mail_SPACE_address",
+        "Fax_SPACE_number",
+        "First_SPACE_name",
+        "Home_SPACE_phone",
         "Id",
-        "JobTitle",
-        "LastName",
-        "MobilePhone",
+        "Job_SPACE_title",
+        "Last_SPACE_name",
+        "Mobile_SPACE_phone",
         "Notes",
         "State_SLASH_province",
-        "WebPage",
-        "Zip_SLASH_postalCode"
+        "Web_SPACE_page",
+        "Zip_SLASH_postal_SPACE_code"
     };
     
     
@@ -117,7 +117,7 @@ public class CustomersDvo implements Dvo {
     
     private String attachments;
     
-    private String businessPhone;
+    private String business_SPACE_phone;
     
     private String city;
     
@@ -125,29 +125,29 @@ public class CustomersDvo implements Dvo {
     
     private String country_SLASH_region;
     
-    private String e_mailAddress;
+    private String e_mail_SPACE_address;
     
-    private String faxNumber;
+    private String fax_SPACE_number;
     
-    private String firstName;
+    private String first_SPACE_name;
     
-    private String homePhone;
+    private String home_SPACE_phone;
     
-    private String id;
+    private Integer id;
     
-    private String jobTitle;
+    private String job_SPACE_title;
     
-    private String lastName;
+    private String last_SPACE_name;
     
-    private String mobilePhone;
+    private String mobile_SPACE_phone;
     
     private String notes;
     
     private String state_SLASH_province;
     
-    private String webPage;
+    private String web_SPACE_page;
     
-    private String zip_SLASH_postalCode;
+    private String zip_SLASH_postal_SPACE_code;
     
     //
     // trivial getters and setters
@@ -173,14 +173,14 @@ public class CustomersDvo implements Dvo {
         return this.attachments;
     }
     
-    // businessPhone
+    // business_SPACE_phone
     
-    public void setBusinessPhone(String val) {
-        this.businessPhone = val;
+    public void setBusiness_SPACE_phone(String val) {
+        this.business_SPACE_phone = val;
     }
     
-    public String getBusinessPhone() {
-        return this.businessPhone;
+    public String getBusiness_SPACE_phone() {
+        return this.business_SPACE_phone;
     }
     
     // city
@@ -213,84 +213,84 @@ public class CustomersDvo implements Dvo {
         return this.country_SLASH_region;
     }
     
-    // e_mailAddress
+    // e_mail_SPACE_address
     
-    public void setE_mailAddress(String val) {
-        this.e_mailAddress = val;
+    public void setE_mail_SPACE_address(String val) {
+        this.e_mail_SPACE_address = val;
     }
     
-    public String getE_mailAddress() {
-        return this.e_mailAddress;
+    public String getE_mail_SPACE_address() {
+        return this.e_mail_SPACE_address;
     }
     
-    // faxNumber
+    // fax_SPACE_number
     
-    public void setFaxNumber(String val) {
-        this.faxNumber = val;
+    public void setFax_SPACE_number(String val) {
+        this.fax_SPACE_number = val;
     }
     
-    public String getFaxNumber() {
-        return this.faxNumber;
+    public String getFax_SPACE_number() {
+        return this.fax_SPACE_number;
     }
     
-    // firstName
+    // first_SPACE_name
     
-    public void setFirstName(String val) {
-        this.firstName = val;
+    public void setFirst_SPACE_name(String val) {
+        this.first_SPACE_name = val;
     }
     
-    public String getFirstName() {
-        return this.firstName;
+    public String getFirst_SPACE_name() {
+        return this.first_SPACE_name;
     }
     
-    // homePhone
+    // home_SPACE_phone
     
-    public void setHomePhone(String val) {
-        this.homePhone = val;
+    public void setHome_SPACE_phone(String val) {
+        this.home_SPACE_phone = val;
     }
     
-    public String getHomePhone() {
-        return this.homePhone;
+    public String getHome_SPACE_phone() {
+        return this.home_SPACE_phone;
     }
     
     // id
     
-    public void setId(String val) {
+    public void setId(Integer val) {
         this.id = val;
     }
     
-    public String getId() {
+    public Integer getId() {
         return this.id;
     }
     
-    // jobTitle
+    // job_SPACE_title
     
-    public void setJobTitle(String val) {
-        this.jobTitle = val;
+    public void setJob_SPACE_title(String val) {
+        this.job_SPACE_title = val;
     }
     
-    public String getJobTitle() {
-        return this.jobTitle;
+    public String getJob_SPACE_title() {
+        return this.job_SPACE_title;
     }
     
-    // lastName
+    // last_SPACE_name
     
-    public void setLastName(String val) {
-        this.lastName = val;
+    public void setLast_SPACE_name(String val) {
+        this.last_SPACE_name = val;
     }
     
-    public String getLastName() {
-        return this.lastName;
+    public String getLast_SPACE_name() {
+        return this.last_SPACE_name;
     }
     
-    // mobilePhone
+    // mobile_SPACE_phone
     
-    public void setMobilePhone(String val) {
-        this.mobilePhone = val;
+    public void setMobile_SPACE_phone(String val) {
+        this.mobile_SPACE_phone = val;
     }
     
-    public String getMobilePhone() {
-        return this.mobilePhone;
+    public String getMobile_SPACE_phone() {
+        return this.mobile_SPACE_phone;
     }
     
     // notes
@@ -313,24 +313,24 @@ public class CustomersDvo implements Dvo {
         return this.state_SLASH_province;
     }
     
-    // webPage
+    // web_SPACE_page
     
-    public void setWebPage(String val) {
-        this.webPage = val;
+    public void setWeb_SPACE_page(String val) {
+        this.web_SPACE_page = val;
     }
     
-    public String getWebPage() {
-        return this.webPage;
+    public String getWeb_SPACE_page() {
+        return this.web_SPACE_page;
     }
     
-    // zip_SLASH_postalCode
+    // zip_SLASH_postal_SPACE_code
     
-    public void setZip_SLASH_postalCode(String val) {
-        this.zip_SLASH_postalCode = val;
+    public void setZip_SLASH_postal_SPACE_code(String val) {
+        this.zip_SLASH_postal_SPACE_code = val;
     }
     
-    public String getZip_SLASH_postalCode() {
-        return this.zip_SLASH_postalCode;
+    public String getZip_SLASH_postal_SPACE_code() {
+        return this.zip_SLASH_postal_SPACE_code;
     }
     
     //

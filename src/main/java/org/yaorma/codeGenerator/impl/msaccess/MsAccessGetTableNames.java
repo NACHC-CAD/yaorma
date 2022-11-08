@@ -32,7 +32,8 @@ public class MsAccessGetTableNames {
 			sqlString += "WHERE (((Left([Name],1))<>\"~\")  \n";
 			sqlString += "        AND ((Left([Name],4))<>\"MSys\")  \n";
 			sqlString += "        AND ((MSysObjects.Type) In (1,4,6)) \n";
-			sqlString += "        AND ((MSysObjects.Flags)=0)) \n";
+			sqlString += "        AND ((MSysObjects.Flags) In (0,1,262144)) \n";
+			sqlString += ") \n";
 			sqlString += "order by MSysObjects.Name \n";
 			ps = conn.prepareStatement(sqlString);
 			rs = ps.executeQuery();

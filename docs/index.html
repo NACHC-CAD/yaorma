@@ -26,7 +26,7 @@
 				and use DVOs to write data to databases.  
 			</p>
 
-			<h2>The Yaorma Code Generator: Generate Java Data Value Objects (DVOs)</h2>
+			<h3>The Yaorma Code Generator: Generate Java Data Value Objects (DVOs)</h3>
 			
 			<p>
 				The Yaorma code generator generates a series of Data Value Objects (DVOs).  
@@ -40,6 +40,10 @@
 				that is also included in the resources folder of the test section of this project.  
 				When this class is run as an JUnit test it will generate the DVO classes and
 				write them to the correct location in the test section of the application.  
+				For this example (and most other examples) we will be using the Microsoft Access version of Yaorma.  
+				The Microsoft Access version is used because it is easy to include the Northwind database 
+				as a resource in the test section of the application and then connect to that database file using JDBC 
+				(i.e. we don't need to execute any DDL to create the database).    
 			</p>
 
 <pre class="pre-scrollable">
@@ -83,37 +87,42 @@ public class GenerateOrmForSchemaMsAccessIntegrationTest {
 
 }
 </pre> 
+			Examining this code:
+			<ul>
+				<li>
+					The SCHEMA_NAME defines what schema will contain the tables that will be used to create the DVOs
+				</li>
+				<li>
+					The PACKAGE_NAME is what is used to define the package for the DVOs that will be created
+				</li>
+				<li>
+					The DEST_DIR is where the DVOs will be written to (note the parallel struction of PACKAGE_NAME and DEST_DIR) 
+				</li>
+				<li>
+					When we run the code, the first line logs what we're about to do
+				</li>
+				<li>	
+					The next line removes the existing DEST_DIR
+				</li>
+				<li>
+					The next line checks to assert the DEST_DIR has successfully been removed
+				</li>
+				<li>
+					The next line gets the database connection used to access the database
+				</li>
+				<li>
+					The next line generates the DVOs (note we are using the MsAccessOrmCodeGenerator implementation of a CodeGenerator)
+				</li>
+				<li>
+					The final line logs that we have successfully reached the end of the process
+				</li>
+			</ul>
+			
+			<h3>DVOs created by the Yaorma Code Generator</h3>
 			<p>
-				Examining this code:
-				<ul>
-					<li>
-						The SCHEMA_NAME defines what schema will contain the tables that will be used to create the DVOs
-					</li>
-					<li>
-						The PACKAGE_NAME is what is used to define the package for the DVOs that will be created
-					</li>
-					<li>
-						The DEST_DIR is where the DVOs will be written to (note the parallel struction of PACKAGE_NAME and DEST_DIR) 
-					</li>
-					<li>
-						When we run the code, the first line logs what we're about to do
-					</li>
-					<li>	
-						The next line removes the existing DEST_DIR
-					</li>
-					<li>
-						The next line checks to assert the DEST_DIR has successfully been removed
-					</li>
-					<li>
-						The next line gets the database connection used to access the database
-					</li>
-					<li>
-						The next line generates the DVOs    
-					</li>
-					<li>
-						The final line logs that we have successfully reached the end of the process
-					</li>
-				</ul>
+				When we run this code as a JUnit test the classes shown below are created.  	
+				<br/>
+				<img width="400px" src="./img/dvos.JPG" />
 			</p>
 
 		<!-- end main container -->	

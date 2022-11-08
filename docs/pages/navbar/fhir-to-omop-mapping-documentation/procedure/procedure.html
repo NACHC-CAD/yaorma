@@ -1,0 +1,246 @@
+<html>
+	
+	<head>
+		<!-- favicon link -->
+		<link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.ico">
+		<!-- include lib code -->
+		<script src="../../../../site_libs/jquery-1.11.3/jquery.min.js"></script>
+		<div id="headerInclude"></div>
+		<script>$("#headerInclude").load("/fhir-to-omop/header.html");</script>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.2/papaparse.js"></script>
+		<script>
+		    function arrayToTable(tableData) {
+		        var table = $('<table class="table table-striped table-bordered table-sm" cellspacing="0"></table>');
+				var header = $('<thead></thead>')
+				var body = $('<tbody></tbody>')
+				table.append(header);
+				table.append(body);
+		        $(tableData).each(function (i, rowData) {
+		            var row = $('<tr></tr>');
+		            $(rowData).each(function (j, cellData) {
+		            	if(i == 0) {
+			                row.append($('<th>'+cellData+'</th>'));		            		
+		            	} else  {
+			                row.append($('<td>'+cellData+'</td>'));
+		            	}
+		            	
+		            });
+		            if(i == 0) {
+			            header.append(row);		            	
+		            } else {
+			            body.append(row);
+		            }
+		        });
+		        return table;
+		    }
+		
+		    $.ajax({
+		        type: "GET",
+		        url: "./data/fhir-procs-with-other-codes.csv",
+		        success: function (data) {
+		            $('#proc-table').append(arrayToTable(Papa.parse(data).data));
+		            $('#bottom-spacer').append("<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>")
+		        }
+		    });
+
+		    $(document).ready(function () {
+		    	  $('#proc-table').DataTable({
+		    	    "scrollY": "50vh",
+		    	    "scrollCollapse": true,
+		    	  });
+		    	  $('.dataTables_length').addClass('bs-select');
+		    	});
+		    
+		</script>
+
+	</head>
+
+	<body>
+		<div class="container-fluid main-container">
+
+			<!-- navbar -->
+			<div id="navbarInclude"></div>
+			<script>$("#navbarInclude").load("/fhir-to-omop/navbar.html");</script>
+
+			<h1>PROCEDURE: Mapping of FHIR Procedure Resources to OMOP Entities</h1>
+			This document details the design and decisions for implementing mapping of FHIR Procedure resources to OMOP. 
+			The following referenced were used to inform this implementation.  
+			<br/>
+			<h3>References for Procedure</h3>
+			<table class="table table-condensed table-hover">
+				<tr>
+					<td>
+						<a href="/fhir-to-omop/pages/navbar/fhir-to-omop-mapping-documentation/mapping.html">General Mapping Resources</a>
+					</td>
+					<td>
+						This is the fhir-to-omop documentation for general FHIR and OMOP information.  
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<a href="http://hl7.org/fhir/STU3/procedure.html">
+							FHIR Procedure (STU3)
+						</a>
+					</td>
+					<td>
+						FHIR Documentation for the Procedure resource. The following version have been considered.  
+						<ul>
+							<li>
+								<a href="http://build.fhir.org/procedure.html">
+									Procedure (Current Build)
+								</a>
+							</li>
+							<li>
+								<a href="http://hl7.org/fhir/R4/procedure.html">
+									Procedure (R4)
+								</a>
+							</li>
+							<li>
+								<a href="http://hl7.org/fhir/STU3/procedure.html">
+									Procedure (STU3)
+								</a>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<a target="cdm-procedure" href="https://ohdsi.github.io/CommonDataModel/cdm54.html#PROCEDURE_OCCURRENCE">
+							PROCEDURE_OCCURRENCE
+						</a>
+					</td>
+					<td>
+						This is the OMOP documentation for the PROCEDURE_OCCURRENCE table.  
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+				</tr>
+			</table> 
+			<br/>
+			
+			<h3>Reference Data</h3>
+			The resoures show below are used for specific use cases and examples
+			<br/>
+			<br/>
+			<table class="table table-condensed table-hover">
+				<tr>
+					<td>
+						<a target="github" href="https://github.com/NACHC-CAD/fhir-to-omop/tree/main/src/main/resources/test/fhir/use-cases/measurement-as-proc/0a2a950e-59b0-4669-8007-a505a3f14cbc">
+							0a2a950e-59b0-4669-8007-a505a3f14cbc
+						</a>
+					</td>
+					<td>
+						This patient has examples of FHIR Procedure resources, 
+						and specifically has examples of Procedure resources that use codes other than procedure codes
+						(e.g. Measurement, Observation, and Condition).
+						The set of files in this folder represent the full set of FHIR resources for the synthmass patient 0a2a950e-59b0-4669-8007-a505a3f14cbc.
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+				</tr>
+			</table> 
+			<br/>
+
+			<h3>Mapping Details</h3>
+			<p>
+				OMOP procedure records are mapped from FHIR Procedure resources. 
+				Attribute level details of how FHIR Procedure resources are parsed are in the 
+				<a target="parser" href="https://github.com/NACHC-CAD/fhir-to-omop/blob/main/src/main/java/org/nachc/tools/fhirtoomop/fhir/parser/procedure/ProcedureParser.java">
+					ProcedureParser
+				</a>
+				class.
+			</p>
+			<p>
+				Attribute level details of how the parser is mapped to OMOP records are in the 
+				<a target="builder" href="https://github.com/NACHC-CAD/fhir-to-omop/blob/main/src/main/java/org/nachc/tools/fhirtoomop/omop/person/factory/builder/procedure/OmopProcedureBuilder.java">
+					OmopProcedureBuilder
+				</a>
+				class.
+			</p>
+			<p>
+				We have found FHIR Procedure resources using codes that are not procedure codes.
+				These codes include codes for Measurements, Observations, and Conditions.
+				The OMOP Data Quality Dashboard (DQD) tests indicated all records in the procedure table should have a procedure_concept_id
+				that mapps to a concept that is in the Procedure domain (i.e. domain_id = "Procedure").
+				Therefore, when Procedure FHIR resources are found that have a coding that is for a Measurement, Observation, or Condition
+				these FHIR procedures are not written to the OMOP procedure table but are respetively written to the
+				measurement, observation_occurrence, or condition tables.  
+				The code for this is also in the 
+				<a target="builder" href="https://github.com/NACHC-CAD/fhir-to-omop/blob/main/src/main/java/org/nachc/tools/fhirtoomop/omop/person/factory/builder/procedure/OmopProcedureBuilder.java">
+					OmopProcedureBuilder
+				</a>
+				class.
+				DQD results before and after making these distinctions are shown below.  				
+			</p>
+			<br/>
+			<h3>Update Testing Results 2022-04-08</h3>
+			<p>
+				On April 08, 2022 we updated our DQD instance to the latest version.  
+				This included a number of new tests that were failing.  
+				These failures have been remediated and the testing results are shown below.  
+			</p>
+			<h3>Procedure Tests Passing 2022-04-08</h3>
+			All but two of the procedure tests are passing.  
+			For the failing tests: 
+			procedure_detail is not being implemented at this time.  
+			The number of patients that do not have a record in the procedure table is an accurate reflection of our test data set.  
+			<img class="bordered" src="./img/pass/procedure-pass-2022-04-09.JPG" />
+			<br/>
+			<h3>Procedure Tests Previously Failing 2022-04-08</h3>
+			<br/>
+			<img class="bordered" src="./img/fail/procedure-fail-2022-04-09_01.JPG" />
+			<br/>			
+			<img class="bordered" src="./img/fail/procedure-fail-2022-04-09_02.JPG" />
+			<br/>
+			
+			<h3>Origingal Data Quality Dashboard results when mapping FHIR procedure resources exclusively to the OMOP procedure table</h3>
+			<p>
+				Prior to mapping FHIR Procedure resources to Measurement, Observation, Condition, and Procedure 
+				the following results were obtainded after running the DQD.  
+			</p>
+			<table border="2">
+				<tr>
+					<td>
+						<img src="./img/procedure-fail.PNG" />
+					</td>
+				</tr>
+			</table>
+			<br/>
+			<br/>
+			
+			<h3>Data Quality Dashboard results when mapping FHIR procedure resources exclusively to the procedure, measurement, observation, and condition_occurrence tables</h3>
+			<p>
+				After mapping FHIR Procedure resources to Measurement, Observation, Condition, and Procedure 
+				all tests for Procedure are passing.
+			</p>
+			<table border="2">
+				<tr>
+					<td>
+						<img src="./img/procedure-pass.PNG" />
+					</td>
+				</tr>
+			</table>
+			<br/>
+			<br/>
+			
+			<h3>Examples of FHIR Procedure Resources That Have Non-procedure Codings</h3>
+			<p>
+				The following is a list of FHIR resources found to have non-procedure codings 
+				(i.e. domain_id should be "Procedure" and is not).
+				The person_source_code shown is the ID for the patient found on synthmass.  
+				Click 
+				<a download href="./data/fhir-procs-with-other-codes-ext-list.csv">
+					here
+				</a> 
+				to download the larger list.  
+			</p>
+			<div id="proc-table"><p></p></div>
+			<div id="bottom-spacer"></div>
+		</div>
+	</body>
+</html>

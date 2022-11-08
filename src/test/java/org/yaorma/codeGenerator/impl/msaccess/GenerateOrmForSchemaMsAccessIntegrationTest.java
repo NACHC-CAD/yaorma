@@ -4,12 +4,9 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.sql.Connection;
-import java.util.List;
 
 import org.junit.Test;
 import org.yaorma.codeGenerator.generateOrmForSchema.GenerateOrmForSchema;
-import org.yaorma.codeGenerator.impl.msaccess.MsAccessGetTableNames;
-import org.yaorma.codeGenerator.impl.msaccess.MsAccessOrmCodeGenerator;
 import org.yaorma.testutil.database.MsAccessConnectionUtil;
 import org.yaorma.testutil.file.FileUtil;
 
@@ -35,7 +32,7 @@ public class GenerateOrmForSchemaMsAccessIntegrationTest {
 		Connection conn = MsAccessConnectionUtil.getNorthWind();
 		// generate the dvo objects for the schema
 		GenerateOrmForSchema.execute(conn, SCHEMA_NAME, PACKAGE_NAME, DEST_DIR, new MsAccessOrmCodeGenerator());
-		// assert that the dvos were created
+		// done
 		log.info("Done.");
 	}
 

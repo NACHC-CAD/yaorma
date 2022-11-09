@@ -26,139 +26,41 @@
 				and use DVOs to write data to databases.  
 			</p>
 
-			<h3>The Yaorma Code Generator: Generate Java Data Value Objects (DVOs)</h3>
-			
+			<h3>Yaorma Components</h3>
 			<p>
-				The Yaorma code generator generates a series of Data Value Objects (DVOs).  
-				Each DVO represents a single database table.  
-				Each DVO has the exact same fields as the database table.  
-				The filed names have been converted to Java naming convention 
-				such that MY_COLUMN becomes the field myColumn and getters and setters are created for each field, 
-				for example public String getMyField() and public void setMyFiled(String val).  
-				Use of the Yaorma code generator is exemplified by the GenerateOrmForSchemaMsAccessIntegrationTest class in the test section of the Yaorma project.  
-				Source for this code shows how to generate the set of DVO classes for the Microsoft Access Northwind database 
-				that is also included in the resources folder of the test section of this project.  
-				When this class is run as an JUnit test it will generate the DVO classes and
-				write them to the correct location in the test section of the application.  
-				For this example (and most other examples) we will be using the Microsoft Access version of Yaorma.  
-				The Microsoft Access version is used because it is easy to include the Northwind database 
-				as a resource in the test section of the application and then connect to that database file using JDBC 
-				(i.e. we don't need to execute any DDL to create the database).    
+				Yaorma is a series of components that can be used individually or as an integrated components.  
+				The components most often directly used by applications using Yaorma are shown below.  
 			</p>
 
-<pre class="pre-scrollable">
-package org.yaorma.codeGenerator.impl.msaccess;
-
-import static org.junit.Assert.assertTrue;
-
-import java.io.File;
-import java.sql.Connection;
-
-import org.junit.Test;
-import org.yaorma.codeGenerator.generateOrmForSchema.GenerateOrmForSchema;
-import org.yaorma.database.Database;
-import org.yaorma.testutil.database.MsAccessConnectionUtil;
-import org.yaorma.testutil.file.FileUtil;
-
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
-public class GenerateOrmForSchemaMsAccessIntegrationTest {
-
-	private static final String SCHEMA_NAME = "northwind";
-
-	private static final String PACKAGE_NAME = "org.yaorma.testoutput.msaccess.northwind.dvo";
- 
-	private static final File DEST_DIR = FileUtil.getFromProjectRoot("/src/test/java/org/yaorma/testoutput/msaccess/northwind/dvo");
-
-	@Test
-	public void shouldGenerateOrm() {
-		log.info("Generating DVO objects...");
-		// get a connection
-		Connection conn = MsAccessConnectionUtil.getNorthWind();
-		try {
-			// remove the existing dvo dir
-			FileUtil.rmdir(DEST_DIR);
-			// check that the dest dir was deleted
-			assertTrue(DEST_DIR.exists() == false);
-			// generate the dvo objects for the schema
-			GenerateOrmForSchema.execute(conn, SCHEMA_NAME, PACKAGE_NAME, DEST_DIR, new MsAccessOrmCodeGenerator());
-		} finally {
-			// close the connection
-			Database.close(conn);
-		}
-		// done
-		log.info("Done.");
-	}
-
-}
-</pre> 
-			Examining this code:
-			<ul>
-				<li>
-					The SCHEMA_NAME defines what schema will contain the tables that will be used to create the DVOs
-				</li>
-				<li>
-					The PACKAGE_NAME is what is used to define the package for the DVOs that will be created
-				</li>
-				<li>
-					The DEST_DIR is where the DVOs will be written to (note the parallel struction of PACKAGE_NAME and DEST_DIR) 
-				</li>
-				<li>
-					When we run the code, the first line logs what we're about to do
-				</li>
-				<li>
-					The next line gets the database connection used to access the database
-				</li>
-				<li>	
-					The next line removes the existing DEST_DIR
-				</li>
-				<li>
-					The next line checks to assert the DEST_DIR has successfully been removed
-				</li>
-				<li>
-					The next line generates the DVOs (note we are using the MsAccessOrmCodeGenerator implementation of a CodeGenerator)
-				</li>
-				<li>
-					We close the connection in the finally block
-				</li>
-				<li>
-					The final line logs that we have successfully reached the end of the process
-				</li>
-			</ul>
+			<table class="table">
+				<!-- table headers -->
+				<tr>
+					<th>Resource</th>
+					<th>Description</th>
+				</tr>
+				<!-- end-to-end -->
+				<tr>
+					<td>
+						<nobr>
+							<a href="./pages/components/end-to-end/EndToEnd.html">End-to-end</a>
+						</nobr>
+					</td>
+					<td>
+						An end-to-end example of Yaorma use is given here.  
+						This is not a complete example as there is other functionality in Yaorma that can be used to perform similar processes to those described here.  
+						For example, here we use the findBySql function of the DAO class.  
+						The DAO class supports other ways of querying and marshaling data.  
+						See the component page for the DAO for details.   
+					</td>
+				</tr>
+				<!-- intentionally blank row to give bottom line of the table -->
+				<tr>
+					<td></td>
+					<td></td>
+				</tr>
 			
-			<h3>DVOs created by the Yaorma Code Generator</h3>
-			<p>
-				When we run this code as a JUnit test the classes shown below are created.  	
-				<br/>
-				<img width="400px" src="./img/dvos.JPG" />
-				<br/><br/>
-				<h3>Relationship Between Database Tables and DVOs</h3>
-				Note, there is a one-to-one relationship to the DVOs created and the database tables in the Northwind Microsoft Access database.  
-				<br/><br/>
-				<h4>Microsoft Access Tables View</h4>
-				<img width="1600px" src="./img/northwind-tables.JPG" />
-				<br/><br/>
-				<table>
-					<tr>
-						<td align="center">
-							<h4>Microsoft Access Tables</h4>
-						</td>
-						<td align="center">
-							<h4>Java Data Value Objects</h4>
-						</td>
-					</tr>
-					<tr>
-						<td valign="top">
-							<img width="300px" src="./img/northwind-tables-only.JPG" />
-						</td>
-						<td valign="top">
-							&nbsp;&nbsp;
-							<img width="400px" src="./img/dvos.JPG" />
-						</td>
-					</tr>
-				</table>
-			</p>
+			</table>
+
 
 		<!-- end main container -->	
 		</div>			

@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.sql.Connection;
 
+import org.hsqldb.lib.StringUtil;
 import org.yaorma.codeGenerator.OrmCodeGenerator;
 import org.yaorma.codeGenerator.impl.OrmCodeGeneratorImpl;
 import org.yaorma.util.string.DbToJavaNamingConverter;
@@ -40,6 +41,7 @@ public class DvoGenerator extends OrmCodeGenerator {
 		writeln("import java.util.ArrayList;");
 		writeln("import java.util.HashMap;");
 		writeln("import java.util.Date;");
+		writeln("import java.math.BigDecimal;");
 		writeln("");
 		writeln("import org.yaorma.dvo.Dvo;");
 		writeln("");
@@ -157,11 +159,14 @@ public class DvoGenerator extends OrmCodeGenerator {
 			String columnName = columnNames.get(i)[0];
 			String dataType = columnNames.get(i)[1];
 			String javaName = DbToJavaNamingConverter.toJavaName(columnName);
+			log.info("\tColumn: \t" + StringUtil.toPaddedString(dataType, 15, ' ', true)  + "\t" + columnName);
 			if ("datetime".equalsIgnoreCase(dataType) || "date".equalsIgnoreCase(dataType)) {
 				writeln("private Date " + javaName + ";");
+			} else if ("float".equalsIgnoreCase(dataType)) {
+					writeln("private BigDecimal " + javaName + ";"); 	
 			} else if ("int".equalsIgnoreCase(dataType) || "integer".equalsIgnoreCase(dataType)) {
 				writeln("private Integer " + javaName + ";");
-			} else if ("mediumtext".equalsIgnoreCase(dataType)) {
+			} else if ("mediumtext".equalsIgnoreCase(dataType) || "bigint".equalsIgnoreCase(dataType)) {
 				writeln("private Long " + javaName + ";");
 			} else {
 				if (isKeyWord(javaName)) {
@@ -214,9 +219,11 @@ public class DvoGenerator extends OrmCodeGenerator {
 			writeln("");
 			if ("datetime".equals(columnNames.get(i)[1]) || "date".equals(columnNames.get(i)[1])) {
 				writeln("public void set" + javaNameProper + "(Date val) {");
+			} else if ("float".equals(columnNames.get(i)[1])) {
+				writeln("public void set" + javaNameProper + "(BigDecimal val) {");
 			} else if ("int".equalsIgnoreCase(columnNames.get(i)[1]) || "integer".equalsIgnoreCase(columnNames.get(i)[1])) {
 				writeln("public void set" + javaNameProper + "(Integer val) {");
-			} else if ("mediumtext".equalsIgnoreCase(columnNames.get(i)[1])) {
+			} else if ("mediumtext".equalsIgnoreCase(columnNames.get(i)[1]) || "bigint".equalsIgnoreCase(columnNames.get(i)[1])) {
 				writeln("public void set" + javaNameProper + "(Long val) {");
 			} else {
 				writeln("public void set" + javaNameProper + "(String val) {");
@@ -232,9 +239,11 @@ public class DvoGenerator extends OrmCodeGenerator {
 			writeln("");
 			if ("datetime".equals(columnNames.get(i)[1]) || "date".equals(columnNames.get(i)[1])) {
 				writeln("public Date get" + javaNameProper + "() {");
+			} else if ("float".equals(columnNames.get(i)[1])) {
+				writeln("public BigDecimal get" + javaNameProper + "() {");
 			} else if ("int".equalsIgnoreCase(columnNames.get(i)[1]) || "integer".equalsIgnoreCase(columnNames.get(i)[1])) {
 				writeln("public Integer get" + javaNameProper + "() {");
-			} else if ("mediumtext".equalsIgnoreCase(columnNames.get(i)[1])) {
+			} else if ("mediumtext".equalsIgnoreCase(columnNames.get(i)[1]) || "bigint".equalsIgnoreCase(columnNames.get(i)[1])) {
 				writeln("public Long get" + javaNameProper + "() {");
 			} else {
 				writeln("public String get" + javaNameProper + "() {");

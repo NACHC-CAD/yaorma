@@ -8,6 +8,7 @@ import java.util.List;
 import org.yaorma.codeGenerator.impl.OrmCodeGeneratorImpl;
 import org.yaorma.database.Data;
 import org.yaorma.database.Database;
+import org.yaorma.database.Row;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,7 +21,9 @@ public class MsSqlServerOrmCodeGenerator implements OrmCodeGeneratorImpl {
 		if(tableName == null) {
 			return columnNames;
 		}
-		Database.update("use " + schemaName, conn);
+		String useString = "use " + schemaName;
+		log.info("Setting schema: \n" + useString);
+		Database.update(useString, conn);
 		String sqlString = "";
 		sqlString += "select column_name, data_type  \n";
 		sqlString += "from information_schema.columns \n";
@@ -54,8 +57,14 @@ public class MsSqlServerOrmCodeGenerator implements OrmCodeGeneratorImpl {
 
 	@Override
 	public List<String> getTableNames(Connection conn) {
-		// TODO: NEED TO IMPLEMENT THIS
-		return null;
+		ArrayList<String> rtn = new ArrayList<String>();
+		String sqlString = "select name from sys.tables";
+		Data data = Database.query(sqlString, conn);
+		for(Row row : data) {
+			String name = row.get("name");
+			rtn.add(name);
+		}
+		return rtn;
 	}
 	
 }

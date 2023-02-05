@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -130,7 +131,8 @@ public class Database {
 				for (int i = 0; i < params.size(); i++) {
 					Object obj = params.get(i);
 					if (obj == null) {
-						st.setString((i + 1), null);
+						// st.setString((i + 1), null);
+						st.setObject((i + 1), null);
 					} else if (obj instanceof Date) {
 						Date date = (Date) obj;
 						java.sql.Date sqlDate = new java.sql.Date(date.getTime());
@@ -141,6 +143,8 @@ public class Database {
 						st.setDouble((i + 1), (Double) obj);
 					} else if (obj instanceof Long) {
 						st.setLong((i + 1), (Long) obj);
+					} else if (obj instanceof BigDecimal) {
+						st.setDouble((i + 1), new Double(((BigDecimal) obj).doubleValue()));
 					} else {
 						st.setString(i + 1, params.get(i) + "");
 					}

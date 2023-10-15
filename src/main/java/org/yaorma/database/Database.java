@@ -245,6 +245,19 @@ public class Database {
 		}
 	}
 
+	public static ResultSet executeIntQuery(String sqlString, List<Integer> params, Connection conn) {
+		try {
+			PreparedStatement st = conn.prepareStatement(sqlString);
+			for (int i = 0; i < params.size(); i++) {
+				st.setInt(i + 1, params.get(i));
+			}
+			ResultSet rs = st.executeQuery();
+			return rs;
+		} catch (Exception exp) {
+			throw new RuntimeException(exp);
+		}
+	}
+
 	//
 	// method to close a result set
 	//

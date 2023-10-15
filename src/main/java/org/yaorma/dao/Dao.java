@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -161,6 +162,35 @@ public class Dao {
 			ResultSet rs = null;
 			try {
 				rs = Database.executeQuery(sqlString, vals, conn);
+				if (rs.next()) {
+					load(dvo, rs);
+					return dvo;
+				} else {
+					return null;
+				}
+			} finally {
+				Database.closeResultSet(rs);
+			}
+		} catch (Exception exp) {
+			throw new RuntimeException(exp);
+		}
+	}
+
+	public static <T extends Dvo> T find(T dvo, String key, Integer val, Connection conn) {
+		return find(dvo, new String[] { key }, new Integer[] { val }, conn);
+	}
+
+	public static <T extends Dvo> T find(T dvo, String[] keys, Integer[] vals, Connection conn) {
+		try {
+			String tableName = dvo.getTableName();
+			String sqlString = "select * from " + tableName + " where  1=1 \n";
+			for (String key : keys) {
+				sqlString += " and " + key + " = ? \n";
+			}
+			ResultSet rs = null;
+			try {
+				List<Integer> valsList = Arrays.asList(vals);
+				rs = Database.executeIntQuery(sqlString, valsList, conn);
 				if (rs.next()) {
 					load(dvo, rs);
 					return dvo;

@@ -7,6 +7,7 @@ package org.yaorma.testoutput.msaccess.northwind.dvo;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Date;
+import java.math.BigDecimal;
 
 import org.yaorma.dvo.Dvo;
 
